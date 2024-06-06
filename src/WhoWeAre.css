@@ -1,0 +1,100 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+.who-we-are {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    background-color: #EDF0F2;
+    padding: 0;
+    margin: 0;
+}
+
+.who-we-are h1 {
+    text-align: center;
+    background-color: #F6B800;
+    padding: 10px 0;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-section {
+    width: 70%;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.right-section {
+    width: 30%;
+    margin-top: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    font-size: 2em;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.partners {
+    display: flex;
+    gap: 20px;
+}
+
+.partners img {
+    height: 100px;
+}
+
+.iit-team {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.iit-team h2 {
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.iit-team ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.iit-team li {
+    margin-bottom: 5px;
+}
+
+.iit-team p {
+    font-size: 0.9em;
+    color: gray;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.social-media-icons {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.social-media-icons img {
+    width: 40px;
+    height: 40px;
+}
+p{
+    font-size: 2.5rem;
+    padding: 5%;
+    font-style: italic;
+}

@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+.past .container-xxl {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+  
+  .past .bg-white {
+    background-color: #fff;
+  }
+  
+  .past .p-0 {
+    padding: 0;
+  }
+  
+  .past .py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .past .px-lg-5 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  
+  .past .text-center {
+    text-align: center;
+  }
+  
+  .past .mb-5 {
+    margin-bottom: 3rem;
+  }
+  
+  .past .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .past .mt-n2 {
+    margin-top: -0.5rem;
+  }
+  
+  .past .g-4 {
+    gap: 1.5rem;
+  }
+  
+  .past .portfolio-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .past .portfolio-item {
+    margin-bottom: 2rem;
+  }
+  
+  .past .first {
+    order: 1;
+  }
+  
+  .past .second {
+    order: 2;
+  }
+  
+  .past .rounded {
+    border-radius: 0.25rem;
+  }
+  
+  .past .overflow-hidden {
+    overflow: hidden;
+  }
+  
+  .past .position-relative {
+    position: relative;
+  }
+  
+  .past img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .past h1{
+    font-size: 3rem;
+    font-weight: bolder;
+    text-align: center;
+  }

@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+.font-roboto {
+  font-family: 'Roboto', serif;
+}
+.font-playfair {
+  font-family: 'Playfair', serif;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.cluster-icon {
+  background-color: crimson;
+  height: 2em;
+  width: 2em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  box-shadow: 0 0 0px 5px #fff;
+}
+.widget-container {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.widget-title {
+  font-size: 1.5em;
+}
+
+.widget-divider {
+  margin: 10px 0;
+}
+
+.station-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.station-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.station-button.selected,
+.station-button:hover {
+  background-color: #0056b3;
+}
+
+.station-info {
+  margin-top: 20px;
+}
+
+.station-image {
+  width: 300px;
+  height: 300px;
+  margin-top: 10px;
+}
+.popup-content {
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: bold;
+  background-color: #F0F0F0;
+}
