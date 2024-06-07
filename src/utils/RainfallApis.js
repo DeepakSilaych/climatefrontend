@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export const fetchStations = async () => {
     try {
-        const response = await axios.get('http://192.168.0.114:8000/aws/stations/');
+        const response = await axios.get('http://api.mumbaiflood.in/aws/stations/');
+        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error('Error fetching stations:', error);
@@ -13,7 +14,7 @@ export const fetchStations = async () => {
 
 export const fetchStationData = async (stationId) => {
     try {
-        const response = await axios.get(`http://192.168.0.114:8000/aws/station/${stationId}/`);
+        const response = await axios.get(`http://api.mumbaiflood.in/aws/stations/${stationId}/`);
         return response.data;
     } catch (error) {
         console.error('Error fetching station data:', error);
@@ -21,23 +22,3 @@ export const fetchStationData = async (stationId) => {
     }
 }
 
-
-export const fetchRainfallData = async (stationId) => {
-    try {
-        const response = await axios.get(`http://192.168.0.114:8000/aws/rainfall/${stationId}/`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching station data:', error);
-        throw error;
-    }
-}
-
-export const fetchAllData = async (stationId) => {
-    try {
-        const response = await axios.get(`http://192.168.0.114:8000/aws/alldata/${stationId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching station data:', error);
-        throw error;
-    }
-}

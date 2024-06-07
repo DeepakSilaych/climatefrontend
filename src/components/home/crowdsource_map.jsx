@@ -8,6 +8,8 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import Widget from './rainfall_widget';
 import Form from './form';
 
+import { fetchCrowndDatta } from '../../utils/crowdSourceAPI';
+
 // Configure the default icon
 let DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -20,33 +22,6 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-function LegendControl({ position }) {
-  const map = useMap();
-
-  useEffect(() => {
-    const legend = L.control({ position });
-
-    legend.onAdd = function () {
-      const div = L.DomUtil.create('div', 'info legend');
-      div.innerHTML = `
-        <h4>Legend</h4>
-        <div><span class="circle blue"></span> Low Water Level</div>
-        <div><span class="circle yellow"></span> Medium Water Level</div>
-        <div><span class="circle red"></span> High Water Level</div>
-      `;
-      return div;
-    };
-
-    legend.addTo(map);
-
-    return () => {
-      map.removeControl(legend);
-    };
-  }, [map, position]);
-
-  return null;
-}
-
 function Map() {
   const [markers, setMarkers] = useState([]);
   const [mapData, setMapData] = useState(null);
@@ -54,12 +29,10 @@ function Map() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.0.114:8000/crowdsource/map/');
-        if (!response.data || !Array.isArray(response.data)) {
-          throw new Error('Invalid map data format');
-        }
-        setMapData(response.data);
-      } catch (error) {
+        const response = await fetchCrowndDatta();
+        setMapData(response);
+      }
+      catch (error) {
         console.error('Error fetching map data:', error);
       }
     };

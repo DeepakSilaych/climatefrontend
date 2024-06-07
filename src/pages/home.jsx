@@ -19,7 +19,7 @@ function Home() {
     }
 
     return (
-        <div className='h-screen w-screen'>
+        <div className='h-[95vh] w-screen'>
             <div className='w-full h-full'> 
                 <div className="absolute z-20 top-14 left-1/3 w-80 mx-auto flex justify-center align-middle">
                     <span
@@ -50,15 +50,16 @@ function Home() {
 
                 <div className='flex justify-stretch z-10'>
                     <MapContainer
-                        className='h-full w-[60vw] absolute right-0 z-10'
-                        center={[19.0, 73]}
+                        className='h-full w-[60vw] absolute right-0 top-0 z-10'
+                        center={[19.1, 72.9]}
                         zoom={13}
-                        minZoom={0}
                         maxZoom={18}
+                        minZoom={13}
                         maxBounds={[
                             [19.4, 72.6],
                             [18.85, 73.2]
                         ]}
+                        zoomControl = {false}
                     >
                         <TileLayer 
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

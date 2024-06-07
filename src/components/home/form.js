@@ -55,7 +55,7 @@ function Form() {
     };
 
     return (
-            <div className="max-w-xl mx-auto px-6 py-2 bg-black rounded-lg  bg-opacity-40">
+            <div className="max-w-xl mx-auto px-6 py-2 bg-black rounded-lg  bg-opacity-80">
                 <h1 className="text-3xl text-center font-semibold mb-6 text-white">Submit Data</h1>
                 <div>
                     <label htmlFor="name" className="block text-white ">Name:</label>

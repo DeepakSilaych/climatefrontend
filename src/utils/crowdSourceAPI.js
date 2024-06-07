@@ -3,10 +3,21 @@ import axios from 'axios';
 
 export function sendFormData(formData) {
     try {
-        const response = axios.post('http://192.168.0.114:8000/data/', formData);
-        setMessage(response.data.message);
+        const response = axios.post('http://api.mumbaiflood.in/cs/data/', formData);
+        return response.data;
       } catch (error) {
         console.error('Error storing data:', error);
-        setMessage('Error: Unable to store data.');
+        throw error;
+      }
+    }
+  
+export function fetchCrowndDatta() {
+    try {
+        const response = axios.get('http://api.mumbaiflood.in/cs/map/');
+        return response.data;
+      }
+      catch (error) {
+        console.error('Error fetching map data:', error);
+        throw error;
       }
     }

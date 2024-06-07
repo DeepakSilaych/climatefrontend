@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
-import { fetchAllData } from '../../utils/RainfallApis';
+import { fetchStationData } from '../../utils/RainfallApis';
 import clou from '../../icons/cloudy.png';
 import img1 from '../../icons/download.png'; // Add your image imports here
 import img2 from '../../icons/download.png';
@@ -15,7 +15,7 @@ export default function RainfallWidget({ selectedOption }) {
     useEffect(() => {
         if (selectedOption) {
             console.log('rainfal', selectedOption);
-            fetchAllData(selectedOption.id)
+            fetchStationData(selectedOption.station_id)
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching station data:', error));
         }
