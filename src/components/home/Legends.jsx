@@ -20,8 +20,8 @@ const RainfallLegend = () => {
 
     const colorBoxStyle = (background) => ({
         display: 'inline-block',
-        width: '10px',
-        height: '10px',
+        width: '20px',
+        height: '20px',
         marginRight: '5px',
         borderRadius: '50%',
         border: '2px solid #000',
@@ -34,7 +34,8 @@ const RainfallLegend = () => {
             <div style={itemStyle}><span style={colorBoxStyle('green')}></span> No Rain</div>
             <div style={itemStyle}><span style={colorBoxStyle('#acff26')}></span>Light Rain:- 0.1 - 7.5 mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span>Moderate Rain:- 7.6 - 35.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>Heavy Rain:- 35.6 - 124.4 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>Heavy Rain:- 35.6 - 75.5 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('#DD5746')}></span>Very Heavy Rain:- 75.6 - 124.4 mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span>Extreme Rain:- 124.5 mm & above</div>
         </div>
     );
