@@ -25,12 +25,12 @@ function Header() {
                     <li className='flex flex-col justify-center'>
                         <Link to="/" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Home</Link>
                     </li>
-                    <li className='flex flex-col justify-center'>
+                     <li className='flex flex-col justify-center'>
                         <Link to="/train" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Train</Link>
                     </li>
-                    <li className='flex flex-col justify-center'>
+                    {/* <li className='flex flex-col justify-center'>
                         <Link to="/past" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Past Data</Link>
-                    </li>
+                    </li>  */}
                     <li className='flex flex-col justify-center'>
                             <Link to="/about" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">About</Link>
                     </li>
