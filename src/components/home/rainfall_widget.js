@@ -46,7 +46,7 @@ export default function RainfallWidget({ selectedOption }) {
                     <img src={plac} alt="IIT Logo" width="20" height="20" className='mx-14 '/><span className='text-white text-xs font-bold'>{data.station.name}</span> 
                     
                 </div>
-                <div className='w-1/3 flex justify-evenly  mx-0'>
+                {/* <div className='w-1/3 flex justify-evenly  mx-0'>
                     <div className='flex flex-col text-xs text-center'>
                         <img src={clou} alt="IIT Logo" width="30" height="30" align="center" className='mx-2'/>
                         <span className='text-white text-xs font-bold'>{data.station.curr_temp}°C</span>                        
@@ -57,7 +57,7 @@ export default function RainfallWidget({ selectedOption }) {
                         <img src={clou} alt="IIT Logo" width="30" height="30" align="center" className='mx-2'/>
                         <span className='text-white text-xs font-bold'>{data.station.curr_windspeed}m/s</span>                        
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className='flex-col align-bottom justify-center h-max relative'>
                 <RainfallBarChart />
