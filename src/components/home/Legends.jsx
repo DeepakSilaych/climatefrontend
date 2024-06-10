@@ -9,6 +9,7 @@ const RainfallLegend = () => {
         padding: '10px',
         borderRadius: '5px',
         boxShadow: '0 0 15px rgba(0, 0, 0, 0.2)',
+        
     };
 
     const itemStyle = {
@@ -19,8 +20,8 @@ const RainfallLegend = () => {
 
     const colorBoxStyle = (background) => ({
         display: 'inline-block',
-        width: '20px',
-        height: '20px',
+        width: '10px',
+        height: '10px',
         marginRight: '5px',
         borderRadius: '50%',
         border: '2px solid #000',
@@ -28,13 +29,13 @@ const RainfallLegend = () => {
     });
 
     return (
-        <div style={legendStyle} className='z-30'>
-            <h4>Rainfall (in last 15min)</h4>
+        <div style={legendStyle} className='z-30 font-merriweather'>
+            <h4>Rainfall (per day)</h4>
             <div style={itemStyle}><span style={colorBoxStyle('green')}></span> No Rain</div>
             <div style={itemStyle}><span style={colorBoxStyle('#acff26')}></span> 0.1 - 7.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> 7.5 - 35.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> 35.5 - 124.4 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('red')}></span> 124.4 mm & above</div>
+            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> 7.6 - 35.5 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> 35.6 - 124.4 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('red')}></span> 124.5 mm & above</div>
         </div>
     );
 };

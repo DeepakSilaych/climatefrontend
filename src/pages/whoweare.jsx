@@ -5,8 +5,8 @@ import Header from '../components/Header';
 import iitbLogo from '../iitb.png';
 import csLogo from '../icons/cs.png';
 import hdfcLogo from '../icons/hdfc.png';
-import mcmrLogo from '../icons/mcmr.png';
-import instagramIcon from '../icons/instagram.png';
+import mcmrLogo from '../icons/mcmbg.png';
+
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
@@ -16,8 +16,8 @@ const WhoWeAre = () => {
         <>
             {/* <Header/> */}
             <section className='bg-white w-screen overflow-x-hidden overflow-y-scroll'>
-                <div className='w-3/4 mx-auto py-20'>
-                    <h1 className='text-4xl text-blue-700 font-bold text-center py-5'>ABOUT</h1>
+                <div className='w-screen mx-auto py-10'>
+                    <h1 className='text-4xl text-blue-700 font-bold text-center py-1'>ABOUT</h1>
                     <p className='text-2xl font-light w-3/4 mx-auto leading-[2rem]' >
                         A group of students, faculty, and staff from the Interdisciplinary Programme in Climate Studies (IDPCS) at IIT Bombay is developing an experimental rainfall forecasting system and a flood monitoring system to help Mumbai adapt to its persistent flood situation every monsoon, by dissemination of near-real-time water logging information to Mumbaikars using this website portal and Mumbai Flood App developed by our team. This is an HDFC-ERGO IIT Bombay (HE-IITB) Innovation Lab initiative funded by HDFC ERGO, and in collaboration with MCGM Centre for Municipal Capacity Building and Research (MCMCR).
                         <br/>
@@ -72,15 +72,13 @@ const WhoWeAre = () => {
                                 <li>Puja Tripathy</li>
                             </ul>
                             <p>
-                                Website & App developed by <br/>IIT Bombay students, Deepak <br/>Silaych & Gulshan Kumar
+                                Website & App developed by IIT Bombay students, Deepak Silaych & Gulshan Kumar
                             </p>
                         </div>
                     </div>
                 </div>
                 <div className="social-media-icons">
-                    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                        <img src={instagramIcon} alt="Instagram" />
-                    </a>
+                    
                     <a href="https://x.com/ClimateIITB" target="_blank" rel="noopener noreferrer">
                         <img src={twitterIcon} alt="Twitter" />
                     </a>

@@ -25,7 +25,7 @@ function Home() {
         <div className='h-full w-full bg-['>
             <div className='w-full h-full'> 
                 <div className='h-full flex flex-row-reverse justify-between z-10'>
-                    <div className='h-[90%] mr-3 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-black border-2 relative'>
+                    <div className='h-[90%] mr-3 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-2 relative'>
                         <MapContainer
                             className='h-full w-full z-10'
                             center={[19.1, 72.9]}
@@ -38,7 +38,7 @@ function Home() {
                             ]}
                         >
                             <TileLayer 
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 maxZoom={19}
                             />
@@ -48,10 +48,10 @@ function Home() {
                         </MapContainer>
                         {selectedTab === 1 && <RainfallLegend />}
                     </div>
-                    <div className='relative w-1/3 mt-10 p-2 flex flex-col' >
-                        <div className="z-20 mb-10 w-full mx-auto flex justify-center">
+                    <div className='relative w-1/3 mt-0 p-1 flex flex-col' >
+                        <div className="z-20 mb-2 w-full mx-auto flex justify-center">
                             <span
-                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
+                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center text-xs font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
                                     selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-[white]' : 'bg-gray-200 hover:bg-gray-300'
                                 } shadow-xl border border-gray-800`}
                                 onClick={() => handletabChange(1)}
@@ -59,7 +59,7 @@ function Home() {
                                 Rainfall
                             </span>
                             <span
-                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center font-serif cursor-pointer transition-all duration-300 ${
+                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center text-xs font-serif cursor-pointer transition-all duration-300 ${
                                     selectedTab === 2 ? 'bg-gradient-to-r from-red-500 to-red-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
                                 } border border-gray-800 shadow-xl`}
                                 onClick={() => handletabChange(2)}
@@ -67,7 +67,7 @@ function Home() {
                                 Waterlevel
                             </span>
                             <span
-                                className={`h-[3.5rem] w-1/4 flex flex-col text-xl justify-center text-center  font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
+                                className={`h-[3.5rem] w-1/4 flex flex-col text-xl justify-center text-center text-xs  font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
                                     selectedTab === 3 ? 'bg-gradient-to-r from-green-500 to-green-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
                                 } shadow-xl border border-gray-800`}
                                 onClick={() => handletabChange(3)}
@@ -90,7 +90,7 @@ function Home() {
                     )}
 
                     {selectedTab === 3 && (
-                        <div className='z-20'>
+                        <div className='z-20 mt-0'>
                             <Form />
                         </div>
                     )}

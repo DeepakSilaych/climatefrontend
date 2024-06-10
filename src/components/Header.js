@@ -20,19 +20,19 @@ function Header() {
                     
                 </div>
                 {!isMobile &&
-                <h1 className=' w-1/3 font-bold text-2xl flex flex-col justify-center h-full text-right ' style={{color: 'white'}}>Mumbai Flood Experiment</h1> }
+                <h1 className=' w-1/3 font-bold text-2xl flex flex-col justify-center h-full text-right font-merriweather ' style={{color: 'white'}}>Mumbai Flood Experiment</h1> }
                 <ul className="flex w-1/3 space-x-5 h-full justify-end">
                     <li className='flex flex-col justify-center'>
-                        <Link to="/" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-normal">Home</Link>
+                        <Link to="/" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Home</Link>
                     </li>
                     <li className='flex flex-col justify-center'>
-                        <Link to="/train" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-normal">Train</Link>
+                        <Link to="/train" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Train</Link>
                     </li>
                     <li className='flex flex-col justify-center'>
-                        <Link to="/past" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-normal">Past Data</Link>
+                        <Link to="/past" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Past Data</Link>
                     </li>
                     <li className='flex flex-col justify-center'>
-                            <Link to="/about" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-normal">About</Link>
+                            <Link to="/about" className="p-2 rounded-xl text-white bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">About</Link>
                     </li>
                 </ul>
             </div>

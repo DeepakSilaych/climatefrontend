@@ -49,7 +49,7 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
     }, [selectedOption]);
 
     return (
-        <div className="w-4/5 h-20">
+        <div className="w-4/5 h-12">
             <div className={`bg-white rounded text-black flex border border-black'${ showOptions ? 'rounded-t-md' : 'rounded-md'}`}>
                 <input
                     id="search-input"

@@ -37,25 +37,25 @@ export default function RainfallWidget({ selectedOption }) {
 
     return (
     <>
-        <div className='w-1/3 flex justify-evenly text-sm text-slate-600 font-bold flex-col text-center'>
+        <div className='w-2/3 flex justify-evenly text-xs text-slate-600 font-bold flex-row text-center align-middle mx-20'>
             Current Time: {time}
         </div>
-        <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.5)] rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-4 shadow-lg z-10'>
+        <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.5)] rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-2 shadow-lg z-10'>
             <div className='relative flex justify-center '>
-                <div className='w-1/3 flex justify-evenly text-sm text-white  font-bold flex-col text-center'>
-                    <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-14'/>
-                    {data.station.name}
+                <div className='w-1/3 flex justify-evenly text-xs text-white  font-bold flex-col text-center'>
+                    <img src={plac} alt="IIT Logo" width="20" height="20" className='mx-14 '/><span className='text-white text-xs font-bold'>{data.station.name}</span> 
+                    
                 </div>
-                <div className='w-1/3 flex justify-evenly mx-0'>
-                    <div className='flex flex-col text-center'>
+                <div className='w-1/3 flex justify-evenly  mx-0'>
+                    <div className='flex flex-col text-xs text-center'>
                         <img src={clou} alt="IIT Logo" width="30" height="30" align="center" className='mx-2'/>
-                        <span className='text-white text-lg font-bold'>{data.station.curr_temp}°C</span>                        
+                        <span className='text-white text-xs font-bold'>{data.station.curr_temp}°C</span>                        
                     </div>
                 </div>
                 <div className='w-1/3 flex justify-evenly mx-0'>
-                    <div className='flex flex-col text-center'>
+                    <div className='flex flex-col ext-xs text-center'>
                         <img src={clou} alt="IIT Logo" width="30" height="30" align="center" className='mx-2'/>
-                        <span className='text-white text-lg font-bold'>{data.station.curr_windspeed}m/s</span>                        
+                        <span className='text-white text-xs font-bold'>{data.station.curr_windspeed}m/s</span>                        
                     </div>
                 </div>
             </div>
@@ -97,31 +97,31 @@ export default function RainfallWidget({ selectedOption }) {
 // Options for the new charts
 const barChartOptions = {
     title: "Hourly Rainfall Forecast",
-    titleTextStyle: { color: "white", fontSize: 16, alignment: 'center' },
+    titleTextStyle: { color: "white", fontSize: 12,fontName: 'Merriweather', alignment: 'center' },
     
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
-        textStyle: { color: "white", fontSize: 10 },
+        textStyle: { color: "white", fontSize: 8 },
         slantedText: true,
         slantedTextAngle: 90,
     },
     vAxis: { 
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
-        textStyle: { color: "white", fontSize: 10 }, 
+        textStyle: { color: "white", fontSize: 8 }, 
         minValue: 0,
         gridlines: { count: 10, color: 'transparent', width: '1px' },
     },
     chartArea: { width: "90%", height: "50%" },
     backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff' } },
+    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
     colors: ['#D4D4D4', '#7E8EF1'],
     isStacked: true,
 };
 
 const dailyPredictionOptions = {
     title: "Daily Rainfall Forecast",
-    titleTextStyle: { color: "#fff", fontSize: 16 },
+    titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather'},
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
