@@ -5,6 +5,8 @@ import { fetchWaterStations } from '../../utils/WaterlevelApis';
 
 
 export default function WaterlevelMap({ width, height, setLocation, location }) {
+    const [warning, setWarning] = useState(true);
+
 
     const [stations, setStations] = useState([]);
 
@@ -25,8 +27,12 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
         setLocation(station);
     };
 
+    if (warning) {
+       return <WarningPopup setWarning={setWarning} />
+    }
+
     return (
-        <div className='text-xl w-max bg-black rounded-xl bg-opacity-80 text-white h-max mx-0 my-0 flex flex-col p-4 shadow-lg z-10 ' style={{ width, height }}>
+        <div className='text-xl w-max rounded-xl bg-opacity-80 bg-black h-max mx-0 my-0 flex flex-col p-4 shadow-lg z-10 ' style={{ width, height }}>
             <div className='relative flex justify-center '>
                 {/* Display current date, time, and temperature */}
                 <div className='w-1/2 flex justify-evenly text-xs text-amber-400  font-bold flex-col text-center'>
@@ -69,6 +75,21 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
                     </Button>
                 ))}
             </div>
+        </div>
+    );
+}
+
+
+const WarningPopup = ({ setWarning }) => {
+    return (
+        <div className=' w-full text-center bg-red-500 text-white p-4 rounded-lg border-black border-4'>
+            <p className='text-2xl z-20'>
+                Waterlevel Monitoring Sensors are under installation.
+                <br />
+                Dummy data is being displayed.
+
+            </p>
+            <Button onClick={() => setWarning(false)} className='text-xl underline'>Close</Button>
         </div>
     );
 }

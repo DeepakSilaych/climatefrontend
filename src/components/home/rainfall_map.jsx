@@ -1,13 +1,12 @@
 import "leaflet/dist/leaflet.css";
-import { Popup, CircleMarker, } from "react-leaflet";
-import { useEffect, useState } from "react";  
+import { Popup, CircleMarker } from "react-leaflet";
+import { useEffect, useState, useRef } from "react";  
 import '../../styles.css';
-
 import { fetchStations } from "../../utils/RainfallApis";
 
-export default function RainFallMap({location, setLocations}) {
+export default function RainFallMap({ location, setLocations }) {
   const [stations, setStations] = useState([]);
-  
+  const markerRefs = useRef([]);
 
   const handleMarkerClick = (marker) => {
     setLocations(marker);
@@ -20,8 +19,6 @@ export default function RainFallMap({location, setLocations}) {
         setStations(data);
         if (!location) {
           setLocations(data[0]);
-          console.log('rainfall map', location.id)
-
         }
       } catch (error) {
         console.error("Error fetching stations:", error);
@@ -30,31 +27,43 @@ export default function RainFallMap({location, setLocations}) {
 
     fetchStationsData();  
   }, []);
-  return (stations.map((station, index) => {
-    let color;
-    if (station.curr_rainfall < 10) {
-      color = 'green';
-    } else if (station.curr_rainfall < 20) {
-      color = 'yellow';
-    } else if (station.curr_rainfall < 30) {
-      color = 'orange';
-    } else {
-      color = 'red';
+
+  useEffect(() => {
+    if (location && markerRefs.current[location.id]) {
+      markerRefs.current[location.id].openPopup();
     }
-  
-    return (
-      <CircleMarker
-        key={index}
-        center={{ lat: station.latitude, lng: station.longitude }}
-        color='black'
-        fillColor={color}
-        fill={true}
-        fillOpacity={1}
-        radius={10}
-        eventHandlers={{ click: () => handleMarkerClick(station) }}
-      >
-        <Popup className="popup-content">{station.name}</Popup>
-      </CircleMarker>
-    );
-  }));
+  }, [location]);
+
+  return (
+    <div className="h-full w-full relative">
+      {stations.map((station, index) => {
+        let color;
+        if (station.curr_rainfall < 10) {
+          color = 'green';
+        } else if (station.curr_rainfall < 20) {
+          color = 'yellow';
+        } else if (station.curr_rainfall < 30) {
+          color = 'orange';
+        } else {
+          color = 'red';
+        }
+
+        return (
+          <CircleMarker
+            key={index}
+            center={{ lat: station.latitude, lng: station.longitude }}
+            color='black'
+            fillColor={color}
+            fill={true}
+            fillOpacity={1}
+            radius={10}
+            eventHandlers={{ click: () => handleMarkerClick(station) }}
+            ref={el => markerRefs.current[station.id] = el}
+          >
+            <Popup className="popup-content">{station.name}</Popup>
+          </CircleMarker>
+        );
+      })}
+    </div>
+  );
 }

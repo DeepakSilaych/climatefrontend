@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { MapContainer, TileLayer, Marker, CircleMarker, useMap } from 'react-leaflet';
+import {Marker, CircleMarker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import Widget from './rainfall_widget';
 import Form from './form';
 
 import { fetchCrowndDatta } from '../../utils/crowdSourceAPI';
@@ -57,9 +55,48 @@ function Map() {
 
   return (
     <>
+        <Legend className='z-30' />
         {markers}   
     </>
   );
 }
 
 export default Map;
+
+
+const Legend = () => {
+  const map = useMap();
+
+  useEffect(() => {
+    const legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = () => {
+      const div = L.DomUtil.create('div', 'info legend');
+      
+      const legendStyle = {
+        backgroundColor: 'white',
+        padding: '10px',
+        lineHeight: '1.5',
+        fontSize: '12px',
+        color: '#555',
+      };
+      
+      Object.assign(div.style, legendStyle);
+
+      div.innerHTML += '<i style="background: #ff0000; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Red<br>';
+      div.innerHTML += '<i style="background: #0000ff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Blue<br>';
+      // Add more legend items as needed
+
+      return div;
+    };
+
+    legend.addTo(map);
+
+    return () => {
+      map.removeControl(legend);
+    };
+  }, [map]);
+
+  return null;
+};
+

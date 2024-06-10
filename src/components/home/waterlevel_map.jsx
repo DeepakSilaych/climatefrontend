@@ -21,14 +21,14 @@ export default function WaterlevelMap({setLocations, location}) {
       try {
         const data = await fetchWaterStations();
         setStations(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching stations:", error);
       }
     };
 
     fetchStationsData();
-  } , []);
-
+  } , []);  
   
     return (
       <>
@@ -53,7 +53,6 @@ export default function WaterlevelMap({setLocations, location}) {
   }
 
 
-// Define a blue circle icon for the second type of markers
 const customIcon = new Icon({
   iconUrl: require("../../icons/aa.png"),
   iconSize: [50, 50 ] 
@@ -107,3 +106,6 @@ function TimeSeriesChart() {
     />
   );
 }
+
+
+

@@ -11,6 +11,15 @@ import plac from '../../icons/placeholder1.png';
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [time , setTime] = useState(new Date().toLocaleTimeString());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const newtime = String(new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short' }) + ", " +new Date().toLocaleTimeString())
+            setTime(newtime);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (selectedOption) {
@@ -25,27 +34,28 @@ export default function RainfallWidget({ selectedOption }) {
         return <div>Loading...</div>;
     }
 
+
     return (
-        <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-black bg-opacity-80 rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-4 shadow-lg z-10'>
+    <>
+        <div className='w-1/3 flex justify-evenly text-sm text-slate-600 font-bold flex-col text-center'>
+            Current Time: {time}
+        </div>
+        <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.5)] rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-4 shadow-lg z-10'>
             <div className='relative flex justify-center '>
-                {/* Display current date, time, and temperature */}
                 <div className='w-1/3 flex justify-evenly text-sm text-white  font-bold flex-col text-center'>
-                                      
                     <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-14'/>
-                    
                     {data.station.name}
                 </div>
                 <div className='w-1/3 flex justify-evenly mx-0'>
                     <div className='flex flex-col text-center'>
-                        <button className=" zigzag-button alert-button" onClick={() => alert('Report Flood')}>
-                            Report Flood
-                        </button>
+                        <img src={clou} alt="IIT Logo" width="30" height="30" align="center" className='mx-2'/>
+                        <span className='text-white text-lg font-bold'>{data.station.curr_temp}°C</span>                        
                     </div>
                 </div>
                 <div className='w-1/3 flex justify-evenly mx-0'>
                     <div className='flex flex-col text-center'>
                         <img src={clou} alt="IIT Logo" width="30" height="30" align="center" className='mx-2'/>
-                        <span className='text-white text-lg font-bold'>{data.data.temperature}°C</span>                        
+                        <span className='text-white text-lg font-bold'>{data.station.curr_windspeed}m/s</span>                        
                     </div>
                 </div>
             </div>
@@ -80,6 +90,7 @@ export default function RainfallWidget({ selectedOption }) {
                 </div>
             )}
         </div>  
+    </>
     );
 }
 
@@ -99,7 +110,7 @@ const barChartOptions = {
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "white", fontSize: 10 }, 
         minValue: 0,
-        gridlines: { count: 6, color: '#ccc', width: '0.1px' }, // Add 6 horizontal reference lines
+        gridlines: { count: 10, color: 'transparent', width: '1px' },
     },
     chartArea: { width: "90%", height: "50%" },
     backgroundColor: 'transparent',
@@ -173,9 +184,9 @@ const rainfallBarChartData = [
 // Dummy data for daily prediction chart with color
 const dailyPredictionChartData = [
     ["Day", "Rainfall", { role: "style" }],
-    ["2 Days Ago", 1.5, "#00215E"], // Green
-    ["Day Before Yesterday", 2, "#00215E"], // Green
-    ["Yesterday", 50, "#00215E"], // Red
+    ["2 Days Ago", 1.5, "#D4D4D4"], // Green
+    ["Day Before Yesterday", 2, "#D4D4D4"], // Green
+    ["Yesterday", 50, "#D4D4D4"], // Red
     ["Today", 150, getColor(150)], // Orange
     ["Tomorrow", 20, getColor(20)], // Orange
     ["Day After Tomorrow", 3.5, getColor(3.5)] // Yellow
@@ -202,7 +213,8 @@ function RainfallBarChart() {
             height="200px"
             data={rainfallBarChartData}
             options={barChartOptions}
-            className='bg-black bg-opacity-20 rounded-xl m-0 font-roboto text-sm'
+
+            className='bg-black bg-opacity-0 rounded-xl m-0 font-roboto text-sm'
         />
     );
 }

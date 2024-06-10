@@ -6,6 +6,9 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import Form from '../components/home/form';
 import RainfallWidget from '../components/home/rainfall_widget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
+import SearchBar from '../components/home/searchbar';
+import Legend from '../components/home/Legends';
+import RainfallLegend from '../components/home/Legends';
 
 function Home() {
     const [selectedTab, setSelectedTab] = useState(parseInt(localStorage.getItem('selectedTab')) || 1);
@@ -19,75 +22,79 @@ function Home() {
     }
 
     return (
-        <div className='h-[95vh] w-screen'>
+        <div className='h-full w-full bg-['>
             <div className='w-full h-full'> 
-                <div className="absolute z-20 top-14 left-1/3 w-80 mx-auto flex justify-center align-middle">
-                    <span
-                        className={`h-[2rem] w-[6rem] flex flex-col justify-center text-center font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
-                            selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg' : 'bg-gray-100 hover:bg-gray-200'
-                        }`}
-                        onClick={() => handletabChange(1)}
-                    >
-                        Rainfall
-                    </span>
-                    <span
-                        className={`h-[2rem] w-[6rem] flex flex-col justify-center text-center font-serif cursor-pointer transition-all duration-300 ${
-                            selectedTab === 2 ? 'bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg' : 'bg-gray-100 hover:bg-gray-200'
-                        } border-r border-l border-gray-800`}
-                        onClick={() => handletabChange(2)}
-                    >
-                        Waterlevel
-                    </span>
-                    <span
-                        className={`h-[2rem] w-[6rem] flex flex-col justify-center text-center  font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
-                            selectedTab === 3 ? 'bg-gradient-to-r from-green-500 to-green-700 text-white shadow-lg' : 'bg-gray-100 hover:bg-gray-200'
-                        }`}
-                        onClick={() => handletabChange(3)}
-                    >
-                        Public Data
-                    </span>
-                </div>
-
-                <div className='flex justify-stretch z-10'>
-                    <MapContainer
-                        className='h-full w-[60vw] absolute right-0 top-0 z-10'
-                        center={[19.1, 72.9]}
-                        zoom={13}
-                        maxZoom={18}
-                        minZoom={13}
-                        maxBounds={[
-                            [19.4, 72.6],
-                            [18.85, 73.2]
-                        ]}
-                        zoomControl = {false}
-                    >
-                        <TileLayer 
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            maxZoom={19}
-                        />
-                        {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
-                        {selectedTab === 2 && <WaterlevelMap />}
-                        {selectedTab === 3 && <Map />}
-                    </MapContainer>
+                <div className='h-full flex flex-row-reverse justify-between z-10'>
+                    <div className='h-[90%] mr-3 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-black border-2 relative'>
+                        <MapContainer
+                            className='h-full w-full z-10'
+                            center={[19.1, 72.9]}
+                            zoom={13}
+                            maxZoom={18}
+                            minZoom={13}
+                            maxBounds={[
+                                [19.4, 72.6],
+                                [18.85, 73.2]
+                            ]}
+                        >
+                            <TileLayer 
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                maxZoom={19}
+                            />
+                            {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
+                            {selectedTab === 2 && <WaterlevelMap />}
+                            {selectedTab === 3 && <Map />}
+                        </MapContainer>
+                        {selectedTab === 1 && <RainfallLegend />}
+                    </div>
+                    <div className='relative w-1/3 mt-10 p-2 flex flex-col' >
+                        <div className="z-20 mb-10 w-full mx-auto flex justify-center">
+                            <span
+                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
+                                    selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-[white]' : 'bg-gray-200 hover:bg-gray-300'
+                                } shadow-xl border border-gray-800`}
+                                onClick={() => handletabChange(1)}
+                            >
+                                Rainfall
+                            </span>
+                            <span
+                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center font-serif cursor-pointer transition-all duration-300 ${
+                                    selectedTab === 2 ? 'bg-gradient-to-r from-red-500 to-red-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
+                                } border border-gray-800 shadow-xl`}
+                                onClick={() => handletabChange(2)}
+                            >
+                                Waterlevel
+                            </span>
+                            <span
+                                className={`h-[3.5rem] w-1/4 flex flex-col text-xl justify-center text-center  font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
+                                    selectedTab === 3 ? 'bg-gradient-to-r from-green-500 to-green-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
+                                } shadow-xl border border-gray-800`}
+                                onClick={() => handletabChange(3)}
+                            >
+                                Reported Flood
+                            </span>
+                        </div>
 
                     {selectedTab === 1 && rainfallLocations && (
-                        <div className="absolute top-24 left-2 z-20">
+                        <div className="z-20">
+                            <SearchBar selectedOption={rainfallLocations} setSelectedOption={setRainfallLocations} />
                             <RainfallWidget selectedOption={rainfallLocations} />
                         </div>
                     )}
 
                     {selectedTab === 2 && (
-                        <div className="absolute top-24 left-2 z-20">
+                        <div className="z-20">
                             <WaterlevelWidget location={waterlevelLocations} setLocation={setWaterlevelLocations} />
                         </div>
                     )}
 
                     {selectedTab === 3 && (
-                        <div className='absolute top-24 left-2  z-20'>
+                        <div className='z-20'>
                             <Form />
                         </div>
                     )}
+                    </div>
                 </div>
             </div>
         </div>

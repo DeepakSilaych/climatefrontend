@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const fetchStations = async () => {
     try {
-        const response = await axios.get('http://api.mumbaiflood.in/aws/stations/');
+        const response = await axios.get('https://api.mumbaiflood.in/aws/stations/');
         console.log(response.data)
         return response.data;
     } catch (error) {
@@ -14,7 +14,7 @@ export const fetchStations = async () => {
 
 export const fetchStationData = async (stationId) => {
     try {
-        const response = await axios.get(`http://api.mumbaiflood.in/aws/stations/${stationId}/`);
+        const response = await axios.get(`https://api.mumbaiflood.in/aws/stations/${stationId}/`);
         return response.data;
     } catch (error) {
         console.error('Error fetching station data:', error);
