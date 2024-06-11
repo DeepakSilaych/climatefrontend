@@ -6,7 +6,7 @@ const RainfallLegend = () => {
         bottom: '10px',
         left: '10px',
         background: 'white',
-        padding: '10px',
+        padding: '5px',
         borderRadius: '5px',
         boxShadow: '0 0 15px rgba(0, 0, 0, 0.2)',
         
