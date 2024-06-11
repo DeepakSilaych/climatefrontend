@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Dropdown } from 'react-bootstrap';
+import { sendFormData } from '../../utils/crowdSourceAPI';
 
 function Form() {
-    const [name, setName] = useState('');
     const [feet, setFeet] = useState('');
     const [inches, setInches] = useState('');
     const [waterlevelfactor, setWaterlevelfactor] = useState('');
@@ -34,7 +32,6 @@ function Form() {
       console.log('data:',data);
   
       const sendata = {
-          name: name,
           waterlevel: data.waterLevelAdjusted,
           location: location,
           latitude: data.latitude,
@@ -42,13 +39,14 @@ function Form() {
       }
   
       console.log('sendata:',sendata);
-      try {
-          const response = await axios.post(process.env.API_URL || 'http://192.168.0.114:8000/crowdsource/data/', sendata );
-          setMessage(response.data.message);
-      } catch (error) {
-          console.error('Error storing data:', error);
-          setMessage('Error: Unable to store data.');
-      }
+
+        try {
+            const response = await sendFormData(sendata);
+            setMessage(response.message);
+        } catch (error) {
+            console.error('Error storing data:', error);
+            setMessage('Error: Unable to store data.', error);
+        }
   };
 
     const handleOption = (value, option) => () => {

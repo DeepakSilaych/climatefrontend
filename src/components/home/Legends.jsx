@@ -42,3 +42,45 @@ const RainfallLegend = () => {
 };
 
 export default RainfallLegend;
+
+
+const TrainLegends = () => {
+    const legendStyle = {
+        position: 'absolute',
+        bottom: '10px',
+        left: '10px',
+        background: 'white',
+        padding: '10px',
+        borderRadius: '5px',
+        boxShadow: '0 0 15px rgba(0, 0, 0, 0.2)',
+        
+    };
+
+    const itemStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '2px',
+    };
+
+    const colorBoxStyle = (background) => ({
+        display: 'inline-block',
+        width: '15px',
+        height: '15px',
+        marginRight: '5px',
+        borderRadius: '50%',
+        border: '2px solid #000',
+        background
+    });
+
+    return (
+        <div style={legendStyle} className='z-30 font-merriweather'>
+            <h4>Waterlevel Warning (Approx)</h4>
+            <div style={itemStyle}><span style={colorBoxStyle('green')}></span>0 - 10mm </div>
+            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span>10 - 15mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>15 - 20mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('red')}></span> 20mm & above</div>
+        </div>
+    );
+}
+
+export {TrainLegends}

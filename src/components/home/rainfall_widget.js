@@ -28,7 +28,7 @@ export default function RainfallWidget({ selectedOption }) {
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching station data:', error));
         }
-        console.log(data)
+        console.log('rainfal', data)
     }, [selectedOption]);
 
     if (!data) {

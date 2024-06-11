@@ -38,7 +38,6 @@ function Home() {
                             ]}
                         >
                             <TileLayer 
-                                
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 maxZoom={19}
                             />
