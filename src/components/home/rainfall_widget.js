@@ -28,6 +28,7 @@ export default function RainfallWidget({ selectedOption }) {
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching station data:', error));
         }
+        console.log(data)
     }, [selectedOption]);
 
     if (!data) {
@@ -60,7 +61,7 @@ export default function RainfallWidget({ selectedOption }) {
                 </div> */}
             </div>
             <div className='flex-col align-bottom justify-center h-max relative'>
-                <RainfallBarChart />
+                <RainfallBarChart data = {data} />
             </div>
             <div className='flex-col align-bottom justify-center h-max'>
                 <DailyPredictionChart />
@@ -147,14 +148,15 @@ const dailyPredictionOptions = {
 };
 
 // Dummy data for the new charts
-const rainfallBarChartData = [
+const rainfallBarChartData =({data}) => [
     ["Time", "Rainfall (Past 6 hrs)", "Rainfall (Next 24 hrs)"],
-    ["10 AM", 1.5, 0],
-    ["11 AM", 2, 0],
-    ["12 PM", 0.5, 0],
-    ["1 PM", 1, 0],
-    ["2 PM", 3, 0],
-    ["3 PM", 2.5, 0],
+    // get this data from data.hours
+    [data.hourly_data[0].hour, data.hourly_data[0].total_rainfall, 0],
+    [data.hourly_data[1].hour, data.hourly_data[1].total_rainfall, 0],
+    [data.hourly_data[2].hour, data.hourly_data[2].total_rainfall, 0],
+    [data.hourly_data[3].hour, data.hourly_data[3].total_rainfall, 0],
+    [data.hourly_data[4].hour, data.hourly_data[4].total_rainfall, 0],
+    [data.hourly_data[5].hour, data.hourly_data[5].total_rainfall, 0],
     ["4 PM", 0, 3],
     ["5 PM", 0, 4.5],
     ["6 PM", 0, 5],
@@ -205,13 +207,13 @@ function getColor(rainfall) {
     }
 }
 
-function RainfallBarChart() {
+function RainfallBarChart({data}) {
     return (
         <Chart
             chartType="ColumnChart"
             width="100%"
             height="200px"
-            data={rainfallBarChartData}
+            data={rainfallBarChartData(data)}
             options={barChartOptions}
 
             className='bg-black bg-opacity-0 rounded-xl m-0 font-roboto text-sm'
