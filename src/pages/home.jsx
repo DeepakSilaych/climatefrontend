@@ -12,7 +12,6 @@ import RainfallLegend from '../components/home/Legends';
 
 function Home() {
     const [selectedTab, setSelectedTab] = useState(parseInt(localStorage.getItem('selectedTab')) || 1);
-
     const [rainfallLocations, setRainfallLocations] = useState(null);
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
 
@@ -20,6 +19,7 @@ function Home() {
         setSelectedTab(tab);
         localStorage.setItem('selectedTab', tab);
     }
+    
 
     return (
         <div className='h-full w-full bg-['>
@@ -31,15 +31,23 @@ function Home() {
                             center={[19.1, 72.9]}
                             zoom={13}
                             maxZoom={18}
-                            minZoom={13}
+                            minZoom={11}
                             maxBounds={[
                                 [19.4, 72.6],
                                 [18.85, 73.2]
                             ]}
                         >
                             <TileLayer 
+<<<<<<< HEAD
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 maxZoom={19}
+=======
+                                url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=d42390ee-716f-47d9-b8e5-2b8b44c5d63f"
+                                minZoom={0}
+                                maxZoom={18}
+                                attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                ext='png'
+>>>>>>> b03c13ebd095e4bb6f09172629f4107e6c4b92ce
                             />
                             {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                             {selectedTab === 2 && <WaterlevelMap />}
@@ -50,25 +58,25 @@ function Home() {
                     <div className='relative w-1/3 mt-0 p-1 flex flex-col' >
                         <div className="z-20 mb-2 w-full mx-auto flex justify-center">
                             <span
-                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center text-xs font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
-                                    selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-[white]' : 'bg-gray-200 hover:bg-gray-300'
-                                } shadow-xl border border-gray-800`}
+                                className={`h-[3rem] w-1/5 flex items-center justify-center  text-center text-sm font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
+                                    selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
+                                } shadow-xl`}
                                 onClick={() => handletabChange(1)}
                             >
                                 Rainfall
                             </span>
                             <span
-                                className={`h-[3.5rem] w-1/5 flex flex-col text-xl justify-center text-center text-xs font-serif cursor-pointer transition-all duration-300 ${
+                                className={`h-[3rem] w-1/5 flex items-center justify-center text-center text-sm font-serif cursor-pointer transition-all duration-300 ${
                                     selectedTab === 2 ? 'bg-gradient-to-r from-red-500 to-red-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
-                                } border border-gray-800 shadow-xl`}
+                                } shadow-xl`}
                                 onClick={() => handletabChange(2)}
                             >
                                 Waterlevel
                             </span>
                             <span
-                                className={`h-[3.5rem] w-1/4 flex flex-col text-xl justify-center text-center text-xs  font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
+                                className={`h-[3rem] w-1/4 flex items-center justify-center text-center text-sm font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
                                     selectedTab === 3 ? 'bg-gradient-to-r from-green-500 to-green-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
-                                } shadow-xl border border-gray-800`}
+                                } shadow-xl`}
                                 onClick={() => handletabChange(3)}
                             >
                                 Reported Flood
@@ -90,14 +98,15 @@ function Home() {
 
                     {selectedTab === 3 && (
                         <div className='z-20 mt-0'>
-                            <Form />
-                        </div>
-                    )}
+                        <Form />
                     </div>
+                )}
                 </div>
             </div>
         </div>
-    );
+    </div>
+);
 }
 
 export default Home;
+

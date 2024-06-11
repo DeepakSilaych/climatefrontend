@@ -19,6 +19,16 @@
   display: flex;
   flex-direction: column;
 }
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.blinking-text {
+  animation: blink 1s infinite;
+}
+
 
 .leaflet-container {
   height: 100%;

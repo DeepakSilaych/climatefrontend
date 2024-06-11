@@ -39,13 +39,7 @@ export default function WaterlevelMap({setLocations, location}) {
             icon={customIcon}
             eventHandlers={{ click: () => handleMarkerClick(station) }}
           >
-          <Popup className="custom-popup">
-            <div>
-              <h3>{station.name}</h3>
-              <img src={stationImage} alt="Station" width="300px" height="300px" />
-              <TimeSeriesChart />
-            </div>
-          </Popup>
+          
           </Marker>
         ))}
       </>
