@@ -72,7 +72,7 @@ const WhoWeAre = () => {
                                 <li>Puja Tripathy</li>
                             </ul>
                             <p>
-                                Website & App developed by IIT Bombay students, Deepak Silaych & Gulshan Kumar
+                                Website & App developed by IIT Bombay students, <Link className='underline' href="https://www.linkedin.com/in/deepaksilaych/">Deepak Silaych</Link> & <Link href='' className='underline' >Gulshan Kumar </Link>
                             </p>
                         </div>
                     </div>

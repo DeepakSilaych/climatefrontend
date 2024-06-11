@@ -4,10 +4,9 @@ import RainFallMap from '../components/home/rainfall_map';
 import WaterlevelMap from '../components/home/waterlevel_map';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Form from '../components/home/form';
-import RainfallWidget from '../components/home/rainfall_widget';
+import RainfallWidget from '../components/home/rainfall_wdget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
-import Legend from '../components/home/Legends';
 import RainfallLegend from '../components/home/Legends';
 
 function Home() {
@@ -38,16 +37,11 @@ function Home() {
                             ]}
                         >
                             <TileLayer 
-<<<<<<< HEAD
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                maxZoom={19}
-=======
                                 url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=d42390ee-716f-47d9-b8e5-2b8b44c5d63f"
                                 minZoom={0}
                                 maxZoom={18}
                                 attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 ext='png'
->>>>>>> b03c13ebd095e4bb6f09172629f4107e6c4b92ce
                             />
                             {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                             {selectedTab === 2 && <WaterlevelMap />}

@@ -37,7 +37,7 @@ function TrainFlood() {
             center={[19.1, 72.9]}
             zoom={13}
             maxZoom={18}
-            minZoom={13}
+            minZoom={11}
             maxBounds={[
                 [19.4, 72.6],
                 [18.85, 73.2]
