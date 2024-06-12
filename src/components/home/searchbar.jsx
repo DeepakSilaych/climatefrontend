@@ -49,11 +49,11 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
     }, [selectedOption]);
 
     return (
-        <div className="w-full h-12">
-            <div className={`bg-white rounded text-black flex border border-black'${ showOptions ? 'rounded-t-md' : 'rounded-md'}`}>
+        <div className="w-2/3 h-12 mx-20 ">
+            <div className={`bg-black bg-opacity-80 rounded text-white flex border border-black'${ showOptions ? 'rounded-t-md' : 'rounded-md'}`}>
                 <input
                     id="search-input"
-                    className={`w-full px-4 py-2  focus:outline-none ${
+                    className={`w-full px-4 py-2 bg-[#373A40] text-white  focus:outline-none ${
                         showOptions ? 'rounded-t-md' : 'rounded-md'
                     }`}
                     type="text"
@@ -83,7 +83,7 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
                         showOptions ? (
                             <button
                                 key={station.id}
-                                className="px-4 py-2 text-gray-500 bg-white border border-gray-100 hover:bg-gray-100 hover:text-black active:bg-blue-100 cursor-pointer w-full text-left"
+                                className="px-4 py-2 bg-black text-white border-gray-100 hover:bg-gray-100 hover:text-black active:bg-blue-100 cursor-pointer w-full text-left"
                                 onClick={() => handleStationSelection(station)}>
                                 {station.name}
                             </button>

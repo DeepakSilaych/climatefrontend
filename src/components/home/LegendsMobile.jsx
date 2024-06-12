@@ -1,15 +1,17 @@
+// LegendsMobile.jsx
 import React from 'react';
 
-const RainfallLegend = () => {
+const RainfallLegendMobile = () => {
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
         left: '10px',
-        background: 'white',
-        padding: '3px',
+        background: 'rgba(255, 255, 255, 0.8)',
+        padding: '5px',
         borderRadius: '5px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-        fontSize: '10px',
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+        fontSize: '6px',
+        zIndex: 1000,
     };
 
     const itemStyle = {
@@ -20,17 +22,16 @@ const RainfallLegend = () => {
 
     const colorBoxStyle = (background) => ({
         display: 'inline-block',
-        width: '15px',
-        height: '15px',
-        marginRight: '3px',
+        width: '12px',
+        height: '12px',
+        marginRight: '5px',
         borderRadius: '50%',
-        border: '1px solid #000',
         background
     });
 
     return (
-        <div style={legendStyle} className='z-30 font-merriweather text-xs'>
-            <h4 style={{ margin: '0 20px 5px 40px' }}>RAINFALL (per day)</h4>
+        <div style={legendStyle} className='z-30 font-merriweather'>
+            <h4>RAINFALL (per day)</h4>
             <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain</div>
             <div style={itemStyle}><span style={colorBoxStyle('cornflowerblue')}></span> Light Rain: 0.1 - 7.5 mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> Moderate Rain: 7.6 - 35.5 mm</div>
@@ -41,46 +42,42 @@ const RainfallLegend = () => {
     );
 };
 
-export default RainfallLegend;
-
-
-const TrainLegends = () => {
+const TrainLegendMobile = () => {
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
         left: '10px',
-        background: 'white',
-        padding: '10px',
+        background: 'rgba(255, 255, 255, 0.8)',
+        padding: '5px',
         borderRadius: '5px',
-        boxShadow: '0 0 15px rgba(0, 0, 0, 0.2)',
-        
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+        fontSize: '12px',
     };
 
     const itemStyle = {
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '2px',
+        marginBottom: '3px',
     };
 
     const colorBoxStyle = (background) => ({
         display: 'inline-block',
-        width: '15px',
-        height: '15px',
+        width: '12px',
+        height: '12px',
         marginRight: '5px',
         borderRadius: '50%',
-        border: '2px solid #000',
         background
     });
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
-            <h4>Waterlevel Warning (per hour)</h4>
-            <div style={itemStyle}><span style={colorBoxStyle('green')}></span>0 - 10mm </div>
-            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span>10 - 15mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>15 - 20mm</div>
+            <h4>Waterlevel Warning (Approx)</h4>
+            <div style={itemStyle}><span style={colorBoxStyle('green')}></span> 0 - 10mm </div>
+            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> 10 - 15mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> 15 - 20mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span> 20mm & above</div>
         </div>
     );
-}
+};
 
-export {TrainLegends}
+export { RainfallLegendMobile, TrainLegendMobile };

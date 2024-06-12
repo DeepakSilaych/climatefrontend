@@ -31,7 +31,7 @@ function TrainFlood() {
 
   return (
     <div className="flex h-screen">
-      <div className="w-2/3 h-5/6 border-2 border-black m-2">
+      <div className="w-screen h-5/6  m-2">
         <MapContainer
             className='h-full w-full z-10'
             center={[19.1, 72.9]}
@@ -78,8 +78,8 @@ function TrainFlood() {
         </MapContainer>
         <TrainLegends />
       </div>
-      <div className="w-1/3 h-full p-4">
-        {/* Information related to the iframe */}
+      {/* <div className="w-1/3 h-full p-4">
+        
         <h1 className="text-3xl font-bold text-center">Train Flood Information</h1>
         <ul className="list-disc ml-5 mt-4">
           <li>Current status of the flood</li>
@@ -88,7 +88,7 @@ function TrainFlood() {
           <li>Contact information for help</li>
           <li>Preventive measures</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }

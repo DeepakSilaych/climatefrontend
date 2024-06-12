@@ -6,7 +6,7 @@ import clou from '../../icons/cloudy.png';
 import img1 from '../../icons/download.png'; // Add your image imports here
 import img2 from '../../icons/download.png';
 import img3 from '../../icons/download.png';
-import plac from '../../icons/placeholder1.png';
+import plac from '../../icons/loc.png';
 
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
@@ -38,10 +38,10 @@ export default function RainfallWidget({ selectedOption }) {
             <div className='w-2/3 flex justify-evenly text-xs text-slate-600 font-bold flex-row text-center align-middle mx-20'>
                 Current Time: {time}
             </div>
-            <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.5)] rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-2 shadow-lg z-10'>
+            <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.8)] rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-2 shadow-lg z-10'>
                 <div className='relative flex justify-center '>
                     <div className='w-1/3 flex justify-evenly text-xs text-white font-bold flex-col text-center'>
-                        <img src={plac} alt="IIT Logo" width="20" height="20" className='mx-14 '/>
+                        <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-12 '/>
                         <span className='text-white text-xs font-bold'>{data.station.name}</span> 
                     </div>
                 </div>
@@ -51,12 +51,12 @@ export default function RainfallWidget({ selectedOption }) {
                 <div className='flex-col align-bottom justify-center h-max'>
                     <DailyPredictionChart data={data} />
                 </div>
-                <button 
+                {/* <button 
                     className="btoon hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4"
                     onClick={() => setModalOpen(true)}
                 >
                     View Past Rainfall
-                </button>
+                </button> */}
 
                 {modalOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -105,7 +105,7 @@ const barChartOptions = {
 };
 
 const dailyPredictionOptions = {
-    title: "Daily Rainfall Forecast",
+    title: "Daily Rainfall Forecast                   (updated everyday at 4 pm)",
     titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
@@ -122,13 +122,16 @@ const dailyPredictionOptions = {
     },
     chartArea: { width: "90%", height: "50%" },
     backgroundColor: 'transparent',
+    legend: { position: 'bottom', alignment: 'left', left: '0', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    colors: ['#D4D4D4', '#7E8EF1'],
+    isStacked: true,
 };
 
 // Transform API data for rainfall bar chart
 const rainfallBarChartData = (data) => [
     ["Time", "Rainfall (Past 6 hrs)", "Rainfall (Next 24 hrs)", { role: 'style' }],
     ...data.hrly_data.map((item, index) => [
-        new Date(`1970-01-01T${item.hour}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), // Extract time
+        item.hour, // Extract time
         index < 6 ? item.total_rainfall : 0, 
         index >= 6 ? item.total_rainfall : 0,
         item.total_rainfall === 0 ? 'point { size: 10; shape-type: star; fill-color: #FF0000; }' : null // Style for zero rainfall
@@ -137,7 +140,7 @@ const rainfallBarChartData = (data) => [
 
 // Transform API data for daily prediction chart
 const dailyPredictionChartData = (data) => [
-    ["Day", "Rainfall", { role: "style" }],
+    ["Day", "Observered", { role: "style" }],
     ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
         new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Use date for daily data
         total_rainfall, 
