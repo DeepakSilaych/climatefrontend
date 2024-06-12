@@ -59,10 +59,10 @@ function Form() {
                 <h1 className="text-3xl text-center font-semibold mb-6 text-white">Submit Data</h1>
                 <div>
                     <div className="flex items-center " >
-                        <label htmlFor="height" className="block h-full text-white flex-col justify-center mr-4">Your Height:</label>
+                        <label htmlFor="height" className="block h-full text-white flex-col justify-center mr-4 mb-4">Your Height:</label>
 
                         <select id="height" name="height" value={feet} onChange={(e) => setFeet(e.target.value)} className="w-1/3 mr-4 border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900">
-                            <option value="">Select Feet</option>
+                            <option value="" className='text-xs'>in Feet</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
@@ -70,7 +70,7 @@ function Form() {
                             <option value="7">7</option>
                         </select>
                         <select id="height" name="height" value={inches} onChange={(e) => setInches(e.target.value)} className="w-1/3 border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900">
-                            <option value="">Select Inches</option>
+                            <option value="">in Inches</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>

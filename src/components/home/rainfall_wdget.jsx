@@ -38,12 +38,15 @@ export default function RainfallWidget({ selectedOption }) {
             <div className='w-2/3 flex justify-evenly text-xs text-slate-600 font-bold flex-row text-center align-middle mx-20'>
                 Current Time: {time}
             </div>
-            <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.8)] rounded-xl h-max mx-0 my-0 flex flex-col p-2 py-2 shadow-lg z-10'>
+            <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.8)] rounded-xl h-max mx-0 my-0 flex flex-col p-1 py-1 shadow-lg z-10'>
                 <div className='relative flex justify-center '>
-                    <div className='w-1/3 flex justify-evenly text-xs text-white font-bold flex-col text-center'>
-                        <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-12 '/>
-                        <span className='text-white text-xs font-bold'>{data.station.name}</span> 
+                    <div className=' flex justify-evenly text-xs text-white font-bold flex-col text-center'>
+                        <img src={plac} alt="IIT Logo" width="15" height="15" className='right-0'/>
                     </div>
+                    <div className='flex justify-evenly text-xs text-white font-bold flex-col text-center'>
+                        <span className='text-white text-xs font-bold mx-1 my-2'>{data.station.name}</span> 
+                    </div>
+                    
                 </div>
                 <div className='flex-col align-bottom justify-center h-max relative'>
                     <RainfallBarChart data={data} />
@@ -89,41 +92,50 @@ const barChartOptions = {
         textStyle: { color: "white", fontSize: 8 },
         slantedText: true,
         slantedTextAngle: 90,
+        baselineColor: 'white',
     },
     vAxis: { 
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "white", fontSize: 8 }, 
-        minValue: 0,
-        gridlines: { count: 10, color: 'transparent', width: '1px' },
+        minValue: 0, // Start the y-axis from 0
+        gridlines: { count: 0, color: 'transparent', width: '1px' },
+        baselineColor: 'white',
     },
-    chartArea: { width: "90%", height: "50%" },
+    chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#7E8EF1'],
+    colors: ['#D4D4D4', '#00ffff'],
     isStacked: true,
 };
 
+
+
 const dailyPredictionOptions = {
-    title: "Daily Rainfall Forecast                   (updated everyday at 4 pm)",
+    title: "Daily Rainfall Forecast ",
     titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
         slantedTextAngle: 0,
         textStyle: { color: "#fff", fontSize: 8 },
+        gridlines: { color: 'white' } ,
+        
+        baselineColor: 'white',
     },
     vAxis: { 
         title: "Rainfall (mm)",  
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "#fff", fontSize: 8 },
         minValue: 0,
-        gridlines: { color: 'none' } 
+        gridlines: { color: 'none' } ,
+        gridlines: { count: 5, color: 'transparent', width: '1px' },
+        baselineColor: 'white',
     },
-    chartArea: { width: "90%", height: "50%" },
+    chartArea: { width: "75%", height: "50%" },
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'left', left: '0', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#7E8EF1'],
+    colors: ['#D4D4D4', '#00ffff'],
     isStacked: true,
 };
 
@@ -139,26 +151,39 @@ const rainfallBarChartData = (data) => [
 ];
 
 // Transform API data for daily prediction chart
-const dailyPredictionChartData = (data) => [
-    ["Day", "Observered", { role: "style" }],
-    ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
-        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Use date for daily data
-        total_rainfall, 
-        index < 3 ? 'color: #D4D4D4;' : // Grey color for the first three bars
-        (total_rainfall === 0 ? 'stroke-color: #FF0000; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
-    ])
-];
+const dailyPredictionChartData = (data) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+
+    return [
+        ["Day", "Observed", { role: "style" }],
+        ...Object.entries(data.daily_data).map(([date, total_rainfall]) => {
+            const currentDate = new Date(date);
+            currentDate.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+            const isPastDate = currentDate < today;
+            return [
+                currentDate.toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Format date
+                total_rainfall,
+                isPastDate ? 'color: #D4D4D4;' : // Grey color for past dates
+                (total_rainfall === 0 ? 'stroke-color: gray; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
+            ];
+        })
+    ];
+};
 
 // Function to determine color based on rainfall value
 function getColor(rainfall) {
-    if (rainfall > 124) {
+    if (rainfall > 124.4) {
         return "#FF0000"; // Red
-    } else if (rainfall >= 36 && rainfall <= 124) {
-        return "#FFA500"; // Orange
-    } else if (rainfall >= 7 && rainfall < 36) {
-        return "#FFFF00"; // Yellow
+    }
+    else if (rainfall >= 75.6 && rainfall <= 124.4) {
+        return "orange"; // Orange
+    } else if (rainfall >= 35.6 && rainfall <= 75.5) {
+        return "yellow"; // Orange
+    } else if (rainfall >= 7.5 && rainfall <= 35.5) {
+        return "green"; // Yellow
     } else {
-        return "green"; // Green
+        return "cornflowerblue"; // Green
     }
 }
 

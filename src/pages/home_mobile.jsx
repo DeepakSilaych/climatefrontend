@@ -8,7 +8,7 @@ import Form from '../components/home/form';
 import RainfallWidget from '../components/home/rainfall_wdget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
-import { RainfallLegendMobile, TrainLegendMobile } from '../components/home/LegendsMobile';
+import { RainfallLegendMobile,WaterlevelLegendMobile, TrainLegendMobile } from '../components/home/LegendsMobile';
 
 function HomeMobile() {
     const [selectedTab, setSelectedTab] = useState(parseInt(localStorage.getItem('selectedTab')) || 1);
@@ -23,8 +23,8 @@ function HomeMobile() {
     return (
         <div className='h-full w-full bg-[#f0f0f0]'>
             <div className='w-full'>
-                <div className="mb-2 w-full mx-auto flex justify-center">
-                <span
+                <div className="mb-2 w-full mx-auto flex justify-center z-10"> {/* Ensure buttons appear above the map */}
+                    <span
                         className={`h-[3rem] w-1/5 flex items-center justify-center  text-center text-sm font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
                             selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
                         } shadow-xl`}
@@ -50,11 +50,11 @@ function HomeMobile() {
                     </span>
                 </div>
             </div>
-            <div className='w-full h-[50%] flex flex-col'>
+            <div className='w-full h-[70%] flex flex-col relative'>
                 <MapContainer
                     className='h-full w-full'
                     center={[19.1, 72.9]}
-                    zoom={13}
+                    zoom={10}
                     maxZoom={18}
                     minZoom={11}
                     maxBounds={[
@@ -69,32 +69,36 @@ function HomeMobile() {
                         attribution=''
                         ext='png'
                     />
+                    {/* Components based on selected tab */}
                     {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                     {selectedTab === 2 && <WaterlevelMap />}
                     {selectedTab === 3 && <Map />}
                     {/* Legends */}
                     {selectedTab === 1 && <RainfallLegendMobile />}
-                    
+                    {selectedTab === 2 && <WaterlevelLegendMobile />}
                 </MapContainer>
             </div>
-            {selectedTab === 1 && rainfallLocations && (
-                <div className="z-20 mt-2">
-                    <SearchBar selectedOption={rainfallLocations} setSelectedOption={setRainfallLocations} />
-                    <RainfallWidget selectedOption={rainfallLocations} />
-                </div>
-            )}
+            {/* Additional components */}
+            <div className='w-full h-[70%] flex flex-col relative z-20'>
+                {selectedTab === 1 && rainfallLocations && (
+                    <div className="z-20 mt-2">
+                        <SearchBar selectedOption={rainfallLocations} setSelectedOption={setRainfallLocations} />
+                        <RainfallWidget selectedOption={rainfallLocations} />
+                    </div>
+                )}
 
-            {selectedTab === 2 && (
-                <div className="z-20 mt-5">
-                    <WaterlevelWidget location={waterlevelLocations} setLocation={setWaterlevelLocations} />
-                </div>
-            )}
+                {selectedTab === 2 && (
+                    <div className="z-20 mt-5">
+                        <WaterlevelWidget location={waterlevelLocations} setLocation={setWaterlevelLocations} />
+                    </div>
+                )}
 
-            {selectedTab === 3 && (
-                <div className='z-20 mt-1'>
-                    <Form />
-                </div>
-            )}
+                {selectedTab === 3 && (
+                    <div className='z-20 mt-1'>
+                        <Form />
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

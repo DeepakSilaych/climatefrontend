@@ -49,7 +49,7 @@ export default function WaterlevelMap({setLocations, location}) {
 
 const customIcon = new Icon({
   iconUrl: require("../../icons/aa.png"),
-  iconSize: [50, 50 ] 
+  iconSize: [25, 25 ] 
 });
 
 

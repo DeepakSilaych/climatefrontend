@@ -6,10 +6,26 @@ import { fetchStations } from "../../utils/RainfallApis";
 
 export default function RainFallMap({ location, setLocations }) {
   const [stations, setStations] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const markerRefs = useRef([]);
 
   const handleMarkerClick = (marker) => {
-    setLocations(marker);
+    if (selectedMarker !== marker) {
+      setLocations(marker);
+      setSelectedMarker(marker);
+    } else {
+      setSelectedMarker(null);
+    }
+  };
+
+  const handleMarkerMouseOver = (marker) => {
+    markerRefs.current[marker.id].openPopup();
+  };
+
+  const handleMarkerMouseOut = (marker) => {
+    if (selectedMarker !== marker) {
+      markerRefs.current[marker.id].closePopup();
+    }
   };
 
   useEffect(() => {
@@ -28,18 +44,12 @@ export default function RainFallMap({ location, setLocations }) {
     fetchStationsData();  
   }, []);
 
-  useEffect(() => {
-    if (location && markerRefs.current[location.id]) {
-      markerRefs.current[location.id].openPopup();
-    }
-  }, [location]);
-
   return (
     <div className="h-full w-full relative">
       {stations.map((station, index) => {
         let color;
         if (station.curr_rainfall < 10) {
-          color = 'green';
+          color = 'lightgreen';
         } else if (station.curr_rainfall < 20) {
           color = 'yellow';
         } else if (station.curr_rainfall < 30) {
@@ -48,17 +58,24 @@ export default function RainFallMap({ location, setLocations }) {
           color = 'red';
         }
 
+        const isSelected = selectedMarker === station;
+        const radius = isSelected ? 16 : 8; // Increase radius if selected
+
         return (
           <CircleMarker
             key={index}
             center={{ lat: station.latitude, lng: station.longitude }}
             color='black'
             fillColor={color}
-            fill={true}
             fillOpacity={1}
-            radius={10}
-            eventHandlers={{ click: () => handleMarkerClick(station) }}
+            radius={radius}
+            eventHandlers={{ 
+              click: () => handleMarkerClick(station), 
+              mouseover: () => handleMarkerMouseOver(station), 
+              mouseout: () => handleMarkerMouseOut(station) 
+            }}
             ref={el => markerRefs.current[station.id] = el}
+            pathOptions={{ color: isSelected ? '#FF1493' : 'black' }} // Highlight selected marker
           >
             <Popup className="popup-content">{station.name}</Popup>
           </CircleMarker>

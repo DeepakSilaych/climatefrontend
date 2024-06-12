@@ -22,18 +22,20 @@ function App() {
 
   const WarningPopup = () => {
     return (
-      <div className="fixed bottom-1 right-0 w-1/3 mt-6 mr-7 z-50">
-        <div className="bg-yellow-100 border border-red-400 text-red-700 px-2 py-3 rounded relative">
-          
-            <strong className="font-bold blinking-text ${isMobile ? 'w-screen' : ''}`">Fill this form and Report Flood in your area!</strong>
-          
-          <span className="absolute top-0 bottom-0 right-0 px-0.5 py-3" onClick={() => setWarningPopup(false)}>
-            <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <title>Close</title>
-              <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-            </svg>
-          </span>
+      <div className="fixed top-16 right-0 w-1/6 mt-6 mr-7 z-50">
+        <div className='flex flex-col text-center'>
+          <button className="zigzag-button alert-button" onClick={() => alert('Report Flood')}>
+            Report Flood in your Area!
+          </button>
         </div>
+      </div>
+    );
+  };
+
+  const WarningPopupMobile = () => {
+    return (
+      <div className="fixed bottom-16 right-0 w-1/2 mt-6 mr-7 z-50">
+        
       </div>
     );
   };
@@ -48,8 +50,8 @@ function App() {
     <div className="h-screen w-screen overflow-x-hidden">
       {isMobile ? (
         <BrowserRouter>
-          {isMobile ? <HeaderMobile /> : <Header />}
-          {warningpopup && <span className="absolute w-1/2 right-2 bottom-6 z-20"><WarningPopup /></span>}
+          <HeaderMobile />
+          {warningpopup && <span className="absolute w-1/2 right-2 bottom-6 z-20"><WarningPopupMobile /></span>}
           <Routes>
             <Route path="/" element={<HomeMobile />} />
             <Route path="/train" element={<TrainFloodMobile />} />
@@ -78,4 +80,3 @@ function App() {
 }
 
 export default App;
-

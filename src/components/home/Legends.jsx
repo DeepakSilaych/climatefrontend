@@ -30,14 +30,16 @@ const RainfallLegend = () => {
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather text-xs'>
-            <h4 style={{ margin: '0 20px 5px 40px' }}>RAINFALL (per day)</h4>
+            <h4 style={{ margin: '0 20px 5px 40px' }}>RAINFALL (tomorrow)</h4>
             <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain</div>
             <div style={itemStyle}><span style={colorBoxStyle('cornflowerblue')}></span> Light Rain: 0.1 - 7.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> Moderate Rain: 7.6 - 35.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> Heavy Rain: 35.6 - 75.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('#DD5746')}></span> Very Heavy Rain: 75.6 - 124.4 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span> Moderate Rain: 7.6 - 35.5 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> Heavy Rain: 35.6 - 75.5 mm</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> Very Heavy Rain: 75.6 - 124.4 mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span> Extreme Rain: 124.5 mm & above</div>
+            
         </div>
+        
     );
 };
 

@@ -47,7 +47,7 @@ function HeaderMobile() {
                             <div className="dropdown-content">
                                 
                                 <div className="dropdown-item">
-                                    <Link to="/train" className="dropdown-link">Train</Link>
+                                    <Link to="/train" className="dropdown-link">Rail</Link>
                                 </div>
                                 <div className="dropdown-item">
                                     <Link to="/about" className="dropdown-link">About</Link>
