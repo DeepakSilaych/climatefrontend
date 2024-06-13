@@ -76,12 +76,18 @@ const WaterlevelLegendMobile = () => {
         background
     });
 
+    const handleclick = () => {
+        localStorage.setItem('selectedTab', 3);
+        window.location.reload();
+        Navigate('/');
+      };
+
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
             
             <div className='w-100 flex flex-col justify-evenly mx-0'>
                     <div className='flex flex-col text-center text-xs'>
-                        <button className=" zigzag-button alert-button" onClick={() => alert('Report Flood')}>
+                        <button className=" zigzag-button alert-button" onClick={handleclick}>
                             Report Flood
                         </button>
                     </div>
