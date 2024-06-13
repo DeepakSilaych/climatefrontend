@@ -44,12 +44,14 @@ function HeaderMobile() {
                             </svg>
                         </button>
                         {isDropdownOpen && (
-                            <div className="dropdown-content">
-                                
-                                <div className="dropdown-item">
+                            <div className="dropdown-content absolute bg-white rounded right-2 z-40">
+                                <div className="dropdown-item hover:bg-gray-200 h-full w-full px-2 py-1">
+                                    <Link to="/" className="dropdown-link">Home</Link>
+                                </div>
+                                <div className="dropdown-item hover:bg-gray-200 h-full w-full px-2 py-1">
                                     <Link to="/train" className="dropdown-link">Rail</Link>
                                 </div>
-                                <div className="dropdown-item">
+                                <div className="dropdown-item hover:bg-gray-200 h-full w-full px-2 py-1">
                                     <Link to="/about" className="dropdown-link">About</Link>
                                 </div>
                             </div>

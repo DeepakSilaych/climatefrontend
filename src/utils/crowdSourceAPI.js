@@ -1,23 +1,35 @@
 import axios from 'axios';
 
-
-export function sendFormData(formData) {
+export async function sendFormData(formData) {
     try {
-        const response = axios.post('https://api.mumbaiflood.in/cs/data/', formData);
+        const response = await axios.post('http://127.0.0.1:8000/cs/data/', formData);
         return response.data;
-      } catch (error) {
+    } catch (error) {
         console.error('Error storing data:', error);
         throw error;
-      }
     }
-  
-export function fetchCrowdDatta() {
+}
+
+export async function fetchCrowdData() {
     try {
-        const response = axios.get('https://api.mumbaiflood.in/cs/map/');
+        const response = await axios.get('http://127.0.0.1:8000/cs/map/');
         return response.data;
-      }
-      catch (error) {
+    } catch (error) {
         console.error('Error fetching map data:', error);
         throw error;
-      }
     }
+}
+
+export async function fetchLocationData(coords) {
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/cs/location/', coords);
+        console.log('response: ', response);
+        console.log('response.data: ', response.data);
+        console.log('response.data.location: ', response.data.location);
+
+        return response.data.location;
+    } catch (error) {
+        console.error('Error fetching location data:', error);
+        throw error;
+    }
+}

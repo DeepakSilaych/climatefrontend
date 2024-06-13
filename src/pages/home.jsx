@@ -46,7 +46,7 @@ function Home() {
                             <li>2. Rainfall forecasts for the next 3 days are being displayed on the Rainfall widget.</li>
                             <li>3. FORM for reporting water levels in your area is available under 'Reported Flood' tab on the Home Page.</li>
                             <li>4. Near real time waterlogging information obtained from nine water-level sensors installed across Mumbai is available under Waterlevel widget.</li>
-                            <li>5. Our flood forecast models are still under improvement.</li>
+                            <li>5. Our Hourly rainfall forecast model is still still under improvement.</li>
                         </ul>
                         <div className="flex justify-around">
                             <button 
@@ -70,10 +70,10 @@ function Home() {
                     <div className='h-[90%] mr-3 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-2 relative'>
                         <MapContainer
                             className='h-full w-full z-10'
-                            center={[19.1, 72.9]}
+                            center={[19.05, 72.9]}
                             zoom={10}
                             maxZoom={18}
-                            minZoom={11}
+                            minZoom={12}
                             maxBounds={[
                                 [19.4, 72.6],
                                 [18.85, 73.2]
@@ -113,7 +113,7 @@ function Home() {
                                 Waterlevel
                             </span>
                             <span
-                                className={`h-[2rem] w-1/4 flex items-center justify-center text-center text-sm font-serif cursor-pointer rounded-r-xl transition-all duration-300 ${
+                                className={`h-[2rem] w-1/4 flex items-center justify-center text-center text-sm font-serif cursor-pointer rounded-r-xl transition-all duration-300 leading-3 ${
                                     selectedTab === 3 ? 'bg-gradient-to-r from-green-500 to-green-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
                                 } shadow-xl`}
                                 onClick={() => handletabChange(3)}

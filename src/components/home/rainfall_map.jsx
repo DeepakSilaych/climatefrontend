@@ -75,7 +75,7 @@ export default function RainFallMap({ location, setLocations }) {
               mouseout: () => handleMarkerMouseOut(station) 
             }}
             ref={el => markerRefs.current[station.id] = el}
-            pathOptions={{ color: isSelected ? '#FF1493' : 'black' }} // Highlight selected marker
+            pathOptions={{ color: isSelected ? '#FF1493' : 'black' }}
           >
             <Popup className="popup-content">{station.name}</Popup>
           </CircleMarker>

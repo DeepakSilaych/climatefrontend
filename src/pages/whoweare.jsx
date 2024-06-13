@@ -42,7 +42,7 @@ const WhoWeAre = () => {
                             <h2>Implementing Partners</h2>
                             <div className="partners">
                                 <img src={iitbLogo} alt="IIT Logo" />
-                                <img src={csLogo} alt="Climate Studies Logo" />
+                                <img src='img/cs.png' alt="Climate Studies Logo" />
                             </div>
                         </div>
                         <div className="section">

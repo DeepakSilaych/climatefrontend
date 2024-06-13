@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './styles.css';
 
 import Home from './pages/home';
@@ -15,16 +15,24 @@ import NotFound from './pages/404notfound';
 import Mobile from './pages/Mobile';
 import WhoWeAreMobile from './pages/WhoWeAreMobile';
 import TrainFloodMobile from './pages/TrainFloodMobile';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 650);
   const [warningpopup, setWarningPopup] = React.useState(true);
 
   const WarningPopup = () => {
+    const Navigate = useNavigate();
+    const handleclick = () => {
+      localStorage.setItem('selectedTab', 3);
+      window.location.reload();
+      Navigate('/');
+    };
+    
     return (
       <div className="fixed top-16 right-0 w-1/6 mt-6 mr-7 z-50">
         <div className='flex flex-col text-center'>
-          <button className="zigzag-button alert-button" onClick={() => alert('Report Flood')}>
+          <button className="zigzag-button alert-button" onClick={handleclick}>
             Report Flood in your Area!
           </button>
         </div>
@@ -51,7 +59,7 @@ function App() {
       {isMobile ? (
         <BrowserRouter>
           <HeaderMobile />
-          {warningpopup && <span className="absolute w-1/2 right-2 bottom-6 z-20"><WarningPopupMobile /></span>}
+          {warningpopup && <span className="absolute w-1/2 right-2 bottom-6 z-0"><WarningPopupMobile /></span>}
           <Routes>
             <Route path="/" element={<HomeMobile />} />
             <Route path="/train" element={<TrainFloodMobile />} />

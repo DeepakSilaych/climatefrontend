@@ -1,5 +1,4 @@
-// HomeMobile.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Map from '../components/home/crowdsource_map'; 
 import RainFallMap from '../components/home/rainfall_map';
@@ -8,22 +7,74 @@ import Form from '../components/home/form';
 import RainfallWidget from '../components/home/rainfall_wdget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
-import { RainfallLegendMobile,WaterlevelLegendMobile, TrainLegendMobile } from '../components/home/LegendsMobile';
+import { RainfallLegendMobile, WaterlevelLegendMobile, TrainLegendMobile } from '../components/home/LegendsMobile';
 
 function HomeMobile() {
     const [selectedTab, setSelectedTab] = useState(parseInt(localStorage.getItem('selectedTab')) || 1);
     const [rainfallLocations, setRainfallLocations] = useState(null);
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
+    const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
+
+
 
     const handletabChange = (tab) => {
         setSelectedTab(tab);
         localStorage.setItem('selectedTab', tab);
     }
 
+    const handleModalClose = () => {
+        setShowModal(false);
+    }
+
+    const handleDontShowAgain = () => {
+        localStorage.setItem('hideModal', 'true');
+        setShowModal(false);
+    }
+
+    const handleScroll = () => {
+        const scrollOptions = {
+            top: document.body.scrollHeight,
+            behavior: 'smooth',
+        };
+        window.scrollTo(scrollOptions);
+    };
+
+    useEffect(() => {
+        console.log(document.documentElement.scrollTop);
+    }, []);
+
     return (
         <div className='h-full w-full bg-[#f0f0f0]'>
-            <div className='w-full'>
-                <div className="mb-2 w-full mx-auto flex justify-center z-10"> {/* Ensure buttons appear above the map */}
+            {showModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded-lg text-center">
+                        <h2 className="text-xl font-bold mb-4">Important Information!</h2>
+                        <ul className="text-left mb-4">
+                            <li>1. Rainfall forecasted values (also known as 'Nowcasts') are being updated at every 1 hour, and being displayed on the Rainfall widget.</li>
+                            <li>2. Rainfall forecasts for the next 3 days are being displayed on the Rainfall widget.</li>
+                            <li>3. FORM for reporting water levels in your area is available under 'Reported Flood' tab on the Home Page.</li>
+                            <li>4. Near real time waterlogging information obtained from nine water-level sensors installed across Mumbai is available under Waterlevel widget.</li>
+                            <li>5. Our Hourly rainfall forecast model is still still under improvement.</li>
+                        </ul>
+                        <div className="flex justify-around">
+                            <button 
+                                className="bg-blue-500 text-white px-4 py-2 rounded" 
+                                onClick={handleModalClose}
+                            >
+                                OK
+                            </button>
+                            <button 
+                                className="bg-red-500 text-white px-4 py-2 rounded" 
+                                onClick={handleDontShowAgain}
+                            >
+                                Don't show again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <div className='w-full relative'>
+                <div className="absolute backdrop:mb-2 w-full mx-auto flex justify-center z-30"> {/* Ensure buttons appear above the map */}
                     <span
                         className={`h-[3rem] w-1/5 flex items-center justify-center  text-center text-sm font-serif cursor-pointer rounded-l-xl transition-all duration-300 ${
                             selectedTab === 1 ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white' : 'bg-gray-200 hover:bg-gray-300'
@@ -50,7 +101,7 @@ function HomeMobile() {
                     </span>
                 </div>
             </div>
-            <div className='w-full h-[70%] flex flex-col relative'>
+            <div className='w-full h-[70%] flex flex-col relative z-10'>
                 <MapContainer
                     className='h-full w-full'
                     center={[19.1, 72.9]}
@@ -78,7 +129,6 @@ function HomeMobile() {
                     {selectedTab === 2 && <WaterlevelLegendMobile />}
                 </MapContainer>
             </div>
-            {/* Additional components */}
             <div className='w-full h-[70%] flex flex-col relative z-20'>
                 {selectedTab === 1 && rainfallLocations && (
                     <div className="z-20 mt-2">
@@ -99,6 +149,11 @@ function HomeMobile() {
                     </div>
                 )}
             </div>
+            {/* <div className='scroll-to-top fixed bottom-2 right-5 z-50'>
+                <button onClick={handleScroll} className='rounded-full bg-white text-slate-500 py-2 px-4 hover:bg-blue-600'>
+                    Down
+                </button>
+            </div> */}
         </div>
     );
 }
