@@ -3,7 +3,6 @@ import React from 'react';
 import {useNavigate } from 'react-router-dom';
 
 const RainfallLegendMobile = () => {
-    Navigate = useNavigate();
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
@@ -52,6 +51,7 @@ const RainfallLegendMobile = () => {
 };
 
 const WaterlevelLegendMobile = () => {
+    Navigate = useNavigate();
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
