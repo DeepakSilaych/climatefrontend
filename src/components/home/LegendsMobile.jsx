@@ -51,7 +51,7 @@ const RainfallLegendMobile = () => {
 };
 
 const WaterlevelLegendMobile = () => {
-    Navigate = useNavigate();
+    const Navigate = useNavigate();
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
@@ -65,7 +65,7 @@ const WaterlevelLegendMobile = () => {
     };
 
     const itemStyle = {
-        display: 'flex',
+        display: 'flex', 
         alignItems: 'center',
         marginBottom: '3px',
     };
