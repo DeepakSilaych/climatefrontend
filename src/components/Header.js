@@ -10,7 +10,7 @@ function Header() {
         });
     }, []);
     return (    
-        <header className="h-[5rem] mx-auto shadow-xl flex flex-col justify-center bg-[#F3F8FF] w-full max overflow-hidden z-20 mb-2">
+        <header className="h-[5rem] mx-auto shadow-xl flex flex-col justify-center bg-[#F3F8FF] w-full max overflow-hidden z-50">
             <div className={`h-full flex justify-evenly ${isMobile ? 'w-full' : 'w-11/12'} mx-auto`}>
                 <div className='h-full flex gap-5 mt-[.5rem]'>
                     <Link to="https://www.iitb.ac.in/"><img src="/img/iitb copy.png" alt="logo" className='' style={{ height: '3.5rem',marginTop: '0.5rem' }}/></Link>

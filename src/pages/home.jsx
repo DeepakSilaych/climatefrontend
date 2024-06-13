@@ -7,7 +7,7 @@ import Form from '../components/home/form';
 import RainfallWidget from '../components/home/rainfall_wdget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
-import RainfallLegend from '../components/home/Legends';
+import RainfallLegend, { CrowdsourceLegends } from '../components/home/Legends';
 
 function Home() {
     const [selectedTab, setSelectedTab] = useState(parseInt(localStorage.getItem('selectedTab')) || 1);
@@ -36,7 +36,7 @@ function Home() {
     }, []);
 
     return (
-        <div className='h-full w-full bg-['>
+        <div className='h-full w-full bg-gray-300'>
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded-lg text-center w-2/3">
@@ -67,13 +67,13 @@ function Home() {
             )}
             <div className='w-full h-full'> 
                 <div className='h-full flex flex-row-reverse justify-between z-10'>
-                    <div className='h-[90%] mr-3 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-2 relative'>
+                    <div className='h-[90%] mr-3 mt-2 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-2 relative'>
                         <MapContainer
                             className='h-full w-full z-10'
                             center={[19.05, 72.9]}
-                            zoom={10}
+                            zoom={11}
                             maxZoom={18}
-                            minZoom={12}
+                            minZoom={11}
                             maxBounds={[
                                 [19.4, 72.6],
                                 [18.85, 73.2]
@@ -81,9 +81,7 @@ function Home() {
                         >
                             <TileLayer 
                                 url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=d42390ee-716f-47d9-b8e5-2b8b44c5d63f"
-                                minZoom={0}
-                                maxZoom={18}
-                                attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                attribution='Climate IIT Bombay'
                                 ext='png'
                             />
                             
@@ -92,6 +90,7 @@ function Home() {
                             {selectedTab === 3 && <Map />}
                         </MapContainer>
                         {selectedTab === 1 && <RainfallLegend />}
+                        {selectedTab === 3 && <CrowdsourceLegends />}
                         
                     </div>
                     <div className='relative w-1/3 mt-0 p-1 flex flex-col' >

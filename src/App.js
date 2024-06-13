@@ -55,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden">
+    <div className="h-screen w-screen bg-gray-300 overflow-x-hidden">
       {isMobile ? (
         <BrowserRouter>
           <HeaderMobile />

@@ -8,6 +8,7 @@ import RainfallWidget from '../components/home/rainfall_wdget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
 import { RainfallLegendMobile, WaterlevelLegendMobile, TrainLegendMobile } from '../components/home/LegendsMobile';
+import { CrowdsourceLegends } from '../components/home/Legends';
 
 function HomeMobile() {
     const [selectedTab, setSelectedTab] = useState(parseInt(localStorage.getItem('selectedTab')) || 1);
@@ -117,7 +118,7 @@ function HomeMobile() {
                         url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=d42390ee-716f-47d9-b8e5-2b8b44c5d63f"
                         minZoom={0}
                         maxZoom={18}
-                        attribution=''
+                        attribution='Climate IIT Bombay'
                         ext='png'
                     />
                     {/* Components based on selected tab */}
@@ -127,6 +128,7 @@ function HomeMobile() {
                     {/* Legends */}
                     {selectedTab === 1 && <RainfallLegendMobile />}
                     {selectedTab === 2 && <WaterlevelLegendMobile />}
+                    {selectedTab === 3 && <CrowdsourceLegends />}
                 </MapContainer>
             </div>
             <div className='w-full h-[70%] flex flex-col relative z-20'>

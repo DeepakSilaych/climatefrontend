@@ -173,17 +173,23 @@ const dailyPredictionChartData = (data) => {
 
 // Function to determine color based on rainfall value
 function getColor(rainfall) {
-    if (rainfall > 124.4) {
-        return "#FF0000"; // Red
+    if (rainfall > 204.5) {
+        return 'color: #FF0000;'; // Red
     }
-    else if (rainfall >= 75.6 && rainfall <= 124.4) {
-        return "orange"; // Orange
-    } else if (rainfall >= 35.6 && rainfall <= 75.5) {
-        return "yellow"; // Orange
-    } else if (rainfall >= 7.5 && rainfall <= 35.5) {
-        return "green"; // Yellow
-    } else {
-        return "cornflowerblue"; // Green
+    else if (rainfall > 115.5) {
+        return 'color: #FFA500;'; // Orange
+    }
+    else if (rainfall > 64.4) {
+        return 'color: #FFFF00;'; // Yellow
+    }
+    else if (rainfall > 15.5) {
+        return 'color: #87CEEB;'; // Skyblue
+    }
+    else if (rainfall > 0) {
+        return 'color: #90EE90;'; // Lightgreen
+    }
+    else {
+        return 'color: #D4D4D4;'; // Grey
     }
 }
 

@@ -27,7 +27,7 @@ function TrainFloodMobile() {
         <MapContainer
           className='h-full w-full z-10'
           center={[19.1, 72.9]}
-          zoom={13}
+          zoom={11}
           maxZoom={18}
           minZoom={11}
           maxBounds={[
@@ -37,7 +37,7 @@ function TrainFloodMobile() {
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            maxZoom={19}
+            attribution='Climate IIT Bombay'
           />
           {data && data.map((station, index) => {
             let color;

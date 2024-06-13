@@ -48,18 +48,27 @@ export default function RainFallMap({ location, setLocations }) {
     <div className="h-full w-full relative">
       {stations.map((station, index) => {
         let color;
-        if (station.curr_rainfall < 10) {
-          color = 'lightgreen';
-        } else if (station.curr_rainfall < 20) {
-          color = 'yellow';
-        } else if (station.curr_rainfall < 30) {
-          color = 'orange';
-        } else {
+        if (station.rainfall > 204.4) {
           color = 'red';
+        }
+        else if (station.rainfall > 115.5) {
+          color = 'orange';
+        }
+        else if (station.rainfall > 64.4) {
+          color = 'yellow';
+        }
+        else if (station.rainfall > 15.5) {
+          color = 'skyblue';
+        }
+        else if (station.rainfall > 0) {
+          color = 'lightgreen';
+        }
+        else {
+          color = 'grey';
         }
 
         const isSelected = selectedMarker === station;
-        const radius = isSelected ? 16 : 8; // Increase radius if selected
+        const radius = isSelected ? 16 : 8; 
 
         return (
           <CircleMarker
@@ -75,7 +84,7 @@ export default function RainFallMap({ location, setLocations }) {
               mouseout: () => handleMarkerMouseOut(station) 
             }}
             ref={el => markerRefs.current[station.id] = el}
-            pathOptions={{ color: isSelected ? '#FF1493' : 'black' }}
+            pathOptions={{ color: isSelected ? 'white' : 'black' }}
           >
             <Popup className="popup-content">{station.name}</Popup>
           </CircleMarker>

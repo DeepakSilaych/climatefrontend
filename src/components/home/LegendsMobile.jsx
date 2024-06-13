@@ -40,12 +40,12 @@ const RainfallLegendMobile = () => {
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
             <h4>RAINFALL (tomorrow)</h4>
-            <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain</div>
-            <div style={itemStyle}><span style={colorBoxStyle('cornflowerblue')}></span> Light Rain: 0.1 - 7.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span> Moderate Rain: 7.6 - 35.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> Heavy Rain: 35.6 - 75.5 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> Very Heavy Rain: 75.6 - 124.4 mm</div>
-            <div style={itemStyle}><span style={colorBoxStyle('red')}></span> Extreme Rain: 124.5 mm & above</div>
+            <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain (0mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span> Light Rain (0.1 - 15.5 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('skyblue')}></span> Moderate Rain (15.6 - 64.4 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> Heavy Rain (64.5 - 115.5 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> Very Heavy Rain (115.6 - 204.4 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('red')}></span> Extremely Heavy Rain (&gt;= 204.5 mm)</div>
             <div className='w-100 flex flex-col justify-evenly mx-0'>
                     <div className='flex flex-col text-center text-xs'>
                         <button className=" zigzag-button alert-button" onClick={handleclick}>
@@ -136,7 +136,9 @@ const TrainLegendMobile = () => {
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
-            <h4>Waterlevel Warning (Approx)</h4>
+            <h4>
+                Real-time Rainfall at Railway Stations (mm)
+            </h4>
             <div style={itemStyle}><span style={colorBoxStyle('green')}></span> 0 - 10mm </div>
             <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> 10 - 15mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> 15 - 20mm</div>
@@ -144,5 +146,6 @@ const TrainLegendMobile = () => {
         </div>
     );
 };
+
 
 export { RainfallLegendMobile,WaterlevelLegendMobile, TrainLegendMobile };
