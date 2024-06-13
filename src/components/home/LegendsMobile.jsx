@@ -3,6 +3,7 @@ import React from 'react';
 import {useNavigate } from 'react-router-dom';
 
 const RainfallLegendMobile = () => {
+    const Navigate = useNavigate();
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
@@ -30,6 +31,12 @@ const RainfallLegendMobile = () => {
         background
     });
 
+    const handleclick = () => {
+        localStorage.setItem('selectedTab', 3);
+        window.location.reload();
+        Navigate('/');
+      };
+
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
             <h4>RAINFALL (tomorrow)</h4>
@@ -41,7 +48,7 @@ const RainfallLegendMobile = () => {
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span> Extreme Rain: 124.5 mm & above</div>
             <div className='w-100 flex flex-col justify-evenly mx-0'>
                     <div className='flex flex-col text-center text-xs'>
-                        <button className=" zigzag-button alert-button" onClick={() => alert('Report Flood')}>
+                        <button className=" zigzag-button alert-button" onClick={handleclick}>
                             Report Flood
                         </button>
                     </div>
