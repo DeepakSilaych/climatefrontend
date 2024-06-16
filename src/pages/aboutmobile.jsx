@@ -10,7 +10,8 @@ import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
 
-const WhoWeAreMobile = () => {
+const AboutMobile
+ = () => {
     return (
         <>
             
@@ -89,4 +90,5 @@ const WhoWeAreMobile = () => {
     );
 };
 
-export default WhoWeAreMobile;
+export default AboutMobile
+;

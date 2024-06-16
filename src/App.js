@@ -9,13 +9,13 @@ import TrainFlood from './pages/trainflood';
 import Past from './pages/past';
 import Header from './components/Header';
 import HeaderMobile from './components/HeaderMobile';
-import WhoWeAre from './pages/whoweare';
 import BlogPage from './pages/BlogPage';
 import NotFound from './pages/404notfound';
 import Mobile from './pages/Mobile';
-import WhoWeAreMobile from './pages/WhoWeAreMobile';
 import TrainFloodMobile from './pages/TrainFloodMobile';
 import { useNavigate } from 'react-router-dom';
+import About from './pages/about';
+import AboutMobile from './pages/aboutmobile';
 
 function App() {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 650);
@@ -63,7 +63,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeMobile />} />
             <Route path="/train" element={<TrainFloodMobile />} />
-            <Route path="/about" element={<WhoWeAreMobile />} />
+            <Route path="/about" element={<AboutMobile />} />
             <Route path="/past" element={<Past />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="*" element={<NotFound />} />
@@ -76,7 +76,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/train" element={<TrainFlood />} />
-            <Route path="/about" element={<WhoWeAre />} />
+            <Route path="/about" element={<About />} />
             <Route path="/past" element={<Past />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="*" element={<NotFound />} />

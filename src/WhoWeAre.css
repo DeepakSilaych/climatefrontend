@@ -74,8 +74,8 @@ body, html {
 }
 
 .iit-team p {
-    font-size: 0.9em;
-    color: gray;
+    font-size: 1em;
+    /* color: #5a5a5a; */
     margin-top: 10px;
     font-style: italic;
 }
