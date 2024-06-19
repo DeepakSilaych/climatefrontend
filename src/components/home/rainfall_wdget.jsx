@@ -98,7 +98,7 @@ const barChartOptions = {
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "white", fontSize: 8 }, 
-        minValue: 0, // Start the y-axis from 0
+        minValue: 0, 
         gridlines: { count: 0, color: 'transparent', width: '1px' },
         baselineColor: 'white',
     },
@@ -141,7 +141,7 @@ const dailyPredictionOptions = {
 
 // Transform API data for rainfall bar chart
 const rainfallBarChartData = (data) => [
-    ["Time", "Rainfall (Past 6 hrs)", "Rainfall (Next 24 hrs)", { role: 'style' }],
+    ["Time", "Observed Rainfall", "Forecasted Rainfall", { role: 'style' }],
     ...data.hrly_data.map((item, index) => [
         item.hour, // Extract time
         index < 6 ? item.total_rainfall : 0, 
@@ -156,7 +156,7 @@ const dailyPredictionChartData = (data) => {
     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
 
     return [
-        ["Day", "Observed", { role: "style" }],
+        ["Day", "Observed",  { role: "style" }],
         ...Object.entries(data.daily_data).map(([date, total_rainfall]) => {
             const currentDate = new Date(date);
             currentDate.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison

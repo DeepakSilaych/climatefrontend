@@ -28,7 +28,7 @@ const About = () => {
                         We are also in the process of installing nine water-level monitoring stations at different flood-prone hotspots across Mumbai. These stations will display near-real-time waterlogging scenarios during monsoon. For complete details, visit the <em>Water level</em> tab on the Home Page.
                         <br/>
                         <br/>
-                        Join us in this initiative to help Mumbai manage its day-to-day life during monsoon. Report flood in your area using  <Link to="" className='underline'>THIS</Link> form. Help us help you.
+                        Join us in this initiative to help Mumbai manage its day-to-day life during monsoon. Report flood in your area using  <a to="" className='underline'>THIS</a> form. Help us help you.
                     </p>
                 </div>
             </section>
@@ -63,48 +63,48 @@ const About = () => {
                         <div className="iit-team">
                             <br></br>
                             <h2>IIT Bombay Team</h2>
-                            <Link href="https://www.linkedin.com/in/subimal-ghosh-640b46a/" className='flex hover:underline' to="">
+                            <a href="https://www.linkedin.com/in/subimal-ghosh-640b46a/" className='flex hover:underline' to="">
                                 Prof. Subimal Ghosh
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="https://www.linkedin.com/in/raghu-murtugudde-b1438a3b/" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.linkedin.com/in/raghu-murtugudde-b1438a3b/" className='flex hover:underline' to="">
                                 Prof. Raghu Murtugudde
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="https://www.linkedin.com/in/aniket-navalkar-4805bb3a/" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.linkedin.com/in/aniket-navalkar-4805bb3a/" className='flex hover:underline' to="">
                                 Dr. Aniket Navalkar
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="https://www.linkedin.com/in/mayank-gupta-b32a3225/" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.linkedin.com/in/mayank-gupta-b32a3225/" className='flex hover:underline' to="">
                                 Dr. Mayank Gupta
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="https://www.linkedin.com/in/dr-sanghita-basu-73190b60/" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.linkedin.com/in/dr-sanghita-basu-73190b60/" className='flex hover:underline' to="">
                                 Dr. Sanghita Basu
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.facebook.com/archismita.banerjee.5" className='flex hover:underline' to="">
                                 Archismita Banerjee
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="https://www.linkedin.com/in/puja-tripathy-82a324173/" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.linkedin.com/in/puja-tripathy-82a324173/" className='flex hover:underline' to="">
                                 Puja Tripathy
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
-                            <Link href="https://www.linkedin.com/in/sheeba-sekharan/" className='flex hover:underline' to="">
+                            </a>
+                            <a href="https://www.linkedin.com/in/sheeba-sekharan/" className='flex hover:underline' to="">
                                 Sheeba Sekharan
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                            </Link>
+                            </a>
                             <p className='text-gray-500'>
                                 Website & App developed by IIT Bombay students: <br/>
-                                <Link className='pl-8 flex text-gray-500 hover:text-black hover:underline ' href="https://www.linkedin.com/in/deepaksilaych/">
+                                <a className='pl-8 flex text-gray-500 hover:text-black hover:underline ' href="https://www.linkedin.com/in/deepaksilaych/">
                                     Deepak Silaych
                                     <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                                </Link>
-                                <Link href='https://www.linkedin.com/in/gulshan-kumar-69b54b25b/' className='pl-8 flex text-gray-500 hover:text-black hover:underline ' >
+                                </a>
+                                <a href='https://www.linkedin.com/in/gulshan-kumar-69b54b25b/' className='pl-8 flex text-gray-500 hover:text-black hover:underline ' >
                                     Gulshan Kumar 
                                     <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
-                                </Link>
+                                </a>
                             </p>
                         </div>
                     </div>

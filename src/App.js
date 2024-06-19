@@ -25,8 +25,7 @@ function App() {
     const Navigate = useNavigate();
     const handleclick = () => {
       localStorage.setItem('selectedTab', 3);
-      window.location.reload();
-      Navigate('/');
+      window.location.href = '/'; 
     };
     
     return (

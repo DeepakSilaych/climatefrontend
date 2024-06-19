@@ -15,6 +15,9 @@ function Home() {
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
 
+    useEffect(() => {
+        setSelectedTab(parseInt(localStorage.getItem('selectedTab')) || 1);
+    }, [localStorage.getItem('selectedTab')]);
     const handletabChange = (tab) => {
         setSelectedTab(tab);
         localStorage.setItem('selectedTab', tab);
