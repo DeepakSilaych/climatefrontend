@@ -151,26 +151,34 @@ const rainfallBarChartData = (data) => [
 ];
 
 // Transform API data for daily prediction chart
-const dailyPredictionChartData = (data) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+// const dailyPredictionChartData = (data) => {
+//     const today = new Date();
+//     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
 
-    return [
-        ["Day", "Observed",  { role: "style" }],
-        ...Object.entries(data.daily_data).map(([date, total_rainfall]) => {
-            const currentDate = new Date(date);
-            currentDate.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
-            const isPastDate = currentDate < today;
-            return [
-                currentDate.toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Format date
-                total_rainfall,
-                isPastDate ? 'color: #D4D4D4;' : // Grey color for past dates
-                (total_rainfall === 0 ? 'stroke-color: gray; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
-            ];
-        })
-    ];
-};
-
+//     return [
+//         ["Day", "Predicted",  { role: "style" }],
+//         ...Object.entries(data.daily_data).map(([date, total_rainfall]) => {
+//             const currentDate = new Date(date);
+//             currentDate.setHours(16, 0, 0, 0); // Set time to midnight for accurate comparison
+//             const isPastDate = currentDate < today;
+//             return [
+//                 currentDate.toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Format date
+//                 total_rainfall,
+//                 isPastDate ? 'color: #D4D4D4;' : // Grey color for past dates
+//                 (total_rainfall === 0 ? 'stroke-color: gray; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
+//             ];
+//         })
+//     ];
+// };
+const dailyPredictionChartData = (data) => [
+    ["Day", "Observered", { role: "style" }],
+    ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
+        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Use date for daily data
+        total_rainfall, 
+        index < 3 ? 'color: #D4D4D4;' : // Grey color for the first three bars
+        (total_rainfall === 0 ? 'stroke-color: #FF0000; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
+    ])
+];
 // Function to determine color based on rainfall value
 function getColor(rainfall) {
     if (rainfall > 204.5) {
