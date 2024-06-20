@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchLocationData, sendFormData } from '../../utils/crowdSourceAPI';
 import { use } from 'i18next';
 import Feedback from 'react-bootstrap/esm/Feedback';
+import { set } from 'react-ga';
 
-function Form() {
+function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinToggle} ) {
     const [feet, setFeet] = useState(null);
     const [inches, setInches] = useState(null);
     const [waterlevelfactor, setWaterlevelfactor] = useState(0);
@@ -11,11 +12,10 @@ function Form() {
     const [feedback, setFeedback] = useState('');
     const [message, setMessage] = useState('');
     const [activeOption, setActiveOption] = useState(0);
-    const [gpslocation, setGpsLocation] = useState(null)
-
+    const [gpslocation, setGpsLocation] = useState(null);
 
     const handleSubmit = async (event) => {
-        if (waterlevelfactor == 0) {
+        if (waterlevelfactor === 0) {
             setMessage('Please select water level!!!');
             return;
         }
@@ -31,12 +31,15 @@ function Form() {
         }
 
         event.preventDefault();
-        const waterLevelAdjusted = waterlevelfactor * (30.48 * parseInt(feet) + 2.54 * parseInt(inches));
 
         if (gpslocation) {
-            sendData({ waterLevelAdjusted, latitude: gpslocation.lat, longitude: gpslocation.long });
-        } else {
-            sendData({ waterLevelAdjusted, latitude: null, longitude: null });
+            sendData({latitude: gpslocation.lat, longitude: gpslocation.long });
+        } 
+        if (csPinToggle && csPinDropLocation) {
+            sendData({latitude: csPinDropLocation.lat, longitude: csPinDropLocation.long });
+        }
+        else {
+            sendData({latitude: null, longitude: null });
         }
     };
 
@@ -44,7 +47,8 @@ function Form() {
         console.log('data:', data);
 
         const sendata = {
-            waterlevel: data.waterLevelAdjusted,
+            feet : feet,
+            inch : inches,
             location: location,
             latitude: data.latitude,
             longitude: data.longitude,
@@ -67,33 +71,65 @@ function Form() {
         setActiveOption(option);
     };
 
+    const handlePinDropToggle = () => {
+        if (!gpslocation) {
+            setCsPinToggle(!csPinToggle);
+            setCsPinDropLocation(null);
+            setLocation('');
+        }
+
+    };
+
     const getgps = () => {
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
+        if (!csPinToggle){
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    try {
+                        const curr_location = await fetchLocationData({ lat: position.coords.latitude, long: position.coords.longitude });
+                        setLocation(curr_location);
+                        setGpsLocation({ lat: position.coords.latitude, long: position.coords.longitude });
+                        console.log('Current location:', curr_location);
+                    } catch (error) {
+                        console.error('Error fetching location data:', error);
+                    }
+                },
+                (error) => {
+                    console.error('Error getting GPS location:', error);
+                }
+            );
+        }
+    }
+
+    useEffect(() => {
+        if (csPinToggle) {
+            (async () => {
                 try {
-                    const curr_location = await fetchLocationData({ lat: position.coords.latitude, long: position.coords.longitude });
+                    const curr_location = await fetchLocationData({ lat: csPinDropLocation.lat, long: csPinDropLocation.long });
                     setLocation(curr_location);
-                    setGpsLocation({ lat: position.coords.latitude, long: position.coords.longitude });
                     console.log('Current location:', curr_location);
-                } catch (error) {
+                }
+                catch (error) {
                     console.error('Error fetching location data:', error);
                 }
-            },
-            (error) => {
-                console.error('Error getting GPS location:', error);
-            }
-        );
-    }
+            })();
+        }
+    }, [csPinToggle, csPinDropLocation]);
+
 
     return (
         <div className="max-w-xl mx-auto px-6 py-2 bg-black rounded-lg  bg-opacity-80">
             <h1 className="text-3xl text-center font-semibold mb-6 text-white">Submit Data</h1>
             <div className='flex flex-col justify-stretch'>
                 {gpslocation ?
-                    <button className="bg-blue-400 text-blue-100 py-1 px-0 rounded-md mb-4">using current location...</button>
+                    <button className="bg-blue-700 text-blue-100 py-1 px-0 rounded-md mb-4">using current location...</button>
                     :
-                    <button onClick={getgps} className="bg-blue-500 text-white py-1 px-0 rounded-md hover:bg-blue-600 mb-4">Use my current location</button>
+                    <button onClick={getgps} className={`${csPinToggle ? 'bg-blue-300 disabled cursor-default' : 'pointer bg-blue-500 hover:bg-blue-600 '} text-white py-1 px-0 rounded-md mb-4`}>Use my current location</button>
                 }
+                <button onClick={handlePinDropToggle} className={`${gpslocation ? 'bg-blue-300 disabled cursor-default' : csPinToggle ? 'bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white py-1 px-0 rounded-md mb-4`}>
+                    {csPinToggle ? 'Close' : 'Use location from map'}
+                </button>
+
+
                 <div className="flex items-center " >
                     <label htmlFor="height" className="block h-full text-white flex-col justify-center mr-4 mb-4">Your Height:</label>
 

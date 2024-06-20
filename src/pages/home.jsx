@@ -15,6 +15,9 @@ function Home() {
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
 
+    const [csPinToggle, setCsPinToggle] = useState(false);
+    const [csPinDropLocation, setCsPinDropLocation] = useState(null);
+
     // useEffect(() => {
     //     setSelectedTab(parseInt(localStorage.getItem('selectedTab')) || 1);
     // }, [localStorage.getItem('selectedTab')]);
@@ -91,10 +94,10 @@ function Home() {
                             
                             {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                             {selectedTab === 2 && <WaterlevelMap />}
-                            {selectedTab === 3 && <Map />}
+                            {selectedTab === 3 && <Map csPinToggle={csPinToggle} csPinDropLocation={csPinDropLocation} setCsPinDropLocation={setCsPinDropLocation} />}
                         </MapContainer>
                         {selectedTab === 1 && <RainfallLegend />}
-                        {selectedTab === 3 && <CrowdsourceLegends />}
+                        {selectedTab === 3 && <CrowdsourceLegends csPinToggle={csPinToggle} />}
                         
                     </div>
                     <div className='relative w-1/3 mt-0 p-1 flex flex-col' >
@@ -140,7 +143,7 @@ function Home() {
 
                         {selectedTab === 3 && (
                             <div className='z-20 mt-0'>
-                                <Form />
+                                <Form setCsPinDropLocation={setCsPinDropLocation} csPinDropLocation={csPinDropLocation} setCsPinToggle={setCsPinToggle} csPinToggle={csPinToggle} />
                             </div>
                         )}
                     </div>
