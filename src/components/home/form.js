@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLocationData, sendFormData } from '../../utils/crowdSourceAPI';
-import { use } from 'i18next';
-import Feedback from 'react-bootstrap/esm/Feedback';
-import { set } from 'react-ga';
 
 function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinToggle} ) {
     const [feet, setFeet] = useState(null);
@@ -32,14 +29,19 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
 
         event.preventDefault();
 
+        ajustedwaterlevel = ( feet * 12 + inches ) * waterlevelfactor;
+
+        adjusted_feet = Math.floor(ajustedwaterlevel / 12);
+        adjusted_inches = ajustedwaterlevel % 12;
+
         if (gpslocation) {
-            sendData({latitude: gpslocation.lat, longitude: gpslocation.long });
+            sendData({latitude: gpslocation.lat, longitude: gpslocation.long, feet: adjusted_feet, inch: adjusted_inches });
         } 
         if (csPinToggle && csPinDropLocation) {
-            sendData({latitude: csPinDropLocation.lat, longitude: csPinDropLocation.long });
+            sendData({latitude: csPinDropLocation.lat, longitude: csPinDropLocation.long, feet: adjusted_feet, inch: adjusted_inches })
         }
         else {
-            sendData({latitude: null, longitude: null });
+            sendData({latitude: null, longitude: null, feet: adjusted_feet, inch: adjusted_inches });
         }
     };
 
