@@ -83,7 +83,7 @@ const TrainLegends = () => {
     );
 }
 
-const CrowdsourceLegends = () => {
+const CrowdsourceLegends = ({csPinToggle}) => {
     const legendStyle = {
         position: 'absolute',
         bottom: '10px',
@@ -115,10 +115,19 @@ const CrowdsourceLegends = () => {
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
+        {!csPinToggle ?
             <div>
                 <h4>Reported Water Level</h4>
                 <img src={waterLevelIcon} alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
             </div>
+            :
+            <div> 
+                <h1>
+                    Click on Map to Report Water Level
+                </h1>
+            </div>
+        }
+        
            
         </div>
     );
