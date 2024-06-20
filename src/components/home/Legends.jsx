@@ -1,4 +1,5 @@
 import React from 'react';
+import waterLevelIcon from './csl.jpeg';
 
 const RainfallLegend = () => {
     const legendStyle = {
@@ -92,12 +93,14 @@ const CrowdsourceLegends = () => {
         borderRadius: '5px',
         boxShadow: '0 0 15px rgba(0, 0, 0, 0.2)',
         fontSize: '12px',
+        display: 'flex', // Ensure the container is flex to align items
+        alignItems: 'center',
     };
 
     const itemStyle = {
         display: 'flex',
         alignItems: 'center',
-        // marginBottom: '5px',
+        marginBottom: '5px',
     };
 
     const colorBoxStyle = (background) => ({
@@ -105,47 +108,18 @@ const CrowdsourceLegends = () => {
         width: '20px',
         height: '20px',
         marginRight: '5px',
-        // borderRadius: '3px',
-        // border: '1px solid #000',
         background
     });
 
-    const interpolateColor = (color1, color2, factor) => {
-        const result = color1.slice();
-        for (let i = 0; i < 3; i++) {
-            result[i] = Math.round(result[i] + factor * (color2[i] - result[i]));
-        }
-        return result;
-    };
-
-    const rgbToHex = (rgb) => {
-        return `#${((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1)}`;
-    };
-
-    const hexToRgb = (hex) => {
-        const bigint = parseInt(hex.slice(1), 16);
-        return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
-    };
-
-    const lowColor = hexToRgb("#00FF00");
-    const highColor = hexToRgb("#FF0000");
-
-    const gradientStops = 10;
-    const gradient = Array.from({ length: gradientStops + 1 }, (_, i) => {
-        const factor = i / gradientStops;
-        const color = interpolateColor(lowColor, highColor, factor);
-        return rgbToHex(color);
-    });
+   
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
-            <h4>Reported WaterLevel (mm) </h4>
-            {gradient.map((color, index) => (
-                <div key={index} style={itemStyle}>
-                    <span style={colorBoxStyle(color)}></span>
-                    <span>{`${index * 10} mm`}</span>
-                </div>
-            ))}
+            <div>
+                <h4>Reported Water Level</h4>
+                <img src={waterLevelIcon} alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
+            </div>
+           
         </div>
     );
 };

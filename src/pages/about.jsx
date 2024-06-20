@@ -6,6 +6,7 @@ import iitbLogo from '../iitb.png';
 import csLogo from '../icons/cs.png';
 import hdfcLogo from '../icons/hdfc.png';
 import mcmrLogo from '../icons/mcmbg.png';
+import bmc from '../icons/bmc.png';
 
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
@@ -35,7 +36,7 @@ const About = () => {
             <div className="who-we-are h-full">
                 
                 <h1>WHO WE ARE</h1>
-                <div className="content">
+                <div className="content bg-white">
                     <div className="left-section">
                         <div className="section">
                             <br></br>
@@ -56,6 +57,12 @@ const About = () => {
                             <h2>Project Partner</h2>
                             <div className="partners">
                                 <img src={mcmrLogo} alt="MCGM Center Logo" />
+                            </div>
+                        </div>
+                        <div className="section">
+                            <h2>Data Partner</h2>
+                            <div className="partners">
+                                <img src={bmc} alt="MCGM Center Logo" />
                             </div>
                         </div>
                     </div>
@@ -95,6 +102,27 @@ const About = () => {
                                 Sheeba Sekharan
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
                             </a>
+                            <a href="https://www.linkedin.com/in/shrabani-tripathy-37979310b/" className='flex hover:underline' to="">
+                                Dr. Shrabani Tripathy
+                                <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
+                            </a>
+                            <a href="https://www.linkedin.com/in/sautrik-chaudhuri-094064141/" className='flex hover:underline' to="">
+                                Sautrik Chaudhuri
+                                <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
+                            </a>
+                            <a href="https://www.linkedin.com/in/jisha-joseph-33a5b7aa/" className='flex hover:underline' to="">
+                                Dr. Jisha Joseph
+                                <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
+                            </a>
+                            <a href="https://www.linkedin.com/in/deepaksilaych/" className='flex hover:underline' to="">
+                            Deepak Silaych
+                                <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
+                            </a>
+                            <a href="https://www.linkedin.com/in/gulshan-kumar-69b54b25b/" className='flex hover:underline' to="">
+                            Gulshan Kumar 
+                                <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
+                            </a>
+
                             <p className='text-gray-500'>
                                 Website & App developed by IIT Bombay students: <br/>
                                 <a className='pl-8 flex text-gray-500 hover:text-black hover:underline ' href="https://www.linkedin.com/in/deepaksilaych/">

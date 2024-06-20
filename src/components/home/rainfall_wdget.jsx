@@ -97,58 +97,75 @@ const barChartOptions = {
     vAxis: { 
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
-        textStyle: { color: "white", fontSize: 8 }, 
-        minValue: 0, 
-        gridlines: { count: 0, color: 'transparent', width: '1px' },
+        textStyle: { color: "white", fontSize: 8 },
+        gridlines: { count: 3, color: 'grey', width: '1px' },
         baselineColor: 'white',
+        viewWindow: {
+            min: 0,
+            max: 30
+        }
     },
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#00ffff'],
-    isStacked: true,
+    colors: ['#D4D4D4', '#00ffff'], // Colors for observed and forecasted rainfall
+    isStacked: false,
 };
 
 
 
+
 const dailyPredictionOptions = {
-    title: "Daily Rainfall Forecast ",
+    title: "Daily Rainfall Forecast",
     titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
         slantedTextAngle: 0,
-        textStyle: { color: "#fff", fontSize: 8 },
-        gridlines: { color: 'white' } ,
-        
+        gridlines: { color: 'white' },
         baselineColor: 'white',
     },
     vAxis: { 
         title: "Rainfall (mm)",  
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "#fff", fontSize: 8 },
-        minValue: 0,
-        gridlines: { color: 'none' } ,
-        gridlines: { count: 5, color: 'transparent', width: '1px' },
+        
+        gridlines: {count: 6, color: 'grey' },
         baselineColor: 'white',
+        viewWindow: {
+            min: '<2',
+            max: 250
+        }
     },
-    chartArea: { width: "75%", height: "50%" },
+    annotations: {
+        alwaysOutside: true,
+        textStyle: {
+            fontSize: 10,
+            color: '#fff',
+            auraColor: 'none',
+        },
+    },
+    series: {
+        0: { annotations: { stem: { length: 12 } } },
+    },
+    chartArea: { width: "75%", height: "70%" },
     backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'left', left: '0', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    // legend: { position: 'bottom', alignment: 'left', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
     colors: ['#D4D4D4', '#00ffff'],
     isStacked: true,
 };
 
+
 // Transform API data for rainfall bar chart
 const rainfallBarChartData = (data) => [
-    ["Time", "Observed Rainfall", "Forecasted Rainfall", { role: 'style' }],
+    ["Time", "Observed Rainfall", "Forecasted Rainfall"],
     ...data.hrly_data.map((item, index) => [
         item.hour, // Extract time
-        index < 6 ? item.total_rainfall : 0, 
-        index >= 6 ? item.total_rainfall : 0,
-        item.total_rainfall === 0 ? 'point { size: 10; shape-type: star; fill-color: #FF0000; }' : null // Style for zero rainfall
+        index < 6 ? item.total_rainfall : null, 
+        index >= 6 ? item.total_rainfall : null
     ])
 ];
+
 
 // Transform API data for daily prediction chart
 // const dailyPredictionChartData = (data) => {
@@ -171,14 +188,15 @@ const rainfallBarChartData = (data) => [
 //     ];
 // };
 const dailyPredictionChartData = (data) => [
-    ["Day", "Observered", { role: "style" }],
+    ["Day", "Rainfall (in mm)", { role: "style" }, { role: "annotation" }],
     ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
-        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Use date for daily data
+        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Format date
         total_rainfall, 
-        index < 3 ? 'color: #D4D4D4;' : // Grey color for the first three bars
-        (total_rainfall === 0 ? 'stroke-color: #FF0000; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
+        index < 3 ? 'color: #D4D4D4;' : getColor(total_rainfall), // Grey color for the first three bars
+        index === 2 ? "Observed" : (index === 3 ? "Predicted" : null) // Add custom annotation
     ])
 ];
+
 // Function to determine color based on rainfall value
 function getColor(rainfall) {
     if (rainfall > 204.5) {
@@ -219,7 +237,7 @@ function DailyPredictionChart({ data }) {
         <Chart
             chartType="ColumnChart"
             width="100%"
-            height="150px"
+            height="200px"
             data={dailyPredictionChartData(data)}
             options={dailyPredictionOptions}
             className='bg-black bg-opacity-20 rounded-xl mt-2'
