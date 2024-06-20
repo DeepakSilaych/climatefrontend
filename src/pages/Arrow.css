@@ -1,0 +1,42 @@
+/* components/Arrow.css */
+/* styles.css */
+html {
+    scroll-behavior: smooth;
+  }
+  
+.arrow-container {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    z-index: 50;
+    cursor: pointer;
+  }
+  
+  .arrow {
+    width: 30px;
+    height: 30px;
+    border-left: 5px solid black;
+    border-bottom: 5px solid black;
+    transform: rotate(0deg);
+    transition: transform 0.3s;
+  }
+  
+  .arrow-down {
+    transform: rotate(315deg);
+  }
+  
+  .arrow-up {
+    transform: rotate(495deg);
+  }
+  
+  
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  

@@ -8,10 +8,10 @@ const RainfallLegendMobile = () => {
         position: 'absolute',
         bottom: '10px',
         left: '10px',
-        background: 'rgba(255, 255, 255, 0.8)',
+        background: 'rgba(255, 255, 255, 255)',
         padding: '5px',
         borderRadius: '5px',
-        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.9)',
         fontSize: '6px',
         zIndex: 1000,
     };
@@ -38,7 +38,7 @@ const RainfallLegendMobile = () => {
       };
 
     return (
-        <div style={legendStyle} className='z-30 font-merriweather'>
+        <div style={legendStyle} className='z-30 font-merriweather opacity-100'>
             <h4>RAINFALL (tomorrow)</h4>
             <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain (0mm)</div>
             <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span> Light Rain (0.1 - 15.5 mm)</div>
@@ -48,7 +48,7 @@ const RainfallLegendMobile = () => {
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span> Extremely Heavy Rain (&gt;= 204.5 mm)</div>
             <div className='w-100 flex flex-col justify-evenly mx-0'>
                     <div className='flex flex-col text-center text-xs'>
-                        <button className=" zigzag-button alert-button" onClick={handleclick}>
+                        <button className="  alert-button" onClick={handleclick}>
                             Report Flood
                         </button>
                     </div>

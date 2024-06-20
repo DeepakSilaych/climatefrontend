@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Map from '../components/home/crowdsource_map'; 
 import RainFallMap from '../components/home/rainfall_map';
@@ -10,13 +10,14 @@ import SearchBar from '../components/home/searchbar';
 import { RainfallLegendMobile, WaterlevelLegendMobile, TrainLegendMobile } from '../components/home/LegendsMobile';
 import { CrowdsourceLegends } from '../components/home/Legends';
 
+
 function HomeMobile() {
-    const [selectedTab, setSelectedTab] = useState(parseInt( 1));
+    const [selectedTab, setSelectedTab] = useState(1);
     const [rainfallLocations, setRainfallLocations] = useState(null);
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
-
-
+    
+    const widgetContainerRef = useRef(null);
 
     const handletabChange = (tab) => {
         setSelectedTab(tab);
@@ -33,11 +34,9 @@ function HomeMobile() {
     }
 
     const handleScroll = () => {
-        const scrollOptions = {
-            top: document.body.scrollHeight,
-            behavior: 'smooth',
-        };
-        window.scrollTo(scrollOptions);
+        if (widgetContainerRef.current) {
+            widgetContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     useEffect(() => {
@@ -101,6 +100,11 @@ function HomeMobile() {
                     >
                         Reported Flood
                     </span>
+                    <div className='absolute scroll-to-top  top-96 right-2 z-30'>
+                <button onClick={handleScroll} className='rounded-full bg-red-500 text-white text-sm py-2 px-4 alert-button'>
+                    Scroll Down
+                </button>
+            </div>
                 </div>
             </div>
             <div className='w-full h-[70%] flex flex-col relative z-10'>
@@ -123,6 +127,7 @@ function HomeMobile() {
                         ext='png'
                     />
                     {/* Components based on selected tab */}
+                    
                     {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                     {selectedTab === 2 && <WaterlevelMap />}
                     {selectedTab === 3 && <Map />}
@@ -130,9 +135,11 @@ function HomeMobile() {
                     {selectedTab === 1 && <RainfallLegendMobile />}
                     {selectedTab === 2 && <WaterlevelLegendMobile />}
                     {selectedTab === 3 && <CrowdsourceLegends />}
+                    
                 </MapContainer>
             </div>
-            <div className='w-full h-[70%] flex flex-col relative z-20'>
+            <div className='w-full h-[70%] flex flex-col relative z-20' ref={widgetContainerRef}>
+            
                 {selectedTab === 1 && rainfallLocations && (
                     <div className="z-20 mt-2">
                         <SearchBar selectedOption={rainfallLocations} setSelectedOption={setRainfallLocations} />
@@ -152,11 +159,7 @@ function HomeMobile() {
                     </div>
                 )}
             </div>
-            {/* <div className='scroll-to-top fixed bottom-2 right-5 z-50'>
-                <button onClick={handleScroll} className='rounded-full bg-white text-slate-500 py-2 px-4 hover:bg-blue-600'>
-                    Down
-                </button>
-            </div> */}
+            
         </div>
     );
 }
