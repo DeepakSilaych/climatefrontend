@@ -11,6 +11,7 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
     const [activeOption, setActiveOption] = useState(0);
     const [gpslocation, setGpsLocation] = useState(null);
 
+
     const handleSubmit = async (event) => {
         if (waterlevelfactor === 0) {
             setMessage('Please select water level!!!');
@@ -29,10 +30,10 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
 
         event.preventDefault();
 
-        ajustedwaterlevel = ( feet * 12 + inches ) * waterlevelfactor;
+        const ajustedwaterlevel = ( feet * 12 + inches ) * waterlevelfactor;
 
-        adjusted_feet = Math.floor(ajustedwaterlevel / 12);
-        adjusted_inches = ajustedwaterlevel % 12;
+        const adjusted_feet = Math.floor(ajustedwaterlevel / 12);
+        const adjusted_inches = ajustedwaterlevel % 12;
 
         if (gpslocation) {
             sendData({latitude: gpslocation.lat, longitude: gpslocation.long, feet: adjusted_feet, inch: adjusted_inches });
