@@ -15,6 +15,8 @@ function HomeMobile() {
     const [rainfallLocations, setRainfallLocations] = useState(null);
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
+    const [csPinToggle, setCsPinToggle] = useState(false);
+    const [csPinDropLocation, setCsPinDropLocation] = useState(null);
 
 
 
@@ -125,11 +127,11 @@ function HomeMobile() {
                     {/* Components based on selected tab */}
                     {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                     {selectedTab === 2 && <WaterlevelMap />}
-                    {selectedTab === 3 && <Map />}
+                    {selectedTab === 3 && <Map csPinToggle={csPinToggle} csPinDropLocation={csPinDropLocation} setCsPinDropLocation={setCsPinDropLocation} />}
                     {/* Legends */}
                     {selectedTab === 1 && <RainfallLegendMobile />}
                     {selectedTab === 2 && <WaterlevelLegendMobile />}
-                    {selectedTab === 3 && <CrowdsourceLegends />}
+                    {selectedTab === 3 && <CrowdsourceLegends csPinToggle={csPinToggle} />}
                 </MapContainer>
             </div>
             <div className='w-full h-[70%] flex flex-col relative z-20'>
@@ -148,7 +150,7 @@ function HomeMobile() {
 
                 {selectedTab === 3 && (
                     <div className='z-20 mt-1'>
-                        <Form />
+                        <Form setCsPinDropLocation={setCsPinDropLocation} csPinDropLocation={csPinDropLocation} setCsPinToggle={setCsPinToggle} csPinToggle={csPinToggle} />
                     </div>
                 )}
             </div>
