@@ -67,7 +67,7 @@ const handleclick = () => {
                         </div>
                     </div>
                     <div className="section">
-                            <h2>Data Partner</h2>
+                            <h2>Data Source</h2>
                             <div className="partners">
                                 <img src={bmc} alt="MCGM Center Logo" />
                             </div>

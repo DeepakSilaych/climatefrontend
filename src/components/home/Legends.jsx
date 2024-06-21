@@ -28,10 +28,13 @@ const RainfallLegend = () => {
         border: '1px solid #000',
         background
     });
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const formattedDate = tomorrow.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather text-xs'>
-            <h4 style={{ margin: '0 20px 5px 40px' }}>Rainfall Forecast (Tomorrow)</h4>
+            <h4 style={{ margin: '0 20px 5px 40px' }}>Rainfall Forecast ({formattedDate})</h4>
             <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain (0 mm)</div>
             <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span>Light Rainfall (0.1 - 15.5 mm)</div>
             <div style={itemStyle}><span style={colorBoxStyle('skyblue')}></span>Moderate Rainfall (15.6 -64.4 mm)</div>
@@ -79,6 +82,9 @@ const TrainLegends = () => {
             <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span>10 - 15mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>15 - 20mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span> 20mm & above</div>
+            <p style={{ fontStyle: 'italic', fontSize: '10px' }}>
+                * Maximum 15-minute rainfall in the last one hour.
+            </p>
         </div>
     );
 }
@@ -117,9 +123,14 @@ const CrowdsourceLegends = ({csPinToggle}) => {
         <div style={legendStyle} className='z-30 font-merriweather'>
         {!csPinToggle ?
             <div>
-                <h4>Reported Water Level</h4>
-                <img src={waterLevelIcon} alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
-            </div>
+            <h4>Reported Water Level</h4>
+            <img src={waterLevelIcon} alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
+            <p style={{ fontStyle: 'italic', fontSize: '8px' }}>
+                Note: The map shows water-logging<br />information from the last 24 hours.
+            </p>
+        </div>
+        
+        
             :
             <div> 
                 <h1>
@@ -136,3 +147,22 @@ const CrowdsourceLegends = ({csPinToggle}) => {
 
 
 export {TrainLegends, CrowdsourceLegends};
+
+
+
+
+
+
+
+
+const legendStyle = {
+    position: 'absolute',
+    bottom: '10px',
+    left: '10px',
+    background: 'rgba(255, 255, 255, 0.8)',
+    padding: '5px',
+    borderRadius: '5px',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+    fontSize: '6px',
+    zIndex: 1000,
+};

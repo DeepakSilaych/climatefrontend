@@ -53,7 +53,7 @@ function Home() {
                             <li>3. FORM for reporting water levels in your area is available under 'Reported Flood' tab on the Home Page.</li>
                             <li>4. Near real time waterlogging information obtained from nine water-level sensors installed across Mumbai is available under Waterlevel widget.</li>
                             <li>5. Our Hourly rainfall forecast model is still still under improvement.</li>
-                            <li>6. Observed data is being sourced from Municipal Corporation of Greater Mumbai (MCGM).</li>
+                            <li>6. Observed data is being sourced from Municipal Corporation of Greater Mumbai (MCGM) (https://dm.mcgm.gov.in/).</li>
                         </ul>
                         <div className="flex justify-around">
                             <button 

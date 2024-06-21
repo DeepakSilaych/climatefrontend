@@ -32,6 +32,16 @@ const Map = ({ csPinToggle, csPinDropLocation, setCsPinDropLocation }) => {
     });
     return null;
   };
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+    };
+    return date.toLocaleTimeString('en-US', options);
+};
 
   return (
     <>
@@ -49,10 +59,10 @@ const Map = ({ csPinToggle, csPinDropLocation, setCsPinDropLocation }) => {
           >
             <Popup>
               <div>
-                <h1 className="text-lg font-semibold">{`Reported WaterLevel: ${data.feet}' ${data.inch}"`}</h1>
-                <h2 className="text-lg font-semibold">{`Latitude: ${data.latitude.toFixed(3)}`}</h2>
-                <h2 className="text-lg font-semibold">{`Longitude: ${data.longitude.toFixed(3)}`}</h2>
-              </div>
+              <h1 className="text-lg font-semibold text-blue-600">{`Reported Water Level: ${data.feet}' ${data.inch}"`}</h1>
+                <h2 className="text-sm font-semibold text-green-600">{`Location: ${data.location}`}</h2>
+                <h2 className="text-sm font-semibold text-red-600">{`Time: ${formatTime(data.timestamp)}`}</h2>
+            </div>
             </Popup>
           </Marker>
         ))
