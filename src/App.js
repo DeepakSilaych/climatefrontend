@@ -40,6 +40,11 @@ function App() {
   };
 
   const WarningPopupMobile = () => {
+    const Navigate = useNavigate();
+    const handleclick = () => {
+      localStorage.setItem('selectedTab', 3);
+      window.location.href = '/'; 
+    };
     return (
       <div className="fixed bottom-16 right-0 w-1/2 mt-6 mr-7 z-50">
         
@@ -58,7 +63,7 @@ function App() {
       {isMobile ? (
         <BrowserRouter>
           <HeaderMobile />
-          {warningpopup && <span className="absolute w-1/2 right-2 bottom-6 z-0"><WarningPopupMobile /></span>}
+          {WarningPopupMobile && <span className="absolute w-1/2 right-2 bottom-6 z-0"><WarningPopupMobile /></span>}
           <Routes>
             <Route path="/" element={<HomeMobile />} />
             <Route path="/train" element={<TrainFloodMobile />} />

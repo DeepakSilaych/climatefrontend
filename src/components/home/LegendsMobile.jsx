@@ -30,11 +30,9 @@ const RainfallLegendMobile = () => {
         borderRadius: '50%',
         background
     });
-
     const handleclick = () => {
         localStorage.setItem('selectedTab', 3);
-        window.location.reload();
-        Navigate('/');
+        window.location.href = '/'; 
       };
 
     return (
@@ -108,9 +106,10 @@ const WaterlevelLegendMobile = () => {
 };
 
 const TrainLegendMobile = () => {
+    const Navigate = useNavigate();
     const legendStyle = {
         position: 'absolute',
-        bottom: '10px',
+        bottom: '40px',
         left: '10px',
         background: 'rgba(255, 255, 255, 0.8)',
         padding: '5px',
@@ -133,6 +132,11 @@ const TrainLegendMobile = () => {
         borderRadius: '50%',
         background
     });
+    const handleclick = () => {
+        localStorage.setItem('selectedTab', 3);
+        window.location.reload();
+        Navigate('/');
+      };
 
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
@@ -143,6 +147,13 @@ const TrainLegendMobile = () => {
             <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> 10 - 15mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> 15 - 20mm</div>
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span> 20mm & above</div>
+            <div className='w-64 right-1 flex flex-col justify-evenly mx-0'>
+                    <div className='flex flex-col text-center text-xs'>
+                        <button className="  alert-button" onClick={handleclick}>
+                            Report Flood
+                        </button>
+                    </div>
+                </div>
         </div>
     );
 };

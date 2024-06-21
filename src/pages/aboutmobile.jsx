@@ -9,9 +9,19 @@ import bmc from '../icons/bmc.png';
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
+import {useNavigate } from 'react-router-dom';
+
 
 const AboutMobile
  = () => {
+    const Navigate = useNavigate();
+    
+const handleclick = () => {
+    
+    localStorage.setItem('selectedTab', 3);
+    window.location.reload();
+    Navigate('/');
+  };
     return (
         <>
             
@@ -32,7 +42,7 @@ const AboutMobile
                     </p>
                 </div>
             </section>
-            <div className="who-we-are h-full">
+            <div className="who-we-are h-full ">
                 <h1>WHO WE ARE</h1>
                 <div className="content flex flex-col p-10 bg-white">
                     <div className="section">
@@ -129,10 +139,11 @@ const AboutMobile
                                     <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
                                 </a>
                             </p>
+                            {'\n'}
                         </div>
                     </div>
                 </div>
-                <div className="social-media-icons">
+                <div className="social-media-icons ">
                     <a href="https://x.com/ClimateIITB" target="_blank" rel="noopener noreferrer">
                         <img src={twitterIcon} alt="Twitter" />
                     </a>
@@ -143,6 +154,14 @@ const AboutMobile
                         <img src={facebookIcon} alt="Facebook" />
                     </a>
                 </div>
+                
+                <div className="fixed bottom-9 left-4 w-2/6 mt-6 mr-7 z-50">
+        <div className='flex flex-col text-center'>
+          <button className="zigzag-button alert-button" onClick={handleclick}>
+            Report Flood
+          </button>
+        </div>
+      </div>
             </div>
         </>
     );
