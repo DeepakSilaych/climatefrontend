@@ -9,8 +9,8 @@ import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
 import RainfallLegend, { CrowdsourceLegends } from '../components/home/Legends';
 
-function Home() {
-    const [selectedTab, setSelectedTab] = useState(parseInt(1));
+function Home({warningtab}) {
+    const [selectedTab, setSelectedTab] = useState(warningtab || parseInt(localStorage.getItem('selectedTab')) || 1);
     const [rainfallLocations, setRainfallLocations] = useState(null);
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
@@ -18,9 +18,6 @@ function Home() {
     const [csPinToggle, setCsPinToggle] = useState(false);
     const [csPinDropLocation, setCsPinDropLocation] = useState(null);
 
-    // useEffect(() => {
-    //     setSelectedTab(parseInt(localStorage.getItem('selectedTab')) || 1);
-    // }, [localStorage.getItem('selectedTab')]);
     const handletabChange = (tab) => {
         setSelectedTab(tab);
         localStorage.setItem('selectedTab', tab);

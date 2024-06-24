@@ -24,11 +24,6 @@ function TrainFlood() {
     fetchStationsData();
   }, []);
 
-  const handleMarkerClick = (marker) => {
-    console.log(marker);
-  }
-
-
   return (
     <div className="flex h-screen">
       <div className="w-screen h-5/6  m-2">
@@ -50,11 +45,11 @@ function TrainFlood() {
 
             {data && data.map((station, index) => {
               let color;
-              if (station.WarningLevel == 0) {
+              if (station.WarningLevel === 0) {
                 color = 'green';
-              } else if (station.WarningLevel == 1) {
+              } else if (station.WarningLevel === 1) {
                 color = 'yellow';
-              } else if (station.WarningLevel == 2) {
+              } else if (station.WarningLevel === 2) {
                 color = 'orange';
               } else {
                 color = 'red';

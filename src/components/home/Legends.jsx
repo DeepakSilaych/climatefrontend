@@ -1,5 +1,4 @@
 import React from 'react';
-import waterLevelIcon from './cs2bg.png';
 
 const RainfallLegend = () => {
     const legendStyle = {
@@ -42,7 +41,6 @@ const RainfallLegend = () => {
             <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>Very Heavy Rainfall (115.6 - 204.4 mm)</div>
             <div style={itemStyle}><span style={colorBoxStyle('red')}></span>Extremely Heavy Rainfall (&gt;=204.5 mm)</div>            
         </div>
-        
     );
 };
 export default RainfallLegend;
@@ -103,20 +101,6 @@ const CrowdsourceLegends = ({csPinToggle}) => {
         alignItems: 'center',
     };
 
-    const itemStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '5px',
-    };
-
-    const colorBoxStyle = (background) => ({
-        display: 'inline-block',
-        width: '20px',
-        height: '20px',
-        marginRight: '5px',
-        background
-    });
-
    
 
     return (
@@ -124,7 +108,7 @@ const CrowdsourceLegends = ({csPinToggle}) => {
         {!csPinToggle ?
             <div>
             <h4>Reported Water Level</h4>
-            <img src={waterLevelIcon} alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
+            <img src='/img/crowdsource/legend.png' alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
             <p style={{ fontStyle: 'italic', fontSize: '8px' }}>
                 Note: The map shows water-logging<br />information from the last 24 hours.
             </p>
