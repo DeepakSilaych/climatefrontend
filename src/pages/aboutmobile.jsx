@@ -108,6 +108,9 @@ const handleclick = () => {
                                 Sheeba Sekharan
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />
                             </a>
+
+
+                            
                             <a href="https://www.linkedin.com/in/shrabani-tripathy-37979310b/" className='flex hover:underline' to="">
                                 Dr. Shrabani Tripathy
                                 <img src='img/redirect.svg' alt="Redirect" className='w-4 ml-4 flex flex-col justify-center' />

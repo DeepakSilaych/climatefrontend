@@ -1,7 +1,7 @@
 // LegendsMobile.jsx
 import React from 'react';
 import {useNavigate } from 'react-router-dom';
-import waterLevelIcon from './csl.jpeg';
+import waterLevelIcon from './cs2bg.png';
 const RainfallLegendMobile = () => {
     const Navigate = useNavigate();
     const legendStyle = {

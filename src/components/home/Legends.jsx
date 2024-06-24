@@ -1,5 +1,5 @@
 import React from 'react';
-import waterLevelIcon from './csl.jpeg';
+import waterLevelIcon from './cs2bg.png';
 
 const RainfallLegend = () => {
     const legendStyle = {

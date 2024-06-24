@@ -2,15 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
 import { fetchStationData } from '../../utils/RainfallApis';
-import clou from '../../icons/cloudy.png';
-import img1 from '../../icons/download.png'; // Add your image imports here
-import img2 from '../../icons/download.png';
-import img3 from '../../icons/download.png';
 import plac from '../../icons/loc.png';
 
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
     const [time, setTime] = useState(new Date().toLocaleTimeString());
 
     useEffect(() => {
@@ -46,7 +41,6 @@ export default function RainfallWidget({ selectedOption }) {
                     <div className='flex justify-evenly text-xs text-white font-bold flex-col text-center'>
                         <span className='text-white text-xs font-bold mx-1 my-2'>{data.station.name}</span> 
                     </div>
-                    
                 </div>
                 <div className='flex-col align-bottom justify-center h-max relative'>
                     <RainfallBarChart data={data} />
@@ -54,36 +48,14 @@ export default function RainfallWidget({ selectedOption }) {
                 <div className='flex-col align-bottom justify-center h-max'>
                     <DailyPredictionChart data={data} />
                 </div>
-                {/* <button 
-                    className="btoon hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4"
-                    onClick={() => setModalOpen(true)}
-                >
-                    View Past Rainfall
-                </button> */}
-
-                {modalOpen && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                        <div className="bg-white p-4 rounded-lg relative">
-                            <button 
-                                className="absolute top-2 right-2 text-gray-500 hover:text-black-700"
-                                onClick={() => setModalOpen(false)}
-                            >
-                                &times;
-                            </button>
-                            <div className="flex flex-row items-center">
-                                <img src={img1} alt="Image 1" className="mb-4 w-1/3"/>
-                                <img src={img2} alt="Image 2" className="mb-4 w-1/3"/>
-                                <img src={img3} alt="Image 3" className="mb-4 w-1/3"/>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                <div className='flex-col align-bottom justify-center h-max'>
+                    <PastRainfallChart data={data} />
+                </div>
             </div>  
         </>
     );
 }
 
-// Options for the new charts
 const barChartOptions = {
     title: "Hourly Rainfall Forecast",
     titleTextStyle: { color: "white", fontSize: 12, fontName: 'Merriweather', alignment: 'center' },
@@ -109,11 +81,35 @@ const barChartOptions = {
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
     colors: ['#D4D4D4', '#00ffff'], // Colors for observed and forecasted rainfall
+    isStacked: true,
+};
+const barChartOptions2 = {
+    title: "Seasonal Rainfall Forecast",
+    titleTextStyle: { color: "white", fontSize: 12, fontName: 'Merriweather', alignment: 'center' },
+    hAxis: { 
+        titleTextStyle: { color: "#fff" }, 
+        textStyle: { color: "white", fontSize: 8 },
+        slantedText: true,
+        slantedTextAngle: 90,
+        baselineColor: 'white',
+    },
+    vAxis: { 
+        title: "Rainfall (mm)",
+        titleTextStyle: { color: "#fff" },
+        textStyle: { color: "white", fontSize: 8 },
+        gridlines: { count: 3, color: 'grey', width: '1px' },
+        baselineColor: 'white',
+        viewWindow: {
+            min: 0,
+            max: 150
+        }
+    },
+    chartArea: { width: "80%", height: "50%" },
+    backgroundColor: 'transparent',
+    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    colors: ['#D4D4D4', '#00ffff'], // Colors for observed and forecasted rainfall
     isStacked: false,
 };
-
-
-
 
 const dailyPredictionOptions = {
     title: "Daily Rainfall Forecast",
@@ -133,71 +129,81 @@ const dailyPredictionOptions = {
         gridlines: {count: 6, color: 'grey' },
         baselineColor: 'white',
         viewWindow: {
-            min: '<2',
+            min: '0',
             max: 250
         }
     },
-    annotations: {
-        alwaysOutside: true,
-        textStyle: {
-            fontSize: 10,
-            color: '#fff',
-            auraColor: 'none',
-        },
-    },
-    series: {
-        0: { annotations: { stem: { length: 12 } } },
-    },
+    
     chartArea: { width: "75%", height: "70%" },
     backgroundColor: 'transparent',
-    // legend: { position: 'bottom', alignment: 'left', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
     colors: ['#D4D4D4', '#00ffff'],
     isStacked: true,
 };
 
 
-// Transform API data for rainfall bar chart
+const dailyPredictionOptions2 = {
+    title: "Seasonal Rainfall Forecast",
+    titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
+    hAxis: { 
+        titleTextStyle: { color: "#fff" }, 
+        textStyle: { color: "#fff" },
+        slantedText: true,
+        slantedTextAngle: 90,
+        baselineColor: 'white',
+    },
+    vAxis: { 
+        title: "Rainfall (mm)",  
+        titleTextStyle: { color: "#fff" },
+        textStyle: { color: "#fff", fontSize: 8 },
+        
+        gridlines: {count: 6, color: 'grey' },
+        baselineColor: 'white',
+        viewWindow: {
+            min: 0,
+            max: 200
+        }
+    },
+    
+    chartArea: { width: "80%", height: "50%" },
+    backgroundColor: 'transparent',
+    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    colors: ['#D4D4D4', '#00ffff'],
+    isStacked: true,
+};
+
+
+
+
+
 const rainfallBarChartData = (data) => [
     ["Time", "Observed Rainfall", "Forecasted Rainfall"],
     ...data.hrly_data.map((item, index) => [
-        item.hour, // Extract time
+        item.hour,
         index < 6 ? item.total_rainfall : null, 
         index >= 6 ? item.total_rainfall : null
     ])
 ];
 
-
-// Transform API data for daily prediction chart
-// const dailyPredictionChartData = (data) => {
-//     const today = new Date();
-//     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
-
-//     return [
-//         ["Day", "Predicted",  { role: "style" }],
-//         ...Object.entries(data.daily_data).map(([date, total_rainfall]) => {
-//             const currentDate = new Date(date);
-//             currentDate.setHours(16, 0, 0, 0); // Set time to midnight for accurate comparison
-//             const isPastDate = currentDate < today;
-//             return [
-//                 currentDate.toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Format date
-//                 total_rainfall,
-//                 isPastDate ? 'color: #D4D4D4;' : // Grey color for past dates
-//                 (total_rainfall === 0 ? 'stroke-color: gray; stroke-width: 4;' : getColor(total_rainfall)) // Conditional styling for the rest
-//             ];
-//         })
-//     ];
-// };
 const dailyPredictionChartData = (data) => [
     ["Day", "Rainfall (in mm)", { role: "style" }, { role: "annotation" }],
     ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
-        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }), // Format date
+        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
         total_rainfall, 
-        index < 3 ? 'color: #D4D4D4;' : getColor(total_rainfall), // Grey color for the first three bars
-        index === 2 ? "Observed" : (index === 3 ? "Predicted" : null) // Add custom annotation
+        index < 3 ? 'color: #D4D4D4;' : getColor(total_rainfall),
+        index === 2 ? "Observed" : (index === 3 ? "Predicted" : null)
     ])
 ];
 
-// Function to determine color based on rainfall value
+const seasonalRainfallChartData = (data) => [
+    ["Date", "Observed ", "Past Predicted"],
+    ...data.seasonal_data.map(item => [
+        new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+        item.observed,
+        item.predicted
+    ])
+];
+
 function getColor(rainfall) {
     if (rainfall > 204.5) {
         return 'color: #FF0000;'; // Red
@@ -245,6 +251,23 @@ function DailyPredictionChart({ data }) {
     );
 }
 
+function PastRainfallChart({ data }) {
+    return (
+        // <div style={{ width: '100%', overflowX: 'auto' }}>
+            <Chart
+                chartType="ColumnChart"
+                width="100%"
+                height="300px"
+                data={seasonalRainfallChartData(data)}
+                // options={barChartOptions2}
+                options={dailyPredictionOptions2}
+                className='bg-black bg-opacity-20 rounded-xl mt-2'
+            />
+        // </div>
+    );
+}
+
+
 // Add this CSS for the button animation and zigzag border
 const styles = `
 <style>
@@ -271,13 +294,6 @@ const styles = `
     z-index: 1;
     overflow: hidden;
     border-radius: 80px;
-    // clip-path: polygon(
-    //     5% 0%, 10% 10%, 15% 0%, 20% 10%, 25% 0%, 30% 10%, 35% 0%, 40% 10%, 45% 0%, 50% 10%, 
-    //     55% 0%, 60% 10%, 65% 0%, 70% 10%, 75% 0%, 80% 10%, 85% 0%, 90% 10%, 95% 0%, 100% 10%, 
-    //     100% 100%, 95% 90%, 90% 100%, 85% 90%, 80% 100%, 75% 90%, 70% 100%, 65% 90%, 60% 100%, 
-    //     55% 90%, 50% 100%, 45% 90%, 40% 100%, 35% 90%, 30% 100%, 25% 90%, 20% 100%, 15% 90%, 
-    //     10% 100%, 5% 90%, 0% 100%, 0% 0%
-    // );
 }
 
 @keyframes pulse {
