@@ -4,6 +4,8 @@ import axios from 'axios';
 import { fetchStationData } from '../../utils/RainfallApis';
 import plac from '../../icons/loc.png';
 
+
+
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
     const [time, setTime] = useState(new Date().toLocaleTimeString());
@@ -83,33 +85,6 @@ const barChartOptions = {
     colors: ['#D4D4D4', '#00ffff'], // Colors for observed and forecasted rainfall
     isStacked: true,
 };
-const barChartOptions2 = {
-    title: "Seasonal Rainfall Forecast",
-    titleTextStyle: { color: "white", fontSize: 12, fontName: 'Merriweather', alignment: 'center' },
-    hAxis: { 
-        titleTextStyle: { color: "#fff" }, 
-        textStyle: { color: "white", fontSize: 8 },
-        slantedText: true,
-        slantedTextAngle: 90,
-        baselineColor: 'white',
-    },
-    vAxis: { 
-        title: "Rainfall (mm)",
-        titleTextStyle: { color: "#fff" },
-        textStyle: { color: "white", fontSize: 8 },
-        gridlines: { count: 3, color: 'grey', width: '1px' },
-        baselineColor: 'white',
-        viewWindow: {
-            min: 0,
-            max: 150
-        }
-    },
-    chartArea: { width: "80%", height: "50%" },
-    backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#00ffff'], // Colors for observed and forecasted rainfall
-    isStacked: false,
-};
 
 const dailyPredictionOptions = {
     title: "Daily Rainfall Forecast",
@@ -141,15 +116,13 @@ const dailyPredictionOptions = {
     isStacked: true,
 };
 
-
 const dailyPredictionOptions2 = {
     title: "Seasonal Rainfall Forecast",
     titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
-        slantedText: true,
-        slantedTextAngle: 90,
+        
         baselineColor: 'white',
     },
     vAxis: { 
@@ -172,10 +145,6 @@ const dailyPredictionOptions2 = {
     isStacked: true,
 };
 
-
-
-
-
 const rainfallBarChartData = (data) => [
     ["Time", "Observed Rainfall", "Forecasted Rainfall"],
     ...data.hrly_data.map((item, index) => [
@@ -195,14 +164,17 @@ const dailyPredictionChartData = (data) => [
     ])
 ];
 
-const seasonalRainfallChartData = (data) => [
-    ["Date", "Observed ", "Past Predicted"],
-    ...data.seasonal_data.map(item => [
-        new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
-        item.observed,
-        item.predicted
-    ])
-];
+const seasonalRainfallChartData = (data, start, end) => {
+    // Assuming data.seasonal_data is an array of objects with `date`, `observed`, and `predicted` properties
+    return [
+        ["Date", "Observed", "Predicted"],
+        ...data.seasonal_data.slice(start, end).map(item => [
+            new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+            item.observed,
+            item.predicted
+        ])
+    ];
+};
 
 function getColor(rainfall) {
     if (rainfall > 204.5) {
@@ -251,21 +223,43 @@ function DailyPredictionChart({ data }) {
     );
 }
 
-function PastRainfallChart({ data }) {
+const PastRainfallChart = ({ data }) => {
+    const [range, setRange] = useState({ start: 0, end: 6 });
+
+    const handleNext = () => {
+        if (range.end < data.seasonal_data.length) {
+            setRange(prevRange => ({
+                start: prevRange.start + 1,
+                end: prevRange.end + 1
+            }));
+        }
+    };
+
+    const handlePrev = () => {
+        if (range.start > 0) {
+            setRange(prevRange => ({
+                start: prevRange.start - 1,
+                end: prevRange.end - 1
+            }));
+        }
+    };
+
     return (
-        // <div style={{ width: '100%', overflowX: 'auto' }}>
+        <div className="relative">
+            {/* <button onClick={handlePrev} disabled={range.start === 0} className="absolute left-4 bottom-2 text-white text-sm">Prev</button> */}
             <Chart
                 chartType="ColumnChart"
                 width="100%"
                 height="300px"
-                data={seasonalRainfallChartData(data)}
-                // options={barChartOptions2}
+                data={seasonalRainfallChartData(data, range.start, range.end)}
                 options={dailyPredictionOptions2}
                 className='bg-black bg-opacity-20 rounded-xl mt-2'
             />
-        // </div>
+            <button onClick={handleNext} disabled={range.end >= data.seasonal_data.length} className="absolute right-8 bottom-2 text-white text-sm">Next</button>
+        </div>
     );
-}
+};
+
 
 
 // Add this CSS for the button animation and zigzag border

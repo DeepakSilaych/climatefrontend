@@ -37,7 +37,7 @@ function App() {
       {isMobile ? (
         <BrowserRouter>
           <HeaderMobile />
-          {WarningPopupMobile && <span className="absolute w-1/2 right-2 bottom-6 z-0"><WarningPopupMobile /></span>}
+          {/* {WarningPopupMobile && <span className="absolute w-1/2 right-2 bottom-6 z-0"><WarningPopupMobile /></span>} */}
           <Routes>
             <Route path="/" element={<HomeMobile />} />
             <Route path="/warning" element={<HomeMobile warningtab={3} />} />

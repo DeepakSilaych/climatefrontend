@@ -2,6 +2,12 @@
 import React from 'react';
 import {useNavigate } from 'react-router-dom';
 import waterLevelIcon from './cs2bg.png';
+
+
+const handleclick = () => {
+    localStorage.setItem('selectedTab', 3);
+    window.location.href = '/'; 
+  };
 const RainfallLegendMobile = () => {
     const Navigate = useNavigate();
     const legendStyle = {
@@ -30,10 +36,7 @@ const RainfallLegendMobile = () => {
         borderRadius: '50%',
         background
     });
-    const handleclick = () => {
-        localStorage.setItem('selectedTab', 3);
-        window.location.href = '/'; 
-      };
+   
 
       const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -154,13 +157,13 @@ const TrainLegendMobile = () => {
             <p style={{ fontStyle: 'italic', fontSize: '10px' }}>
                 * Maximum 15-minute rainfall in the last one hour.
             </p>
-            <div className='w-64 right-1 flex flex-col justify-evenly mx-0'>
+            {/* <div className='w-64 right-1 flex flex-col justify-evenly mx-0'>
                     <div className='flex flex-col text-center text-xs'>
                         <button className="  alert-button" onClick={handleclick}>
                             Report Flood
                         </button>
                     </div>
-                </div>
+                </div> */}
         </div>
     );
 };
@@ -182,7 +185,7 @@ const CrowdsourceLegendsMobile = ({csPinToggle}) => {
         {!csPinToggle ?
             <div>
             <h2>Reported Water Level</h2>
-            <img src='/img/crowdsource/legend.png' alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
+            <img src='/img/crowdsource/legend.png' alt="Water Level Icon" style={{ width: '120px', height: '180px', marginRight: '5px' }} />
             <p style={{ fontStyle: 'italic', fontSize: '8px' }}>
                 Note: The map shows water-logging<br />information from the last 24 hours.
             </p>

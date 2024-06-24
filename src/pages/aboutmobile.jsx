@@ -17,11 +17,9 @@ const AboutMobile
     const Navigate = useNavigate();
     
 const handleclick = () => {
-    
-    localStorage.setItem('selectedTab', 3);
-    window.location.reload();
-    Navigate('/');
-  };
+        localStorage.setItem('selectedTab', 3);
+        window.location.href = '/'; 
+      };
     return (
         <>
             

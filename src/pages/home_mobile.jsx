@@ -97,7 +97,7 @@ function HomeMobile({ warningtab }) {
                     >
                         Reported Flood
                     </span>
-                    <div className='absolute scroll-to-top  top-96 right-2 z-30'>
+                    <div className='absolute scroll-to-top  top-[520px] right-2 z-30'>
                 <button onClick={handleScroll} className='rounded-full bg-red-500 text-white text-sm py-2 px-4 alert-button'>
                     Scroll Down
                 </button>
