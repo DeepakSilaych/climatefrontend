@@ -7,19 +7,16 @@ import Form from '../components/home/form';
 import RainfallWidget from '../components/home/rainfall_wdget';
 import WaterlevelWidget from '../components/home/waterlevel_widget';
 import SearchBar from '../components/home/searchbar';
-import { RainfallLegendMobile, WaterlevelLegendMobile, TrainLegendMobile, CrowdsourceLegendsMobile } from '../components/home/LegendsMobile';
-import { CrowdsourceLegends } from '../components/home/Legends';
+import { RainfallLegendMobile, WaterlevelLegendMobile, CrowdsourceLegendsMobile } from '../components/home/LegendsMobile';
 
 
-function HomeMobile() {
-    const [selectedTab, setSelectedTab] = useState(1);
+function HomeMobile({ warningtab }) {
+    const [selectedTab, setSelectedTab] = useState( warningtab || parseInt(localStorage.getItem('selectedTab')) || 1);
     const [rainfallLocations, setRainfallLocations] = useState(null);
     const [waterlevelLocations, setWaterlevelLocations] = useState(null);
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
     const [csPinToggle, setCsPinToggle] = useState(false);
     const [csPinDropLocation, setCsPinDropLocation] = useState(null);
-
-
     
     const widgetContainerRef = useRef(null);
 
@@ -42,10 +39,6 @@ function HomeMobile() {
             widgetContainerRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
-
-    useEffect(() => {
-        console.log(document.documentElement.scrollTop);
-    }, []);
 
     return (
         <div className='h-full w-full bg-[#f0f0f0]'>
