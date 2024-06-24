@@ -177,28 +177,12 @@ const CrowdsourceLegendsMobile = ({csPinToggle}) => {
         zIndex: 1000,
     };
 
-    const itemStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '5px',
-    };
-
-    const colorBoxStyle = (background) => ({
-        display: 'inline-block',
-        width: '20px',
-        height: '20px',
-        marginRight: '5px',
-        background
-    });
-
-   
-
     return (
         <div style={legendStyle} className='z-30 font-merriweather'>
         {!csPinToggle ?
             <div>
             <h2>Reported Water Level</h2>
-            <img src={waterLevelIcon} alt="Water Level Icon" style={{ width: '90px', height: '160px', marginLeft: '20px' }} />
+            <img src='/img/crowdsource/legend.png' alt="Water Level Icon" style={{ width: '160px', height: '280px', marginRight: '5px' }} />
             <p style={{ fontStyle: 'italic', fontSize: '8px' }}>
                 Note: The map shows water-logging<br />information from the last 24 hours.
             </p>
