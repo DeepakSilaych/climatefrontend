@@ -48,7 +48,7 @@ function HomeMobile({ warningtab }) {
                         <h2 className="text-xl font-bold mb-4">Important Information!</h2>
                         <ul className="text-left mb-4">
                             <li>1. Hourly rainfall forecasts (also known as 'Nowcasts'), displayed on the ‘Rainfall’ widget, are being updated every 1 hour.</li>
-                            <li>2. 2. Next 3-day rainfall forecasts are being displayed on the ‘Rainfall’ widget.</li>
+                            <li>2. Next 3-day rainfall forecasts are being displayed on the ‘Rainfall’ widget.</li>
                             <li>3. FORM for reporting water levels in your area is available under 'Reported Flood' tab on the Home Page.</li>
                             <li>4. Near real time waterlogging information obtained from nine water-level sensors installed across Mumbai is available under Waterlevel widget.</li>
                             <li>5. The hourly rainfall forecast model is still under improvement.</li>

@@ -83,7 +83,7 @@ const barChartOptions = {
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#00ffff'], // Colors for observed and forecasted rainfall
+    colors: ['#ADADC9', '#00ffff'], // Colors for observed and forecasted rainfall
     isStacked: true,
 };
 
@@ -105,15 +105,17 @@ const dailyPredictionOptions = {
         gridlines: { color: 'grey', count: 4, width: 1 },
         baselineColor: 'white',
         viewWindow: {
-            min: '0',
+            min: 2,  // Adjusted minimum value
             max: 250
-        }
+        },
+        ticks: [2, 50, 100, 150, 200, 250]  // Explicitly set the ticks you want to display
     },
     chartArea: { width: "75%", height: "70%" },
     backgroundColor: 'transparent',
     colors: ['#222223', '#00ffff'],
     isStacked: true,
 };
+
 
 const dailyPredictionOptions2 = {
     title: "Seasonal Rainfall Forecast",
@@ -132,15 +134,16 @@ const dailyPredictionOptions2 = {
         gridlines: {count: 4, color: 'grey' },
         baselineColor: 'white',
         viewWindow: {
-            min: 0,
+            min: 2,
             max: 250
-        }
+        },
+        ticks: [2, 50, 100, 150, 200, 250]
     },
     
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#00ffff'],
+    colors: ['#ADADC9', '#779933'],
     isStacked: false,
 };
 
@@ -246,14 +249,14 @@ const PastRainfallChart = ({ data }) => {
 
     return (
         <div className="relative">
-            <div className="flex justify-center items-center text-xs text-white font-bold mb-2">
-                <div className="flex items-center mx-2">
+            <div className="flex justify-center items-center text-xs text-white  mb-2">
+                <div className="flex items-center font-serif mx-2">
                     <img src={ab} alt="Observed Icon" width="14" height="5" className="mr-1"/>
                     Observed
                 </div>
-                <div className="flex items-center mx-2">
+                <div className="flex items-center font-serif mx-2">
                     <img src={abcd} alt="Predicted Icon" width="80" height="80" className="mr-1"/>
-                    Predicted
+                    Forecasted
                 </div>
             </div>
             <Chart
