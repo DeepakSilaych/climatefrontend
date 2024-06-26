@@ -61,7 +61,7 @@ export default function RainfallWidget({ selectedOption }) {
 
 const barChartOptions = {
     title: "Hourly Rainfall Forecast",
-    titleTextStyle: { color: "white", fontSize: 12, fontName: 'Merriweather', alignment: 'center' },
+    titleTextStyle: { color: "white", fontSize: 12, fontName: 'Nunito Sans', alignment: 'center' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "white", fontSize: 8 },
@@ -82,7 +82,7 @@ const barChartOptions = {
     },
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Nunito Sans', fontSize: 10 } },
     colors: ['#ADADC9', '#00ffff'], // Colors for observed and forecasted rainfall
     isStacked: true,
 };
@@ -90,7 +90,7 @@ const barChartOptions = {
 
 const dailyPredictionOptions = {
     title: "Daily Rainfall Forecast",
-    titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
+    titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Nunito Sans' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
@@ -112,14 +112,14 @@ const dailyPredictionOptions = {
     },
     chartArea: { width: "75%", height: "70%" },
     backgroundColor: 'transparent',
-    colors: ['#222223', '#00ffff'],
-    isStacked: true,
+    colors: ['#ADADC9', '#779933'],
+    isStacked: false,
 };
 
 
 const dailyPredictionOptions2 = {
     title: "Seasonal Rainfall Forecast",
-    titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
+    titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Nunito Sans' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
@@ -142,10 +142,11 @@ const dailyPredictionOptions2 = {
     
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
+    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Nunito Sans', fontSize: 10 } },
     colors: ['#ADADC9', '#779933'],
     isStacked: false,
 };
+
 
 const rainfallBarChartData = (data) => [
     ["Time", "Observed Rainfall", "Forecasted Rainfall"],
@@ -155,15 +156,36 @@ const rainfallBarChartData = (data) => [
         index >= 6 ? item.total_rainfall : null
     ])
 ];
+const dailyPredictionChartData = (data) => {
+    // Combine the last 3 values from seasonal_data and the first 3 values from daily_data
+    const combinedData = [
+        ...data.seasonal_data.slice(-3).map(item => [
+            new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+            item.observed,
+            item.predicted
+        ]),
+        ...Object.entries(data.daily_data).slice(3, 6).map(([date, total_rainfall], index) => [
+            new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+            null, // observed rainfall is null for the last three entries
+            total_rainfall,
+            index === 0 ? getColor(total_rainfall) : null // Apply getColor to the first predicted value only
+        ])
+    ];
 
-const dailyPredictionChartData = (data) => [
-    ["Day", "Rainfall (in mm)", { role: "style" }],
-    ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
-        new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
-        total_rainfall, 
-        index < 3 ? 'color: #D4D4D4;' : getColor(total_rainfall),
-    ])
-];
+    // Return the data in the required format
+    return [
+        ["Day", "Observed Rainfall", "Predicted Rainfall", { role: "style" }],
+        ...combinedData.map((item, index) => [
+            item[0],
+            item[1] ?? 0,
+            item[2] ?? 0,
+            item[3] ?? (index > 3 ? getColor(item[1] ?? item[2]) : null) // Apply getColor for observed or use null for predicted
+        ])
+    ];
+};
+
+
+
 
 const seasonalRainfallChartData = (data, start, end) => {
     return [
@@ -213,22 +235,22 @@ function RainfallBarChart({ data }) {
 function DailyPredictionChart({ data }) {
     return (
         <>
-        <style>
-            {`
-                .google-visualization-chart .google-visualization-gridline {
-                    stroke-dasharray: 8, 8; /* Create a dotted effect */
-                    stroke-width: 0.5px; /* Reduce the thickness */
-                }
-            `}
-        </style>
-        <Chart
-            chartType="ColumnChart"
-            width="100%"
-            height="200px"
-            data={dailyPredictionChartData(data)}
-            options={dailyPredictionOptions}
-            className='bg-black bg-opacity-20 rounded-xl mt-2'
-        />
+            <style>
+                {`
+                    .google-visualization-chart .google-visualization-gridline {
+                        stroke-dasharray: 8, 8; /* Create a dotted effect */
+                        stroke-width: 0.5px; /* Reduce the thickness */
+                    }
+                `}
+            </style>
+            <Chart
+                chartType="ColumnChart"
+                width="100%"
+                height="200px"
+                data={dailyPredictionChartData(data)}
+                options={dailyPredictionOptions}
+                className='bg-black bg-opacity-20 rounded-xl mt-2'
+            />
         </>
     );
 }
@@ -250,11 +272,11 @@ const PastRainfallChart = ({ data }) => {
     return (
         <div className="relative">
             <div className="flex justify-center items-center text-xs text-white  mb-2">
-                <div className="flex items-center font-serif mx-2">
+                <div className="flex items-center font-Nunito Sans mx-2">
                     <img src={ab} alt="Observed Icon" width="14" height="5" className="mr-1"/>
                     Observed
                 </div>
-                <div className="flex items-center font-serif mx-2">
+                <div className="flex items-center font-Nunito Sans mx-2">
                     <img src={abcd} alt="Predicted Icon" width="80" height="80" className="mr-1"/>
                     Forecasted
                 </div>
