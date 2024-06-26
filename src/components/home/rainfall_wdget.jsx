@@ -3,8 +3,9 @@ import { Chart } from 'react-google-charts';
 import axios from 'axios';
 import { fetchStationData } from '../../utils/RainfallApis';
 import plac from '../../icons/loc.png';
-
-
+import abcd from '../../icons/abcd.png';
+import ab from '../../icons/ab.png';
+import { ArrowBigRight, ArrowBigLeft } from 'lucide-react';
 
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
@@ -86,6 +87,7 @@ const barChartOptions = {
     isStacked: true,
 };
 
+
 const dailyPredictionOptions = {
     title: "Daily Rainfall Forecast",
     titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Merriweather' },
@@ -93,26 +95,23 @@ const dailyPredictionOptions = {
         titleTextStyle: { color: "#fff" }, 
         textStyle: { color: "#fff" },
         slantedTextAngle: 0,
-        gridlines: { color: 'white' },
+        gridlines: { color: 'grey', count: 4 },
         baselineColor: 'white',
     },
     vAxis: { 
         title: "Rainfall (mm)",  
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "#fff", fontSize: 8 },
-        
-        gridlines: {count: 6, color: 'grey' },
+        gridlines: { color: 'grey', count: 4, width: 1 },
         baselineColor: 'white',
         viewWindow: {
             min: '0',
             max: 250
         }
     },
-    
     chartArea: { width: "75%", height: "70%" },
     backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
-    colors: ['#D4D4D4', '#00ffff'],
+    colors: ['#222223', '#00ffff'],
     isStacked: true,
 };
 
@@ -130,11 +129,11 @@ const dailyPredictionOptions2 = {
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "#fff", fontSize: 8 },
         
-        gridlines: {count: 6, color: 'grey' },
+        gridlines: {count: 4, color: 'grey' },
         baselineColor: 'white',
         viewWindow: {
             min: 0,
-            max: 200
+            max: 250
         }
     },
     
@@ -142,7 +141,7 @@ const dailyPredictionOptions2 = {
     backgroundColor: 'transparent',
     legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Merriweather', fontSize: 10 } },
     colors: ['#D4D4D4', '#00ffff'],
-    isStacked: true,
+    isStacked: false,
 };
 
 const rainfallBarChartData = (data) => [
@@ -155,19 +154,17 @@ const rainfallBarChartData = (data) => [
 ];
 
 const dailyPredictionChartData = (data) => [
-    ["Day", "Rainfall (in mm)", { role: "style" }, { role: "annotation" }],
+    ["Day", "Rainfall (in mm)", { role: "style" }],
     ...Object.entries(data.daily_data).map(([date, total_rainfall], index) => [
         new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
         total_rainfall, 
         index < 3 ? 'color: #D4D4D4;' : getColor(total_rainfall),
-        index === 2 ? "Observed" : (index === 3 ? "Predicted" : null)
     ])
 ];
 
 const seasonalRainfallChartData = (data, start, end) => {
-    // Assuming data.seasonal_data is an array of objects with `date`, `observed`, and `predicted` properties
     return [
-        ["Date", "Observed", "Predicted"],
+        ["Date", "Observed", "Past Predicted"],
         ...data.seasonal_data.slice(start, end).map(item => [
             new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
             item.observed,
@@ -212,6 +209,15 @@ function RainfallBarChart({ data }) {
 
 function DailyPredictionChart({ data }) {
     return (
+        <>
+        <style>
+            {`
+                .google-visualization-chart .google-visualization-gridline {
+                    stroke-dasharray: 8, 8; /* Create a dotted effect */
+                    stroke-width: 0.5px; /* Reduce the thickness */
+                }
+            `}
+        </style>
         <Chart
             chartType="ColumnChart"
             width="100%"
@@ -220,45 +226,54 @@ function DailyPredictionChart({ data }) {
             options={dailyPredictionOptions}
             className='bg-black bg-opacity-20 rounded-xl mt-2'
         />
+        </>
     );
 }
-
 const PastRainfallChart = ({ data }) => {
     const [range, setRange] = useState({ start: 0, end: 6 });
 
     const handleNext = () => {
         if (range.end < data.seasonal_data.length) {
-            setRange(prevRange => ({
-                start: prevRange.start + 1,
-                end: prevRange.end + 1
-            }));
+            setRange({ start: range.start + 1, end: range.end + 1 });
         }
     };
 
     const handlePrev = () => {
         if (range.start > 0) {
-            setRange(prevRange => ({
-                start: prevRange.start - 1,
-                end: prevRange.end - 1
-            }));
+            setRange({ start: range.start - 1, end: range.end - 1 });
         }
     };
 
     return (
         <div className="relative">
-            {/* <button onClick={handlePrev} disabled={range.start === 0} className="absolute left-4 bottom-2 text-white text-sm">Prev</button> */}
+            <div className="flex justify-center items-center text-xs text-white font-bold mb-2">
+                <div className="flex items-center mx-2">
+                    <img src={ab} alt="Observed Icon" width="14" height="5" className="mr-1"/>
+                    Observed
+                </div>
+                <div className="flex items-center mx-2">
+                    <img src={abcd} alt="Predicted Icon" width="80" height="80" className="mr-1"/>
+                    Predicted
+                </div>
+            </div>
             <Chart
                 chartType="ColumnChart"
                 width="100%"
-                height="300px"
+                height="250px"
                 data={seasonalRainfallChartData(data, range.start, range.end)}
                 options={dailyPredictionOptions2}
-                className='bg-black bg-opacity-20 rounded-xl mt-2'
+                className='bg-black bg-opacity-20 rounded-xl'
             />
-            <button onClick={handleNext} disabled={range.end >= data.seasonal_data.length} className="absolute right-8 bottom-2 text-white text-sm">Next</button>
+            <button onClick={handlePrev} disabled={range.start === 0} className="absolute left-4 bottom-2 text-white text-sm">
+                <ArrowBigLeft />
+            </button>
+            <button onClick={handleNext} disabled={range.end >= data.seasonal_data.length} className="absolute right-8 bottom-2 text-white text-sm">
+                <ArrowBigRight />
+            </button>
         </div>
     );
 };
+
 
 
 
