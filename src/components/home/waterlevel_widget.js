@@ -30,19 +30,19 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
     
 
     return (
-        <div className='text-xl w-max rounded-xl bg-opacity-80 bg-black h-max mx-8 my-0 flex flex-col p-4 shadow-lg z-10 ' style={{ width, height }}>
+        <div className='text-xl w-max rounded-xl bg-opacity-80 bg-black h-max mx-8 my-5 flex flex-col p-4 shadow-lg z-10 ' style={{ width, height }}>
             <div className='relative flex justify-center '>
                 {/* Display current date, time, and temperature */}
                 <div className='w-1/2 flex justify-evenly text-xs text-amber-400  font-bold flex-col text-center'>
                                       
-                    <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-14'/>
+                    <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-14 mt-5'/>
                     LIVE Waterlevel Monitoring
                 </div>
                
                 
             </div>
 
-            <div className=' justify-center flex-col gap-1 position-relative'>
+            <div className=' justify-center flex-col gap-3 position-relative mt-5'>
                 {stations.map((station, index) => (
                     <Button
                         key={index}
@@ -54,7 +54,7 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
                             color: '#ffffff', // White text color
                             borderRadius: '10px',
                             fontWeight: 'bold', // Rounded corners
-                            padding: '3px 8px', // Padding
+                            padding: '13px 8px', // Padding
                             cursor: 'pointer', // Pointer cursor on hover
                             fontSize: '12px',
                             marginBottom: '5px', // Adjust space between buttons

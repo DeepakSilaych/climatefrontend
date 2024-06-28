@@ -5,7 +5,10 @@ import { fetchStationData } from '../../utils/RainfallApis';
 import plac from '../../icons/loc.png';
 import abcd from '../../icons/abcd.png';
 import ab from '../../icons/ab.png';
+import ka from '../../icons/ka.png';
 import { ArrowBigRight, ArrowBigLeft } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
+import { MoveLeft } from 'lucide-react';
 
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
@@ -73,12 +76,13 @@ const barChartOptions = {
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "white", fontSize: 8 },
-        gridlines: { count: 3, color: 'grey', width: '1px' },
+        gridlines: { count: 4, color: 'grey', width: '1px' },
         baselineColor: 'white',
         viewWindow: {
             min: 0,
             max: 30
-        }
+        },
+        ticks: [0, 10, 20, 30]
     },
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
@@ -86,7 +90,6 @@ const barChartOptions = {
     colors: ['#ADADC9', '#00ffff'], // Colors for observed and forecasted rainfall
     isStacked: true,
 };
-
 
 const dailyPredictionOptions = {
     title: "Daily Rainfall Forecast",
@@ -110,15 +113,15 @@ const dailyPredictionOptions = {
         },
         ticks: [2, 50, 100, 150, 200, 250]  // Explicitly set the ticks you want to display
     },
-    chartArea: { width: "75%", height: "70%" },
+    legend: { position: 'none' },  // Hide the legend
+    chartArea: { width: "80%", height: "70%" },
     backgroundColor: 'transparent',
     colors: ['#ADADC9', '#779933'],
     isStacked: false,
 };
 
-
 const dailyPredictionOptions2 = {
-    title: "Seasonal Rainfall Forecast",
+    title: "Past Forecasted Rainfall (1-day lead) for this season",
     titleTextStyle: { color: "#fff", fontSize: 12, fontName: 'Nunito Sans' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
@@ -147,7 +150,6 @@ const dailyPredictionOptions2 = {
     isStacked: false,
 };
 
-
 const rainfallBarChartData = (data) => [
     ["Time", "Observed Rainfall", "Forecasted Rainfall"],
     ...data.hrly_data.map((item, index) => [
@@ -156,10 +158,11 @@ const rainfallBarChartData = (data) => [
         index >= 6 ? item.total_rainfall : null
     ])
 ];
+
 const dailyPredictionChartData = (data) => {
     // Combine the last 3 values from seasonal_data and the first 3 values from daily_data
     const combinedData = [
-        ...data.seasonal_data.slice(-3).map(item => [
+        ...data.seasonal_data.slice(-4,-1).map(item => [
             new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
             item.observed,
             item.predicted
@@ -174,7 +177,7 @@ const dailyPredictionChartData = (data) => {
 
     // Return the data in the required format
     return [
-        ["Day", "Observed Rainfall", "Predicted Rainfall", { role: "style" }],
+        ["Day", "Rainfall", "Rainfall", { role: "style" }],
         ...combinedData.map((item, index) => [
             item[0],
             item[1] ?? 0,
@@ -184,13 +187,10 @@ const dailyPredictionChartData = (data) => {
     ];
 };
 
-
-
-
 const seasonalRainfallChartData = (data, start, end) => {
     return [
         ["Date", "Observed", "Past Predicted"],
-        ...data.seasonal_data.slice(start, end).map(item => [
+        ...data.seasonal_data.slice(start, end-1).map(item => [
             new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
             item.observed,
             item.predicted
@@ -255,10 +255,16 @@ function DailyPredictionChart({ data }) {
     );
 }
 const PastRainfallChart = ({ data }) => {
-    const [range, setRange] = useState({ start: 0, end: 6 });
+    const totalDataPoints = data.seasonal_data.length;
+    const initialRange = {
+        start: Math.max(totalDataPoints - 6, 0),  // Ensure start is not negative
+        end: totalDataPoints
+    };
+
+    const [range, setRange] = useState(initialRange);
 
     const handleNext = () => {
-        if (range.end < data.seasonal_data.length) {
+        if (range.end < totalDataPoints) {
             setRange({ start: range.start + 1, end: range.end + 1 });
         }
     };
@@ -271,10 +277,25 @@ const PastRainfallChart = ({ data }) => {
 
     return (
         <div className="relative">
-            <div className="flex justify-center items-center text-xs text-white  mb-2">
+            <div className="flex justify-center items-center text-xs text-white mb-2 mt-2">
+                <div className="flex items-center font-Nunito Sans mx-2">
+                    
+                    Observed
+                    <MoveLeft className="mr-0 ml-2" />
+                </div>
+                <div className="flex items-center font-Nunito Sans mx-0">
+                    <MoveRight className="mr-2" />
+                    Forecasted
+                </div>
+            </div>
+            <div className="flex justify-center items-center text-xs text-white mb-2 mt-2">
                 <div className="flex items-center font-Nunito Sans mx-2">
                     <img src={ab} alt="Observed Icon" width="14" height="5" className="mr-1"/>
                     Observed
+                </div>
+                <div className="flex items-center font-Nunito Sans mx-2">
+                    <img src={ka} alt="Observed Icon" width="14" height="5" className="mr-1"/>
+                    Past Predicted
                 </div>
                 <div className="flex items-center font-Nunito Sans mx-2">
                     <img src={abcd} alt="Predicted Icon" width="80" height="80" className="mr-1"/>
@@ -282,17 +303,21 @@ const PastRainfallChart = ({ data }) => {
                 </div>
             </div>
             <Chart
-                chartType="ColumnChart"
+                chartType="LineChart"
                 width="100%"
                 height="250px"
                 data={seasonalRainfallChartData(data, range.start, range.end)}
-                options={dailyPredictionOptions2}
+                options={{
+                    ...dailyPredictionOptions2,
+                    pointSize: 5,  // Add this line to show dots
+                    dataOpacity: 0.8,  // Optional: Adjust opacity for better visibility
+                }}
                 className='bg-black bg-opacity-20 rounded-xl'
             />
             <button onClick={handlePrev} disabled={range.start === 0} className="absolute left-4 bottom-2 text-white text-sm">
                 <ArrowBigLeft />
             </button>
-            <button onClick={handleNext} disabled={range.end >= data.seasonal_data.length} className="absolute right-8 bottom-2 text-white text-sm">
+            <button onClick={handleNext} disabled={range.end >= totalDataPoints} className="absolute right-8 bottom-2 text-white text-sm">
                 <ArrowBigRight />
             </button>
         </div>
@@ -300,9 +325,6 @@ const PastRainfallChart = ({ data }) => {
 };
 
 
-
-
-// Add this CSS for the button animation and zigzag border
 const styles = `
 <style>
 .btoon {

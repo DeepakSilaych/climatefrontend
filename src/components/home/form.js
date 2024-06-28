@@ -32,26 +32,33 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
 
         const ajustedwaterlevel = ( feet * 12 + inches ) * waterlevelfactor;
 
-        const adjusted_feet = Math.floor(ajustedwaterlevel / 12);
+        const adjusted_feet = Math.floor(ajustedwaterlevel / 120);
         const adjusted_inches = ajustedwaterlevel % 12;
 
+        let data = {
+            latitude: null,
+            longitude: null,
+            feet: adjusted_feet,
+            inch: adjusted_inches,
+        };
+
         if (gpslocation) {
-            sendData({latitude: gpslocation.lat, longitude: gpslocation.long, feet: adjusted_feet, inch: adjusted_inches });
+            data = { ...data, latitude: gpslocation.lat, longitude: gpslocation.long };
         } 
         if (csPinToggle && csPinDropLocation) {
-            sendData({latitude: csPinDropLocation.lat, longitude: csPinDropLocation.long, feet: adjusted_feet, inch: adjusted_inches })
+            data = { ...data, latitude: csPinDropLocation.lat, longitude: csPinDropLocation.long };
         }
-        else {
-            sendData({latitude: null, longitude: null, feet: adjusted_feet, inch: adjusted_inches });
-        }
+
+        sendData(data);
     };
 
     const sendData = async (data) => {
         console.log('data:', data);
 
+
         const sendata = {
-            feet : feet,
-            inch : inches,
+            feet : data.feet,
+            inch : data.inch,
             location: location,
             latitude: data.latitude,
             longitude: data.longitude,
@@ -120,20 +127,20 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
 
 
     return (
-        <div className="max-w-xl mx-auto px-6 py-2 bg-black rounded-lg  bg-opacity-80">
-            <h1 className="text-3xl text-center font-semibold mb-6 text-white">Submit Data</h1>
+        <div className="max-w-xl mx-auto px-6 py-2 mt-5 bg-black rounded-lg  bg-opacity-80">
+            <h1 className="text-3xl text-center font-semibold mb-6 mt-5 text-white">Submit Data</h1>
             <div className='flex flex-col justify-stretch'>
                 {gpslocation ?
                     <button className="bg-blue-700 text-blue-100 py-1 px-0 rounded-md mb-4">using current location...</button>
                     :
-                    <button onClick={getgps} className={`${csPinToggle ? 'bg-blue-300 disabled cursor-default' : 'pointer bg-blue-500 hover:bg-blue-600 '} text-white py-1 px-0 rounded-md mb-4`}>Use my current location</button>
+                    <button onClick={getgps} className={`${csPinToggle ? 'bg-blue-300 disabled cursor-default' : 'pointer bg-blue-500 hover:bg-blue-600 '} text-white py-1 px-0 rounded-md mb-6`}>Use my current location</button>
                 }
                 <button onClick={handlePinDropToggle} className={`${gpslocation ? 'bg-blue-300 disabled cursor-default' : csPinToggle ? 'bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white py-1 px-0 rounded-md mb-4`}>
                     {csPinToggle ? 'Close' : 'Use location from map'}
                 </button>
 
 
-                <div className="flex items-center " >
+                <div className="flex items-center mt-5" >
                     <label htmlFor="height" className="block h-full text-white flex-col justify-center mr-4 mb-4">Your Height:</label>
 
                     <select id="height" name="height" value={feet} onChange={(e) => setFeet(e.target.value)} className="w-1/3 mr-4 border rounded-md py-2 px-1 mb-4 bg-blue-50 text-slate-900">
@@ -162,7 +169,7 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
                 </div>
 
                 <div className="mb-4">
-                    <span className="block text-white">Water Level (choose one):</span>
+                    <span className="block text-white mb-3">Water Level (choose one):</span>
                     <div className="flex justify-evenly">
                         <label htmlFor="waterlevel1" className={`inline-block border-2 ${activeOption === 1 ? "border-red-800" : "border-transparent hover:border-blue-100 "}`} onClick={handleOption(0.2, 1)}>
                             <img src="/img/crowdsource/1.png" width={100} height={100} alt="Low water level" />
@@ -188,13 +195,13 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
                     </div>
                 </div>
 
-                <label htmlFor="location" className="block text-white">Location:</label>
+                <label htmlFor="location" className="block text-white mb-3">Location:</label>
                 <input type="text" id="location" name="location" disabled={gpslocation} value={location} onChange={(e) => setLocation(e.target.value)} className="w-full border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
 
-                <label htmlFor="location" className="block text-white ">Feedback:</label>
-                <textarea id="feedback" placeholder='Optional' name="feedback" value={feedback} onChange={(e) => setFeedback(e.target.value)} className="w-full border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
+                <label htmlFor="location" className="block text-white mb-3">Feedback:</label>
+                <textarea id="feedback" placeholder='Optional' name="feedback" value={feedback} onChange={(e) => setFeedback(e.target.value)} className="w-full h-28 border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
 
-                <button onClick={handleSubmit} className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Submit</button>
+                <button onClick={handleSubmit} className="w-full bg-blue-500 text-white py-2 px-4 mt-5 rounded-md hover:bg-blue-600">Submit</button>
             </div>
             <div className="mt-4 text-white">{message}</div>
         </div>
