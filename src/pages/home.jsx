@@ -16,7 +16,7 @@ function Home({ warningtab }) {
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
     const [csPinToggle, setCsPinToggle] = useState(false);
     const [csPinDropLocation, setCsPinDropLocation] = useState(null);
-    const [zoomToLocation, setZoomToLocation] = useState(null); // State to store zoom location
+    const [zoomToLocation, setZoomToLocation] = useState(null); 
     const mapRef = useRef();
 
     const handletabChange = (tab) => {

@@ -17,6 +17,8 @@ function HomeMobile({ warningtab }) {
     const [showModal, setShowModal] = useState(!localStorage.getItem('hideModal'));
     const [csPinToggle, setCsPinToggle] = useState(false);
     const [csPinDropLocation, setCsPinDropLocation] = useState(null);
+    const [zoomToLocation, setZoomToLocation] = useState(null); 
+    const mapRef = useRef();
     
     const widgetContainerRef = useRef(null);
 
@@ -115,6 +117,7 @@ function HomeMobile({ warningtab }) {
                         [19.4, 72.6],
                         [18.85, 73.2]
                     ]}
+                    ref={mapRef}
                 >
                     <TileLayer 
                         url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=d42390ee-716f-47d9-b8e5-2b8b44c5d63f"
@@ -127,7 +130,7 @@ function HomeMobile({ warningtab }) {
                     
                     {selectedTab === 1 && <RainFallMap setLocations={setRainfallLocations} location={rainfallLocations} />}
                     {selectedTab === 2 && <WaterlevelMap />}
-                    {selectedTab === 3 && <Map csPinToggle={csPinToggle} csPinDropLocation={csPinDropLocation} setCsPinDropLocation={setCsPinDropLocation} />}
+                    {selectedTab === 3 && <Map csPinToggle={csPinToggle} csPinDropLocation={csPinDropLocation} setCsPinDropLocation={setCsPinDropLocation} zoomToLocation={zoomToLocation} mapRef={mapRef} />}
                     {/* Legends */}
                     {selectedTab === 1 && <RainfallLegendMobile />}
                     {selectedTab === 2 && <WaterlevelLegendMobile />}
@@ -152,7 +155,7 @@ function HomeMobile({ warningtab }) {
 
                 {selectedTab === 3 && (
                     <div className='z-20 mt-1'>
-                        <Form setCsPinDropLocation={setCsPinDropLocation} csPinDropLocation={csPinDropLocation} setCsPinToggle={setCsPinToggle} csPinToggle={csPinToggle} />
+                        <Form setCsPinDropLocation={setCsPinDropLocation} csPinDropLocation={csPinDropLocation} setCsPinToggle={setCsPinToggle} csPinToggle={csPinToggle} setZoomToLocation={setZoomToLocation} />
                     </div>
                 )}
             </div>
