@@ -93,9 +93,9 @@ const TrainLegends = () => {
 const CrowdsourceLegends = ({csPinToggle}) => {
     const legendStyle = {
         position: 'fixed', // Ensures the position is relative to the viewport
-        top: '200x',
-        bottom: '7px' ,  // 365px from the bottom of the viewport
-        left: '420px',
+        
+        bottom: '1%' ,  // 365px from the bottom of the viewport
+        left: '33%',
         background: 'white',
         padding: '10px',
         borderRadius: '5px',
