@@ -2,9 +2,9 @@ import React from 'react';
 
 const RainfallLegend = () => {
     const legendStyle = {
-        position: 'absolute',
-        bottom: '10px',
-        left: '10px',
+        position: 'fixed', // Ensures the position is relative to the viewport
+        bottom: '1%' ,    // 365px from the bottom of the viewport
+        left: '33%',
         background: 'white',
         padding: '3px',
         borderRadius: '5px',
@@ -25,8 +25,9 @@ const RainfallLegend = () => {
         marginRight: '3px',
         borderRadius: '50%',
         border: '1px solid #000',
-        background
+        background,
     });
+
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const formattedDate = tomorrow.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -35,20 +36,22 @@ const RainfallLegend = () => {
         <div style={legendStyle} className='z-30 font-merriweather text-xs'>
             <h4 style={{ margin: '0 20px 5px 40px' }}>Rainfall Forecast ({formattedDate})</h4>
             <div style={itemStyle}><span style={colorBoxStyle('grey')}></span> No Rain (0 mm)</div>
-            <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span>Light Rainfall (0.1 - 15.5 mm)</div>
-            <div style={itemStyle}><span style={colorBoxStyle('skyblue')}></span>Moderate Rainfall (15.6 -64.4 mm)</div>
-            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span>Heavy Rainfall (64.5 - 115.5 mm)</div>
-            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span>Very Heavy Rainfall (115.6 - 204.4 mm)</div>
-            <div style={itemStyle}><span style={colorBoxStyle('red')}></span>Extremely Heavy Rainfall (&gt;=204.5 mm)</div>            
+            <div style={itemStyle}><span style={colorBoxStyle('lightgreen')}></span> Light Rainfall (0.1 - 15.5 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('skyblue')}></span> Moderate Rainfall (15.6 - 64.4 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('yellow')}></span> Heavy Rainfall (64.5 - 115.5 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('orange')}></span> Very Heavy Rainfall (115.6 - 204.4 mm)</div>
+            <div style={itemStyle}><span style={colorBoxStyle('red')}></span> Extremely Heavy Rainfall (&gt;=204.5 mm)</div>            
         </div>
     );
 };
+
 export default RainfallLegend;
+
 
 
 const TrainLegends = () => {
     const legendStyle = {
-        position: 'absolute',
+        position: 'fixed',
         bottom: '10px',
         left: '10px',
         background: 'white',
@@ -89,9 +92,10 @@ const TrainLegends = () => {
 
 const CrowdsourceLegends = ({csPinToggle}) => {
     const legendStyle = {
-        position: 'absolute',
-        bottom: '10px',
-        left: '10px',
+        position: 'fixed', // Ensures the position is relative to the viewport
+        
+        bottom: '1%' ,  // 365px from the bottom of the viewport
+        left: '33%',
         background: 'white',
         padding: '10px',
         borderRadius: '5px',

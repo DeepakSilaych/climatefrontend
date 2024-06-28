@@ -73,16 +73,16 @@ function Home({ warningtab }) {
             )}
             <div className='w-full h-full'>
                 <div className='h-full flex flex-row-reverse justify-between z-10'>
-                    <div className='h-[90%] mr-3 mt-2 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-2 relative'>
+                    <div className='h-[855px] mr-3 mt-2 flex flex-col justify-center w-8/12 overflow-hidden shadow-2xl rounded-lg border-2 relative'>
                         <MapContainer
                             className='h-full w-full z-10'
-                            center={[19.05, 72.9]}
+                            center={[19.0260, 72.8777]}
                             zoom={11}
                             maxZoom={18}
-                            minZoom={11}
+                            minZoom={10}
                             maxBounds={[
                                 [19.4, 72.6],
-                                [18.85, 73.2]
+                                [18.65, 73.2]
                             ]}
                             ref={mapRef}
                         >
