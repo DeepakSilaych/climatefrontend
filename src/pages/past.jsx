@@ -21,7 +21,7 @@ const Past = () => {
             <div className="col-lg-12 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img id="pic1" src={pic1} alt="Picture 1" />
+                  <img id="pic1" src={pic1} />
                 </div>
               </div>
               <br />
@@ -33,14 +33,14 @@ const Past = () => {
             <div className="col-lg-6 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img src={pic2} alt="Picture 2" />
+                  <img src={pic2} />
                 </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.3s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img src={pic3} alt="Picture 3" />
+                  <img src={pic3} />
                 </div>
               </div>
             </div>
@@ -55,14 +55,14 @@ const Past = () => {
             <div className="col-lg-6 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img src={pic5} alt="Picture 5" />
+                  <img src={pic5} />
                 </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.3s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img src={pic4} alt="Picture 4" />
+                  <img src={pic4} />
                 </div>
               </div>
             </div>
@@ -77,14 +77,14 @@ const Past = () => {
             <div className="col-lg-6 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img src={pic6} alt="Picture 6" />
+                  <img src={pic6} />
                 </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.3s">
               <div className="rounded overflow-hidden">
                 <div className="position-relative overflow-hidden">
-                  <img src={pic7} alt="Picture 7" />
+                  <img src={pic7} />
                 </div>
               </div>
             </div>
