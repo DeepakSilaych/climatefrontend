@@ -116,8 +116,12 @@ const dailyPredictionOptions = {
     legend: { position: 'none' },  // Hide the legend
     chartArea: { width: "80%", height: "70%" },
     backgroundColor: 'transparent',
-    colors: ['#ADADC9', '#779933'],
-    isStacked: false,
+    colors: ['#ADADC9', '#779933', '#FF0000'], // Add color for the star series
+    isStacked: true,
+    series: {
+        2: { type: 'line', pointShape: 'star', pointSize: 10, lineWidth: 0 } // Custom marker for stars
+    },
+    tooltip: { isHtml: true, ignoreBounds: true }
 };
 
 const dailyPredictionOptions2 = {
@@ -159,35 +163,68 @@ const rainfallBarChartData = (data) => [
     ])
 ];
 
-const dailyPredictionChartData = (data) => {
-    // Combine the last 3 values from seasonal_data and the first 3 values from daily_data
-    const combinedData = [
-        ...data.seasonal_data.slice(-4,-1).map(item => [
-            new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
-            item.observed,
-            item.predicted
-        ]),
-        ...Object.entries(data.daily_data).slice(3, 6).map(([date, total_rainfall], index) => [
-            new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
-            null, // observed rainfall is null for the last three entries
-            total_rainfall,
-            index === 0 ? getColor(total_rainfall) : null // Apply getColor to the first predicted value only
-        ])
-    ];
+// const dailyPredictionChartData = (data) => {
+//     const combinedData = [
+//         ...data.daily_data.slice(3).map(item => [
+//             new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+//             item.observed,
+//             item.predicted
+//         ]),
+//         ...Object.entries(data.daily_data).slice(3, 6).map(([date, total_rainfall], index) => [
+//             new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+//             null, // observed rainfall is null for the last three entries
+//             total_rainfall,
+//             getColor(total_rainfall)// Apply getColor to the first predicted value only
+//         ])
+//     ];
 
-    // Return the data in the required format
+//     return [
+//         ["Day", "Observed", "Predicted", { role: 'style' }, "Star", { role: 'tooltip', p: { html: true } }],
+//         ...combinedData.map((item, index) => [
+//             item[0],
+//             item[1] ?? 0,
+//             index < 3 ? null : (item[2] ?? 0), // For the first three values, set the predicted bar height to 0
+//             index >= 3 ? item[3] : null, // Apply getColor to the last three bars
+//             index < 3 ? item[2] : null, // Add star values for the first three entries
+//             index < 3 ? `<div style="padding:1px;">${item[0]}<br><b>Predicted:</b>${item[2]?.toFixed(2)}mm</div>` : null // Tooltip for stars
+//         ])
+//     ];
+// };
+
+const dailyPredictionChartData = (data) => {
+    const combinedData = data.daily_data.map((item, index) => {
+        const dateLabel = new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+        const observed = index < data.daily_data.length - 3 ? item.observed : null; // Show observed for all but the last three
+        const predicted = item.predicted;
+        const color = index >= data.daily_data.length - 3 ? getColor(predicted) : null; // Apply color to the last three
+
+        return [
+            dateLabel,
+            observed,
+            index < data.daily_data.length - 3 ? null : predicted, // Show predicted bar value for the last three entries only
+            color,
+            index < data.daily_data.length - 3 ? predicted : null, // Add star values for the first three entries
+            index >= data.daily_data.length - 3 ? `<div style="padding:1px;">${dateLabel}<br><b>Predicted:</b>${predicted.toFixed(2)}mm</div>` : null // Tooltip for the last three
+        ];
+    });
+
     return [
-        ["Day", "Rainfall", "Rainfall", { role: "style" }],
+        ["Day", "Observed", "Predicted", { role: 'style' }, "", { role: 'tooltip', p: { html: true } }],
         ...combinedData.map((item, index) => [
             item[0],
             item[1] ?? 0,
             item[2] ?? 0,
-            item[3] ?? (index > 3 ? getColor(item[1] ?? item[2]) : null) // Apply getColor for observed or use null for predicted
+            item[3],
+            item[4],
+            item[5] // Tooltip
         ])
     ];
 };
 
-const seasonalRainfallChartData = (data, start, end) => {
+
+
+const seasonalRainfallChartData = (data,start, end) => {
+   
     return [
         ["Date", "Observed", "Past Predicted"],
         ...data.seasonal_data.slice(start, end-1).map(item => [
@@ -226,7 +263,11 @@ function RainfallBarChart({ data }) {
             width="100%"
             height="200px"
             data={rainfallBarChartData(data)}
-            options={barChartOptions}
+            options={{
+                ...barChartOptions,
+                pointSize: 5,  // Add this line to show dots
+                dataOpacity: 0.8, 
+            }}
             className='bg-black bg-opacity-0 rounded-xl m-0 font-roboto text-sm'
         />
     );
@@ -243,14 +284,33 @@ function DailyPredictionChart({ data }) {
                     }
                 `}
             </style>
-            <Chart
-                chartType="ColumnChart"
-                width="100%"
-                height="200px"
-                data={dailyPredictionChartData(data)}
-                options={dailyPredictionOptions}
-                className='bg-black bg-opacity-20 rounded-xl mt-2'
-            />
+            <div className="relative">
+            <div className="absolute left-1/2 top-9 transform -translate-x-1/2 h-36 border-l border-blue-500 border z-20"></div>
+
+<div className="flex justify-between items-center text-xs text-white px-2 top-9 absolute left-0 right-0">
+    {/* Left section */}
+    <div className="flex items-center font-NunitoSans mx-2 ml-20">
+        Past Data
+        <MoveLeft className="ml-1 " />
+    </div>
+
+    {/* Right section */}
+    <div className="flex items-center font-NunitoSans mx-2 mr-16">
+        <MoveRight className="mr-1" />
+        Forecasted
+    </div>
+</div>
+
+
+                <Chart
+                    chartType="ColumnChart"
+                    width="100%"
+                    height="200px"
+                    data={dailyPredictionChartData(data)}
+                    options={dailyPredictionOptions}
+                    className='bg-black bg-opacity-20 rounded-xl mt-2'
+                />
+            </div>
         </>
     );
 }
@@ -274,27 +334,23 @@ const PastRainfallChart = ({ data }) => {
             setRange({ start: range.start - 1, end: range.end - 1 });
         }
     };
+    
 
     return (
-        <div className="relative">
-            <div className="flex justify-center items-center text-xs text-white mb-2 mt-2">
-                <div className="flex items-center font-Nunito Sans mx-2">
-                    
-                    Observed
-                    <MoveLeft className="mr-0 ml-2" />
-                </div>
-                <div className="flex items-center font-Nunito Sans mx-0">
-                    <MoveRight className="mr-2" />
-                    Forecasted
-                </div>
-            </div>
+        
+            <div className="relative">
+   
+
+
             <div className="flex justify-center items-center text-xs text-white mb-2 mt-2">
                 <div className="flex items-center font-Nunito Sans mx-2">
                     <img src={ab} alt="Observed Icon" width="14" height="5" className="mr-1"/>
                     Observed
                 </div>
                 <div className="flex items-center font-Nunito Sans mx-2">
-                    <img src={ka} alt="Observed Icon" width="14" height="5" className="mr-1"/>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="red" stroke="red" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
                     Past Predicted
                 </div>
                 <div className="flex items-center font-Nunito Sans mx-2">
@@ -367,3 +423,15 @@ const styles = `
 `;
 
 document.head.insertAdjacentHTML('beforeend', styles);
+
+
+
+
+
+
+
+
+
+
+
+         
