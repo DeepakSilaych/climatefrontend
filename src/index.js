@@ -13,8 +13,8 @@ ReactGA.initialize(TRACKING_ID);
 
 root.render(
   <StrictMode>
-  
-    <App />
 
+    <App />
+  
   </StrictMode>
 );
