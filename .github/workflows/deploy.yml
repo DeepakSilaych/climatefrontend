@@ -1,34 +1,33 @@
-name: Deploy Website
+name: Deploy Frontend
 
 on:
   push:
     branches:
-      - deploy
+      - main  # or your preferred branch
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout codemain  # Change this to the branch you want to deploy from
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.6.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.4.0' 
 
-    - name: Build project
-      run: |
-        # Add your build commands here
-        # Example for a Node.js project
-        npm install
-        npm run build
+      - name: Install dependencies
+        run: npm install
 
-    - name: Deploy to Server
-      env:
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
-      run: |
-        scp -r ./build/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
+      - name: Build React app
+        run: npm run build
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy files via SCP
+        run: scp -r ./build/* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_PATH }}
