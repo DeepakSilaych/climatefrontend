@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLocationData, sendFormData } from '../../utils/crowdSourceAPI';
 
-function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinToggle} ) {
+function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinToggle, setZoomToLocation} ) {
     const [feet, setFeet] = useState(null);
     const [inches, setInches] = useState(null);
     const [waterlevelfactor, setWaterlevelfactor] = useState(0);
@@ -29,11 +29,13 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
         }
 
         event.preventDefault();
-
-        const ajustedwaterlevel = ( feet * 12 + inches ) * waterlevelfactor;
+        console.log('feet:', feet, 'inches:', inches, 'waterlevelfactor:', waterlevelfactor);
+        const ajustedwaterlevel = (feet * 12) * (waterlevelfactor) + inches*waterlevelfactor;
 
         const adjusted_feet = Math.floor(ajustedwaterlevel / 120);
         const adjusted_inches = ajustedwaterlevel % 12;
+        console.log('adjusted_feet:', adjusted_feet, 'adjusted_inches:', adjusted_inches, 'ajustedwaterlevel:', Math.floor(ajustedwaterlevel/12));
+        console.log('ajustedwaterlevel:', ajustedwaterlevel);
 
         let data = {
             latitude: null,
@@ -69,7 +71,20 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
 
         try {
             const response = await sendFormData(sendata);
-            setMessage(response.message);
+            if (response.message === 'Data stored successfully') {
+                setFeet(null);
+                setInches(null);
+                setWaterlevelfactor(0);
+                setLocation('');
+                setFeedback('');
+                setZoomToLocation({ lat: data.latitude, long: data.longitude, feet: data.feet, inch: data.inch });
+                setCsPinToggle(false);
+                setCsPinDropLocation(null);
+                window.alert(
+                    'Thank you for your submission. Your data has been recorded successfully. You can view your submission on the map.'
+                )
+            }
+
         } catch (error) {
             console.error('Error storing data:', error);
             setMessage('Error: Unable to store data.', error);
