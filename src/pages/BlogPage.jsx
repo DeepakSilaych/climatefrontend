@@ -8,6 +8,7 @@ const BlogPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleTitleChange = (e) => setTitle(e.target.value);
+  
   const handleContentChange = (e) => setContent(e.target.value);
 
   const handleSubmit = (e) => {
