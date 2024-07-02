@@ -3,14 +3,14 @@ name: Deploy Website
 on:
   push:
     branches:
-      - deploy
+      - deploy  # Change this to the branch you want to deploy from
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout codemain  # Change this to the branch you want to deploy from
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up SSH
