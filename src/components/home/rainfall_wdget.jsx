@@ -252,14 +252,14 @@ function getColor(rainfall) {
         return 'color: #90EE90;'; // Lightgreen
     }
     else {
-        return 'color: #D4D4D4;'; // Grey
+        return 'color: #D4D4D4;';// Grey
     }
 }
 
 function RainfallBarChart({ data }) {
     return (
         <Chart
-            chartType="ColumnChart"
+            chartType="LineChart"
             width="100%"
             height="200px"
             data={rainfallBarChartData(data)}

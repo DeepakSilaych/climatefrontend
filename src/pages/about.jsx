@@ -11,6 +11,7 @@ import bmc from '../icons/bmc.png';
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
+import qrCode from '../icons/qrCode.png'; // Assuming qrCode.png is the QR image
 
 const About = () => {
     return (
@@ -39,13 +40,18 @@ const About = () => {
                 <h1>WHO WE ARE</h1>
                 <div className="content bg-white">
                     <div className="left-section">
+                        
                         <div className="section">
                             <br></br>
                             <h2>Implementing Partners</h2>
                             <div className="partners">
                                 <img src={iitbLogo} alt="IIT Logo" />
-                                <img src='img/cs.png' alt="Climate Studies Logo" />
+                                <img src={csLogo} alt="Climate Studies Logo" />
                             </div>
+                            {/* <div className="download-app mt-0 text-center">
+                            <h2 className='text-xl font-bold'>Download the app now</h2>
+                            <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4 h-44 w-44' />
+                        </div> */}
                         </div>
                         <div className="section">
                             <br></br>
@@ -67,7 +73,12 @@ const About = () => {
                             </div>
                         </div>
                     </div>
+                    {/* <div className="download-app flex flex-col mt-14 right-0">
+                            <h2 className='text-xl font-bold'>Download the 'Mumbai Flood App' Now</h2>
+                            <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4 h-80 w-64' />
+                        </div> */}
                     <div className="right-section">
+                        
                         <div className="iit-team">
                             <br></br>
                             <h2>IIT Bombay Team</h2>
@@ -136,6 +147,7 @@ const About = () => {
                                 </a>
                             </p>
                         </div>
+                        
                     </div>
                 </div>
                 <div className="social-media-icons">

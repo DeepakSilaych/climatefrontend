@@ -75,7 +75,7 @@ const Map = ({ csPinToggle, csPinDropLocation, setCsPinDropLocation, zoomToLocat
                           </Popup>
                       </Marker>
                   ))}
-                  {zoomToLocation && 
+                  {zoomToLocation &&                    
                     <Marker position={[zoomToLocation.lat, zoomToLocation.long]} icon={createCustomIcon(zoomToLocation.feet.toFixed(0), zoomToLocation.inch.toFixed(0))} />
                   }
                 </>

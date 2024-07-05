@@ -11,7 +11,7 @@ import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
 import {useNavigate } from 'react-router-dom';
 
-
+import qrCode from '../icons/qrCode.png';
 const AboutMobile
  = () => {
     const Navigate = useNavigate();
@@ -142,6 +142,10 @@ const handleclick = () => {
                             </p>
                             {'\n'}
                         </div>
+                        {/* <div className="download-app mt-10 text-center">
+                            <h2 className='text-xl font-bold'>Download the app now</h2>
+                            <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4' />
+                        </div> */}
                     </div>
                 </div>
                 <div className="social-media-icons ">
