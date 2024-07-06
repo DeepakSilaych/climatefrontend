@@ -26,6 +26,7 @@ export default function WaterlevelMap({ setLocations, location }) {
       }
     };
     fetchStationsData();
+    
   }, []);
 
   useEffect(() => {
@@ -34,12 +35,14 @@ export default function WaterlevelMap({ setLocations, location }) {
         if (activestation) {
           const data = await fetchwaterleveldata(activestation.id);
           setWaterLevelData(data);
+          console.log(waterLevelData.data);
         }
       } catch (error) {
         console.error('Error fetching water level data:', error);
       }
     };
     fetchWaterLevelData();
+    console.log(waterLevelData.data);
   }, [activestation]);
 
   const customIcon = new Icon({
