@@ -74,4 +74,3 @@ export const fetchwaterleveldata = async (thingId) => {
         return null;
     }
 };
-

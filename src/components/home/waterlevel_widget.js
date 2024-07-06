@@ -70,6 +70,3 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
         </div>
     );
 }
-
-
-
