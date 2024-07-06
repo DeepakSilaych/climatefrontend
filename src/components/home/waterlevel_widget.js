@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap'; 
 import plac from '../../icons/aa.png';
-import { fetchWaterStations } from '../../utils/WaterlevelApis';
+import { fetchsensorlist } from '../../utils/WaterlevelApis';
 
 
 export default function WaterlevelMap({ width, height, setLocation, location }) {
@@ -13,7 +13,7 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
     useEffect(() => {
         const fetchStationsData = async () => {
           try {
-            const data = await fetchWaterStations();
+            const data = await fetchsensorlist();
             setStations(data);
           } catch (error) {
             console.error("Error fetching stations:", error);
