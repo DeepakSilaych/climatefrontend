@@ -10,7 +10,6 @@ export default function WaterlevelMap({ setLocations, location }) {
   const [stations, setStations] = useState([]);
   const [waterLevelData, setWaterLevelData] = useState([]);
   const [activestation, setActivestation] = useState(null);
-  const [chartRange, setChartRange] = useState({ start: 0, end: 6 }); // Initial range for chart data
 
   const handleMarkerClick = (marker) => {
     setActivestation(marker);
@@ -47,17 +46,6 @@ export default function WaterlevelMap({ setLocations, location }) {
     iconSize: [25, 25],
   });
 
-  const handleNext = () => {
-    if (chartRange.end < waterLevelData.data.length) {
-      setChartRange({ start: chartRange.start + 1, end: chartRange.end + 1 });
-    }
-  };
-
-  const handlePrev = () => {
-    if (chartRange.start > 0) {
-      setChartRange({ start: chartRange.start - 1, end: chartRange.end - 1 });
-    }
-  };
 
   return (
     <>
@@ -76,21 +64,21 @@ export default function WaterlevelMap({ setLocations, location }) {
                 {waterLevelData.data && (
                   <div>
                     <div className="flex justify-between items-center">
-                      <button
+                      {/* <button
                         onClick={handlePrev}
                         disabled={chartRange.start === 0}
                         className="text-white"
                       >
                         <img src={leftArrow} alt="Previous" width="20" />
-                      </button>
+                      </button> */}
                       <h3>Water Level Over Time</h3>
-                      <button
+                      {/* <button
                         onClick={handleNext}
                         disabled={chartRange.end >= waterLevelData.data.length}
                         className="text-white"
                       >
                         <img src={rightArrow} alt="Next" width="20" />
-                      </button>
+                      </button> */}
                     </div>
                     <Chart
                       width={'320px'}
@@ -100,10 +88,9 @@ export default function WaterlevelMap({ setLocations, location }) {
                       data={[
                         ['', 'Water Level'],
                         ...waterLevelData.data
-                          .slice(chartRange.start, chartRange.end)
                           .map((entry) => [
-                            new Date(entry.time * 1000).toLocaleTimeString(), // Convert timestamp to human-readable date
-                            parseInt(entry.parameter_values.us_mb), // Assuming 'us_mb' contains the water level
+                            new Date(entry.time * 1000).toLocaleTimeString(),
+                            parseInt(entry.parameter_values.us_mb), 
                           ]),
                       ]}
                       options={{

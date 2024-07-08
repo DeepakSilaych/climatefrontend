@@ -32,9 +32,7 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
     return (
         <div className='text-xl w-max rounded-xl bg-opacity-80 bg-black h-max mx-8 my-5 flex flex-col p-4 shadow-lg z-10 ' style={{ width, height }}>
             <div className='relative flex justify-center '>
-                {/* Display current date, time, and temperature */}
                 <div className='w-1/2 flex justify-evenly text-xs text-amber-400  font-bold flex-col text-center'>
-                                      
                     <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-14 mt-5'/>
                     LIVE Waterlevel Monitoring
                 </div>
