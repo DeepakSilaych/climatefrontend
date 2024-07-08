@@ -28,6 +28,9 @@ function Header() {
                      <li className='flex flex-col justify-center'>
                         <Link to="/train" className="p-2 rounded-xl text-black bold text-lg flex flex-col justify-center hover:bg-blue-200 hover:text-black font-serif">Rail</Link>
                     </li>
+                    <li className='flex flex-col justify-center'>
+                        <Link to="/tweet" className="p-2 rounded-xl text-black bold text-lg flex flex-col justify-center hover:bg-blue-200 hover:text-black font-serif">Tweet</Link>
+                    </li>
                     {/* <li className='flex flex-col justify-center'>
                         <Link to="/past" className="p-2 rounded-xl text-black bold text-lg flex flex-col justify-center hover:bg-white hover:text-black font-serif">Past Data</Link>
                     </li>  */}

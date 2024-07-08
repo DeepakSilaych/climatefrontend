@@ -52,6 +52,9 @@ function HeaderMobile() {
                                     <Link to="/train" className="dropdown-link">Rail</Link>
                                 </div>
                                 <div className="dropdown-item hover:bg-gray-200 h-full w-full px-2 py-1">
+                                    <Link to="/tweet" className="dropdown-link">Tweet</Link>
+                                </div>
+                                <div className="dropdown-item hover:bg-gray-200 h-full w-full px-2 py-1">
                                     <Link to="/about" className="dropdown-link">About</Link>
                                 </div>
                             </div>

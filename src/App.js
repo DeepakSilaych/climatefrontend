@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import About from './pages/about';
 import AboutMobile from './pages/aboutmobile';
 import { use } from 'i18next';
+import Tweet from './pages/tweet';
+import TweetMobile from './pages/tweetMobile';
 
 function App() {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 650);
@@ -42,6 +44,7 @@ function App() {
             <Route path="/" element={<HomeMobile />} />
             <Route path="/warning" element={<HomeMobile warningtab={3} />} />
             <Route path="/train" element={<TrainFloodMobile />} />
+            <Route path='/tweet' element={<TweetMobile />} />
             <Route path="/about" element={<AboutMobile />} />
             <Route path="/past" element={<Past />} />
             <Route path="/blog" element={<BlogPage />} />
@@ -56,6 +59,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/warning" element={<Home warningtab={3} />} />
             <Route path="/train" element={<TrainFlood />} />
+            <Route path="/tweet" element={<Tweet/>} />
             <Route path="/about" element={<About />} />
             <Route path="/past" element={<Past />} />
             <Route path="/blog" element={<BlogPage />} />
