@@ -10,7 +10,7 @@ export default function WaterlevelMap({ setLocations, location }) {
   const [stations, setStations] = useState([]);
   const [waterLevelData, setWaterLevelData] = useState([]);
   const [activestation, setActivestation] = useState(null);
-  const [chartRange, setChartRange] = useState({ start: 0, end: 300 }); // Initial range for chart data
+  const [chartRange, setChartRange] = useState({ start: 0, end: 300 });
 
   const handleMarkerClick = (marker) => {
     setActivestation(marker);
@@ -39,12 +39,12 @@ export default function WaterlevelMap({ setLocations, location }) {
             ...entry,
             parameter_values: {
               ...entry.parameter_values,
-              us_mb: parseInt(entry.parameter_values.us_mb) > 100 ? 0 : parseInt(entry.parameter_values.us_mb),
+              us_mb: parseInt(entry.parameter_values.us_mb) > 300 ? 0 : parseInt(entry.parameter_values.us_mb),
             },
           }));
 
           // Calculate mean and standard deviation for the last 40 values
-          const last40Values = adjustedData.slice(-800).map(entry => parseInt(entry.parameter_values.us_mb));
+          const last40Values = adjustedData.slice(-40).map(entry => parseInt(entry.parameter_values.us_mb));
           const mean = last40Values.reduce((acc, value) => acc + value, 0) / last40Values.length;
           const standardDeviation = Math.sqrt(last40Values.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / last40Values.length);
 
@@ -59,8 +59,10 @@ export default function WaterlevelMap({ setLocations, location }) {
           });
 
           setWaterLevelData({ ...data, data: adjustedData });
-          // Set chart range to show all data initially
-          // setChartRange({ start: 0, end: adjustedData.length });
+
+          // Set chart range to show the latest data
+          const latestStart = Math.max(0, adjustedData.length - 300);
+          setChartRange({ start: latestStart, end: adjustedData.length });
         }
       } catch (error) {
         console.error('Error fetching water level data:', error);
@@ -75,7 +77,6 @@ export default function WaterlevelMap({ setLocations, location }) {
   });
 
   const handleNext = () => {
-    // Handle next button click to move chart view forward
     if (chartRange.end < waterLevelData.data.length) {
       setChartRange((prevRange) => ({
         start: prevRange.start + 1,
@@ -85,7 +86,6 @@ export default function WaterlevelMap({ setLocations, location }) {
   };
 
   const handlePrev = () => {
-    // Handle previous button click to move chart view backward
     if (chartRange.start > 0) {
       setChartRange((prevRange) => ({
         start: prevRange.start - 1,
@@ -95,8 +95,8 @@ export default function WaterlevelMap({ setLocations, location }) {
   };
 
   const formatTimeLabel = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    return date.getHours() + ':00'; // Display only the hour
+    const date = new Date(timestamp);
+    return date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
   };
 
   return (
@@ -134,7 +134,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                     </div>
                     <Chart
                       width={'600px'}
-                      height={'200px'}
+                      height={'300px'}
                       chartType="LineChart"
                       loader={<div>Loading Chart</div>}
                       data={[
@@ -142,7 +142,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                         ...waterLevelData.data
                           .slice(chartRange.start, chartRange.end)
                           .map((entry) => [
-                            formatTimeLabel(entry.time),
+                            formatTimeLabel(entry.time * 1000),
                             parseInt(entry.parameter_values.us_mb),
                           ]),
                       ]}
@@ -151,7 +151,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                         hAxis: {
                           title: '',
                           slantedText: true,
-                          slantedTextAngle: 45,
+                          slantedTextAngle: 315,
                           ticks: waterLevelData.data
                             .slice(chartRange.start, chartRange.end)
                             .filter((_, idx) => idx % 2 === 0)

@@ -63,7 +63,7 @@ export default function RainfallWidget({ selectedOption }) {
 }
 
 const barChartOptions = {
-    title: "Hourly Rainfall Forecast",
+    title: "Observed Hourly Rainfall (data from MCGM)",
     titleTextStyle: { color: "white", fontSize: 12, fontName: 'Nunito Sans', alignment: 'center' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
@@ -86,8 +86,9 @@ const barChartOptions = {
     },
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
-    legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Nunito Sans', fontSize: 10 } },
-    colors: ['#ADADC9', '#00ffff'], // Colors for observed and forecasted rainfall
+    legend: { position: 'none' },
+    // legend: { position: 'bottom', alignment: 'center', textStyle: { color: '#fff', fontName: 'Nunito Sans', fontSize: 10 } },
+    colors: ['#ADADC9', '#ADADC9'], // Colors for observed and forecasted rainfall
     isStacked: true,
 };
 
@@ -259,7 +260,7 @@ function getColor(rainfall) {
 function RainfallBarChart({ data }) {
     return (
         <Chart
-            chartType="LineChart"
+            chartType="ColumnChart"
             width="100%"
             height="200px"
             data={rainfallBarChartData(data)}
