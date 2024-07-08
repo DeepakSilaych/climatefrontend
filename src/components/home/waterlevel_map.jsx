@@ -8,8 +8,9 @@ import leftArrow from '../../icons/left.png';
 
 export default function WaterlevelMap({ setLocations, location }) {
   const [stations, setStations] = useState([]);
-  const [waterLevelData, setWaterLevelData] = useState([]);
+  const [waterLevelData, setWaterLevelData] = useState(null);
   const [activestation, setActivestation] = useState(null);
+  const [chartRange, setChartRange] = useState({ start: 0, end: 6 });
 
   const handleMarkerClick = (marker) => {
     setActivestation(marker);
@@ -32,6 +33,7 @@ export default function WaterlevelMap({ setLocations, location }) {
       try {
         if (activestation) {
           const data = await fetchwaterleveldata(activestation.id);
+          console.log('Fetched water level data:', data); // Log the fetched data
           setWaterLevelData(data);
         }
       } catch (error) {
@@ -46,6 +48,17 @@ export default function WaterlevelMap({ setLocations, location }) {
     iconSize: [25, 25],
   });
 
+  const handleNext = () => {
+    if (waterLevelData && chartRange.end < waterLevelData.data.length) {
+      setChartRange({ start: chartRange.start + 1, end: chartRange.end + 1 });
+    }
+  };
+
+  const handlePrev = () => {
+    if (chartRange.start > 0) {
+      setChartRange({ start: chartRange.start - 1, end: chartRange.end - 1 });
+    }
+  };
 
   return (
     <>
@@ -61,7 +74,7 @@ export default function WaterlevelMap({ setLocations, location }) {
               <div>
                 <h3>{station.name}</h3>
                 <p>{station.address}</p>
-                {waterLevelData.data && (
+                {waterLevelData && waterLevelData.data && (
                   <div>
                     <div className="flex justify-between items-center">
                       {/* <button
@@ -86,31 +99,29 @@ export default function WaterlevelMap({ setLocations, location }) {
                       chartType="LineChart"
                       loader={<div>Loading Chart</div>}
                       data={[
-                        ['', 'Water Level'],
+                        ['Time', 'Water Level'],
                         ...waterLevelData.data
                           .map((entry) => [
-                            new Date(entry.time * 1000).toLocaleTimeString(),
-                            parseInt(entry.parameter_values.us_mb), 
+                            new Date(entry.time * 1000).toLocaleTimeString(), // Convert timestamp to human-readable date
+                            parseInt(entry.parameter_values.us_mb), // Assuming 'us_mb' contains the water level
                           ]),
                       ]}
                       options={{
                         title: 'Water Level Over Time',
                         hAxis: {
-                          title: '',
+                          title: 'Time',
                           slantedText: true,
-                         slantedTextAngle: 315,
-
+                          slantedTextAngle: 315,
                         },
                         vAxis: {
                           title: 'Water Level',
                           viewWindow: {
                             min: 0,
-                            max: 500
+                            max: 500,
+                          },
+                          ticks: [0, 100, 200, 300, 400, 500],
                         },
-                        ticks: [0, 100, 200, 300,400, 500]
-                        },
-                        legend: { position: 'none' }, 
-                        
+                        legend: { position: 'none' },
                       }}
                     />
                   </div>
