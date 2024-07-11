@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap'; 
-import plac from '../../icons/aa.png';
+import plac from '../../icons/wmarker.png';
 import { fetchsensorlist } from '../../utils/WaterlevelApis';
 
 
@@ -16,7 +16,7 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
             const data = await fetchsensorlist();
             setStations(data);
           } catch (error) {
-            console.error("Error fetching stations:", error);
+            console.error("Error fetching stations:", error)
           }
         };
     
@@ -33,7 +33,7 @@ export default function WaterlevelMap({ width, height, setLocation, location }) 
         <div className='text-xl w-max rounded-xl bg-opacity-80 bg-black h-max mx-8 my-5 flex flex-col p-4 shadow-lg z-10 ' style={{ width, height }}>
             <div className='relative flex justify-center '>
                 <div className='w-1/2 flex justify-evenly text-xs text-amber-400  font-bold flex-col text-center'>
-                    <img src={plac} alt="IIT Logo" width="40" height="40" className='mx-14 mt-5'/>
+                    <img src={plac} alt="IIT Logo" width="60" height="60" className='mx-8 mt-5'/>
                     LIVE Waterlevel Monitoring
                 </div>
                

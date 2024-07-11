@@ -10,7 +10,7 @@ export default function WaterlevelMap({ setLocations, location }) {
   const [stations, setStations] = useState([]);
   const [waterLevelData, setWaterLevelData] = useState([]);
   const [activestation, setActivestation] = useState(null);
-  const [chartRange, setChartRange] = useState({ start: 0, end: 300 });
+  const [chartRange, setChartRange] = useState({ start: 0, end: 720 });
 
   const handleMarkerClick = (marker) => {
     setActivestation(marker);
@@ -40,28 +40,29 @@ export default function WaterlevelMap({ setLocations, location }) {
             parameter_values: {
               ...entry.parameter_values,
               us_mb: parseInt(entry.parameter_values.us_mb) > 300 ? 0 : parseInt(entry.parameter_values.us_mb),
+              
             },
           }));
 
           // Calculate mean and standard deviation for the last 40 values
-          const last40Values = adjustedData.slice(-40).map(entry => parseInt(entry.parameter_values.us_mb));
-          const mean = last40Values.reduce((acc, value) => acc + value, 0) / last40Values.length;
-          const standardDeviation = Math.sqrt(last40Values.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / last40Values.length);
+          // const last40Values = adjustedData.slice(-400).map(entry => parseInt(entry.parameter_values.us_mb));
+          // const mean = last40Values.reduce((acc, value) => acc + value, 0) / last40Values.length;
+          // const standardDeviation = Math.sqrt(last40Values.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / last40Values.length);
 
           // Adjust values outside mean ± 5 standard deviations to 0
-          const lowerLimit = mean - 5 * standardDeviation;
-          const upperLimit = mean + 5 * standardDeviation;
-          adjustedData.forEach(entry => {
-            const value = parseInt(entry.parameter_values.us_mb);
-            if (value < lowerLimit || value > upperLimit) {
-              entry.parameter_values.us_mb = 0;
-            }
-          });
+          // const lowerLimit = mean - 5 * standardDeviation;
+          // const upperLimit = mean + 5 * standardDeviation;
+          // adjustedData.forEach(entry => {
+          //   const value = parseInt(entry.parameter_values.us_mb);
+          //   if (value < lowerLimit || value > upperLimit) {
+          //     entry.parameter_values.us_mb = 0;
+          //   }
+          // });
 
           setWaterLevelData({ ...data, data: adjustedData });
 
           // Set chart range to show the latest data
-          const latestStart = Math.max(0, adjustedData.length - 300);
+          const latestStart = Math.max(0, adjustedData.length - 720);
           setChartRange({ start: latestStart, end: adjustedData.length });
         }
       } catch (error) {
@@ -72,8 +73,8 @@ export default function WaterlevelMap({ setLocations, location }) {
   }, [activestation]);
 
   const customIcon = new Icon({
-    iconUrl: require('../../icons/aa.png'),
-    iconSize: [25, 25],
+    iconUrl: require('../../icons/wmarker.png'),
+    iconSize: [50, 50],
   });
 
   const handleNext = () => {
@@ -123,7 +124,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                       >
                         <img src={leftArrow} alt="Previous" width="20" />
                       </button>
-                      <h3>Water Level Over Time</h3>
+                      {/* <h3>Water Level Over Time (last 12 hours)</h3> */}
                       <button
                         onClick={handleNext}
                         disabled={chartRange.end >= waterLevelData.data.length}
@@ -147,7 +148,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                           ]),
                       ]}
                       options={{
-                        title: 'Water Level Over Time',
+                        title: 'Water Level Over Time (last 12 hours)',
                         hAxis: {
                           title: '',
                           slantedText: true,

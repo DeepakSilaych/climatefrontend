@@ -39,6 +39,36 @@ const handleclick = () => {
                         Join us in this initiative to help Mumbai manage its day-to-day life during monsoon. Report flood in your area using THE form. Help us help you.
                     </p>
                 </div>
+                <div className='w-screen mx-auto py-10'>
+                    <h1 className='text-4xl text-blue-700 font-bold text-center py-1'>Acknowledgements</h1>
+                    <p className='text-2xl font-light w-3/4 mx-auto my-8 leading-[2rem]' >
+                    Installation of the water-level monitoring sensors would not have been possible without the timely assistance, guidance, and wholehearted support from the below-mentioned personnel:
+                        <br/><br/>
+                        1. Ward officers, Executive Engineers, Assistant Engineers, and Junior Engineers of the H West, F South, F North, E and L Wards for granting permissions and helping in identifying flooding hotspots;
+                        <br/>
+                        <br/>
+                        2. Faculty at the Department of Geography, University of Mumbai for their collaborative efforts in the flood monitoring experiment. We thank the VC, Registrar and the Campus Development Unit of the University of Mumbai for granting space and electricity for installing the canal sensor on MU campus;
+                        <br/>
+                        <br/>
+                        
+                        3. EE and AE Water Works, MCGM staff at Water Works Department, Powai for allowing to use their premises for installing canal sensor on Mithi River; 
+                        <br/>
+                        <br/>
+                        4. DESLM, BEST for allowing installation of road sensors on BEST poles;
+                        <br/>
+                        <br/>
+                         5. Chief Engineer and Officials of Customer Care, Electric Supply, BEST for prompt response to electrical connection requests;
+                         <br/>
+                        <br/>
+                         6.	Secretary, Chairman and Residents of Mandarpan Coop Housing society, RA Kidwai Road Wadala for their cooperation and no objection to installing electric meter in their premises;
+                         <br/>
+                        <br/>
+                         7.	Mr Omkar Sunil Chavan and the residents of his compound for their cooperation and support for installing canal sensor at Andheri Subway;
+                         <br/>
+                         <br/>
+                          8. Officials and Staff at Adani Electricity for prompt response to application request for electric meters.
+                    </p>
+                </div>
             </section>
             <div className="who-we-are h-full ">
                 <h1>WHO WE ARE</h1>
@@ -142,10 +172,10 @@ const handleclick = () => {
                             </p>
                             {'\n'}
                         </div>
-                        {/* <div className="download-app mt-10 text-center">
+                        <div className="download-app mt-10 text-center">
                             <h2 className='text-xl font-bold'>Download the app now</h2>
                             <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4' />
-                        </div> */}
+                        </div>
                     </div>
                 </div>
                 <div className="social-media-icons ">

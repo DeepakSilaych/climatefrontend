@@ -76,13 +76,13 @@ const barChartOptions = {
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "white", fontSize: 8 },
-        gridlines: { count: 4, color: 'grey', width: '1px' },
+        gridlines: { count: 6, color: 'grey', width: '1px' },
         baselineColor: 'white',
         viewWindow: {
             min: 0,
-            max: 30
+            max: 100
         },
-        ticks: [0, 10, 20, 30]
+        ticks: [0, 20, 40, 60, 80, 100]
     },
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
@@ -106,13 +106,13 @@ const dailyPredictionOptions = {
         title: "Rainfall (mm)",  
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "#fff", fontSize: 8 },
-        gridlines: { color: 'grey', count: 4, width: 1 },
+        gridlines: { color: 'grey', count: 5, width: 1 },
         baselineColor: 'white',
         viewWindow: {
             min: 2,  // Adjusted minimum value
-            max: 250
+            max: 300
         },
-        ticks: [2, 50, 100, 150, 200, 250]  // Explicitly set the ticks you want to display
+        ticks: [2, 50, 100, 150, 200, 250, 300]  // Explicitly set the ticks you want to display
     },
     legend: { position: 'none' },  // Hide the legend
     chartArea: { width: "80%", height: "70%" },
@@ -139,13 +139,13 @@ const dailyPredictionOptions2 = {
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "#fff", fontSize: 8 },
         
-        gridlines: {count: 4, color: 'grey' },
+        gridlines: {count: 7, color: 'grey' },
         baselineColor: 'white',
         viewWindow: {
             min: 2,
-            max: 250
+            max: 300
         },
-        ticks: [2, 50, 100, 150, 200, 250]
+        ticks: [2, 50, 100, 150, 200, 250, 300]
     },
     
     chartArea: { width: "80%", height: "50%" },
@@ -156,7 +156,7 @@ const dailyPredictionOptions2 = {
 };
 
 const rainfallBarChartData = (data) => [
-    ["Time", "Observed Rainfall", "Forecasted Rainfall"],
+    ["Time", "Observed Rainfall", "Observed Rainfall"],
     ...data.hrly_data.map((item, index) => [
         item.hour,
         index < 6 ? item.total_rainfall : null, 
@@ -228,7 +228,7 @@ const seasonalRainfallChartData = (data,start, end) => {
    
     return [
         ["Date", "Observed", "Past Predicted"],
-        ...data.seasonal_data.slice(start, end-1).map(item => [
+        ...data.seasonal_data.slice(start, end).map(item => [
             new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
             item.observed,
             item.predicted
@@ -290,7 +290,7 @@ function DailyPredictionChart({ data }) {
 
 <div className="flex justify-between items-center text-xs text-white px-2 top-9 absolute left-0 right-0">
     {/* Left section */}
-    <div className="flex items-center font-NunitoSans mx-2 ml-20">
+    <div className="flex items-center font-NunitoSans mx-2 ml-16">
         Past Data
         <MoveLeft className="ml-1 " />
     </div>

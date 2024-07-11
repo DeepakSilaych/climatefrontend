@@ -142,7 +142,7 @@ function HomeMobile({ warningtab }) {
             
                 {selectedTab === 1 && rainfallLocations && (
                     <div className="z-20 mt-2">
-                        <SearchBar selectedOption={rainfallLocations} setSelectedOption={setRainfallLocations} />
+                        <SearchBar selectedOption={rainfallLocations} setSelectedOption={setRainfallLocations} setZoomToLocation={setZoomToLocation}/>
                         <RainfallWidget selectedOption={rainfallLocations} />
                     </div>
                 )}

@@ -1,9 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchStations } from '../../utils/RainfallApis';
-import { use } from 'i18next';
 
-const SearchBar = ({ setSelectedOption, selectedOption }) => {
+const SearchBar = ({ setSelectedOption, selectedOption, setZoomToLocation }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showOptions, setShowOptions] = useState(false);
     const [stations, setStations] = useState([{ name: 'loading...' }]);
@@ -16,14 +14,15 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
     const handledropdown = () => {
         setShowOptions(!showOptions);
         setSearchTerm('');
-    }
+    };
 
     const handleStationSelection = (station) => {
         setSearchTerm(station.name);
         setShowOptions(false);
-        setSelectedOption(station); 
+        setSelectedOption(station);
+        setZoomToLocation([station.latitude, station.longitude]);
         console.log('selected station:', station);
-    }
+    };
 
     useEffect(() => {
         const fetchStationsData = async () => {
@@ -37,7 +36,7 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
             } catch (error) {
                 console.error('Error fetching stations:', error);
             }
-        }
+        };
         
         fetchStationsData();
     }, []);
@@ -49,11 +48,11 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
     }, [selectedOption]);
 
     return (
-        <div className="w-2/3 h-12 mx-16 ">
-            <div className={`bg-black bg-opacity-80 rounded text-white flex border border-black'${ showOptions ? 'rounded-t-md' : 'rounded-md'}`}>
+        <div className="w-2/3 h-12 mx-16">
+            <div className={`bg-black bg-opacity-80 rounded text-white flex border border-black ${showOptions ? 'rounded-t-md' : 'rounded-md'}`}>
                 <input
                     id="search-input"
-                    className={`w-full px-4 py-2 bg-[#373A40] text-white  focus:outline-none ${
+                    className={`w-full px-4 py-2 bg-[#373A40] text-white focus:outline-none ${
                         showOptions ? 'rounded-t-md' : 'rounded-md'
                     }`}
                     type="text"
@@ -64,19 +63,18 @@ const SearchBar = ({ setSelectedOption, selectedOption }) => {
                 />
                 <div className='dropdown flex flex-col justify-center cursor-pointer' onClick={handledropdown}>
                     {showOptions ? (
-                        <span className={''}>
+                        <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
                         </span>
                     ) : (
-
-                        <span className={''}>
+                        <span>
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
                         </span>
                     )}
                 </div>
             </div>
             
-            <div className="max-h-[20rem] overflow-y-scroll border border-slate-500 relative z-20 ">
+            <div className="max-h-[20rem] overflow-y-scroll border border-slate-500 relative z-20">
                 {stations
                     .filter((station) => station.name.toLowerCase().includes(searchTerm))
                     .map((station) =>
