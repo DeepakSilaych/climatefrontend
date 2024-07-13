@@ -32,7 +32,7 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
         console.log('feet:', feet, 'inches:', inches, 'waterlevelfactor:', waterlevelfactor);
         const ajustedwaterlevel = (feet * 12) * (waterlevelfactor) + inches*waterlevelfactor;
 
-        const adjusted_feet = Math.floor(ajustedwaterlevel / 120);
+        const adjusted_feet = Math.floor(ajustedwaterlevel / 12 );
         const adjusted_inches = ajustedwaterlevel % 12;
         console.log('adjusted_feet:', adjusted_feet, 'adjusted_inches:', adjusted_inches, 'ajustedwaterlevel:', Math.floor(ajustedwaterlevel/12));
         console.log('ajustedwaterlevel:', ajustedwaterlevel);
