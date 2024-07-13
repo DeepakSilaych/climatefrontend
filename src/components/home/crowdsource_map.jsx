@@ -71,6 +71,7 @@ const Map = ({ csPinToggle, csPinDropLocation, setCsPinDropLocation, zoomToLocat
                                   <h1 className="text-lg font-semibold text-blue-600">{`Reported Water Level: ${data.feet}' ${data.inch}"`}</h1>
                                   <h2 className="text-sm font-semibold text-green-600">{`Location: ${data.location}`}</h2>
                                   <h2 className="text-sm font-semibold text-red-600">{`Time: ${formatTime(data.timestamp)}`}</h2>
+                                  <h3 className="text-sm font-semibold text-gray-600">{`Reported by: ${data.name}`}</h3>
                               </div>
                           </Popup>
                       </Marker>

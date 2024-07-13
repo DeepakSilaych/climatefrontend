@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchLocationData, sendFormData } from '../../utils/crowdSourceAPI';
 
 function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinToggle, setZoomToLocation} ) {
+    const [name, SetName] = useState('');
     const [feet, setFeet] = useState(null);
     const [inches, setInches] = useState(null);
     const [waterlevelfactor, setWaterlevelfactor] = useState(0);
@@ -11,8 +12,11 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
     const [activeOption, setActiveOption] = useState(0);
     const [gpslocation, setGpsLocation] = useState(null);
 
-
     const handleSubmit = async (event) => {
+        if (!name) {
+            setMessage('Please enter your name!!!');
+            return;
+        }
         if (waterlevelfactor === 0) {
             setMessage('Please select water level!!!');
             return;
@@ -59,6 +63,7 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
 
 
         const sendata = {
+            name: name,
             feet : data.feet,
             inch : data.inch,
             location: location,
@@ -154,6 +159,9 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
                     {csPinToggle ? 'Close' : 'Use location from map'}
                 </button>
 
+                <label htmlFor='name' className="block text-white mb-3">Name:</label>
+                <input type="text" id="name" placeholder='enter your name' name="name" value={name} onChange={(e)=>SetName(e.target.value)} className="w-full border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
+
 
                 <div className="flex items-center mt-5" >
                     <label htmlFor="height" className="block h-full text-white flex-col justify-center mr-4 mb-4">Your Height:</label>
@@ -211,7 +219,7 @@ function Form( {setCsPinDropLocation, csPinDropLocation, setCsPinToggle, csPinTo
                 </div>
 
                 <label htmlFor="location" className="block text-white mb-3">Location:</label>
-                <input type="text" id="location" name="location" disabled={gpslocation} value={location} onChange={(e) => setLocation(e.target.value)} className="w-full border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
+                <input type="text" placeholder='enter location manually' id="location" name="location" disabled={gpslocation} value={location} onChange={(e) => setLocation(e.target.value)} className="w-full border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
 
                 <label htmlFor="location" className="block text-white mb-3">Feedback:</label>
                 <textarea id="feedback" placeholder='Optional' name="feedback" value={feedback} onChange={(e) => setFeedback(e.target.value)} className="w-full h-28 border rounded-md py-2 px-4 mb-4 bg-blue-50 text-slate-900" />
