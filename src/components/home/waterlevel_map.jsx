@@ -149,6 +149,8 @@ export default function WaterlevelMap({ setLocations, location }) {
                       ]}
                       options={{
                         title: 'Water Level Over Time (last 12 hours)',
+                        pointSize: 5,  // Add this line to show dots
+                dataOpacity: 0.8, 
                         hAxis: {
                           title: '',
                           slantedText: true,

@@ -260,7 +260,7 @@ function getColor(rainfall) {
 function RainfallBarChart({ data }) {
     return (
         <Chart
-            chartType="ColumnChart"
+            chartType="LineChart"
             width="100%"
             height="200px"
             data={rainfallBarChartData(data)}
