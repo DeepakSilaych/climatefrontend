@@ -11,7 +11,7 @@ import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
 import {useNavigate } from 'react-router-dom';
 
-import qrCode from '../icons/qrCode.png';
+import qrCode from '../icons/qrc.png';
 const AboutMobile
  = () => {
     const Navigate = useNavigate();
@@ -27,16 +27,35 @@ const handleclick = () => {
                 <div className='w-screen mx-auto py-10'>
                     <h1 className='text-4xl text-blue-700 font-bold text-center py-1'>ABOUT</h1>
                     <p className='text-2xl font-light w-3/4 mx-auto my-8 leading-[2rem]' >
-                    We are a team of students, faculty, and staff from the Interdisciplinary Programme in Climate Studies (IDPCS) at IIT Bombay, developing an experimental rainfall forecasting and flood monitoring system to help Mumbai adapt to its persistent monsoon flooding. By disseminating near-real-time waterlogging information through a dedicated website portal and the Mumbai Flood App, we aim to provide Mumbaikars with timely and accurate updates. This initiative is part of the HDFC-ERGO IIT Bombay (HE-IITB) Innovation Lab, funded by HDFC ERGO and in collaboration with the MCGM Centre for Municipal Capacity Building and Research (MCMCR).
+                    We are a team of students, faculty, and staff from the Interdisciplinary Programme in Climate Studies (IDPCS) at IIT Bombay, developing an experimental rainfall forecasting and flood monitoring system to help Mumbai adapt to its persistent monsoon flooding. 
+
                         <br/>
                         <br/>
-                        Our hyperlocal rainfall forecasts are derived from global forecasting systems (GFS) and enhanced through AI/ML modeling. The Rainfall tab on the Home page of the web portal and app displays hourly forecasts for the next 24 hours and daily forecasts for the following three days at MCGM automatic weather stations (AWS). For more details on the rainfall forecast, visit the Rainfall tab.
+                        By disseminating near-real-time rainfall and  waterlogging information through a dedicated website portal <a>https://www.mumbaiflood.in/</a> and the MUMBAI FLOOD APP, we aim to provide Mumbaikars with timely and accurate rainfall forecast and flood updates to help them plan their rain days ahead. 
                         <br/>
                         <br/>
-                        Additionally, we are installing nine water-level monitoring stations at various flood-prone hotspots across Mumbai. These stations will provide near-real-time waterlogging updates during the monsoon. For comprehensive information, visit the Water Level tab on the Home Page.
+                        This is an initiative by HDFC-ERGO IIT Bombay (HE-IITB) Innovation Lab, with funded from HDFC ERGO, in collaboration with the MCGM Centre for Municipal Capacity Building and Research (MCMCR). 
+
                         <br/>
                         <br/>
-                        Join us in this initiative to help Mumbai manage its day-to-day life during monsoon. Report flood in your area using THE form. Help us help you.
+                        
+                        Experimental Rainfall Forecasts: The hyperlocal rainfall forecasts have been derived from global forecasting systems (GFS) and enhanced through AI/ML modeling. The Rainfall tab on the Home page of the web portal and App displays hourly observed values (from MCGM) for the next 24 hours and daily forecasts for the following three days at MCGM automatic weather stations (AWS). For more details on the rainfall forecast, visit the Rainfall tab.
+
+                        <br/>
+                        <br/>
+LIVE Water-level monitoring: Additionally, we have installed nine water-level monitoring stations at various flood-prone hotspots across Mumbai. These stations will provide near-real-time waterlogging updates during the monsoon. For more information, visit the Water Level tab on the Home Page.
+<br/>
+                        <br/>
+Reported Flood: Report flood in your area by filling the water level form in the Reported Flood tab on the Home Page. 
+<br/>
+                        <br/>
+Rail: This page showcases near-real time flooding information for various local rail stations in Mumbai.
+<br/>
+                        <br/>
+Tweet: This page presents flood related tweets using hashtags like #MumbaiRains. Tweets relevant to Mumbai flooding are assessed using Machine Learning based sentiment analysis to gauge public monsoon sentiment— “positive” or “negative” and are approximately geolocated using natural language processing (NLP) based algorithms.
+<br/>
+                        <br/>
+Join us in this initiative to help Mumbai manage its day-to-day life during monsoon. Report flood in your area using THE form. We are counting on you. Help us help you.
                     </p>
                 </div>
                 <div className='w-screen mx-auto py-10'>
@@ -51,10 +70,12 @@ const handleclick = () => {
                         <br/>
                         <br/>
                         
-                        3. EE and AE Water Works, MCGM staff at Water Works Department, Powai for allowing to use their premises for installing canal sensor on Mithi River; 
+                        3. Executive Engineer, Assistant Engineer, and other staff at the Water Works Department, Municipal Corporation of Greater Mumbai (MCGM), Powai for allowing us to use their premises for installing canal sensor on Mithi River;
+
                         <br/>
                         <br/>
-                        4. DESLM, BEST for allowing installation of road sensors on BEST poles;
+                        4. Divisional Engineer Street Lights Maintenance (DESLM), Brihanmumbai Electricity Supply and Transport Undertaking (BEST) for allowing installation of road sensors on BEST poles;
+
                         <br/>
                         <br/>
                          5. Chief Engineer and Officials of Customer Care, Electric Supply, BEST for prompt response to electrical connection requests;
@@ -176,8 +197,12 @@ const handleclick = () => {
                             <h2 className='text-xl font-bold'>Download the app now</h2>
                             <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4' />
                         </div>
+                        
                     </div>
+                    <br></br>
                 </div>
+                
+
                 <div className="social-media-icons ">
                     <a href="https://x.com/ClimateIITB" target="_blank" rel="noopener noreferrer">
                         <img src={twitterIcon} alt="Twitter" />
