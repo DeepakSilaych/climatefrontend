@@ -76,13 +76,13 @@ const barChartOptions = {
         title: "Rainfall (mm)",
         titleTextStyle: { color: "#fff" },
         textStyle: { color: "white", fontSize: 8 },
-        gridlines: { count: 6, color: 'grey', width: '1px' },
+        gridlines: { count: 7, color: 'grey', width: '1px' },
         baselineColor: 'white',
         viewWindow: {
             min: 0,
-            max: 100
+            max: 60
         },
-        ticks: [0, 20, 40, 60, 80, 100]
+        ticks: [0, 10, 20, 30, 40, 50, 60]
     },
     chartArea: { width: "80%", height: "50%" },
     backgroundColor: 'transparent',
@@ -156,13 +156,21 @@ const dailyPredictionOptions2 = {
 };
 
 const rainfallBarChartData = (data) => [
-    ["Time", "Observed Rainfall", "Observed Rainfall"],
-    ...data.hrly_data.map((item, index) => [
+    ["Time", "Observed Rainfall"],
+    ...data.hrly_data.map(item => [
         item.hour,
-        index < 6 ? item.total_rainfall : null, 
-        index >= 6 ? item.total_rainfall : null
+        item.total_rainfall
     ])
 ];
+
+// const rainfallBarChartData = (data) => [
+//     ["Time", "Observed Rainfall", "Observed Rainfall"],
+//     ...data.hrly_data.map((item, index) => [
+//         item.hour,
+//         index < 6 ? item.total_rainfall : null, 
+//         index >= 6 ? item.total_rainfall : null
+//     ])
+// ];
 
 // const dailyPredictionChartData = (data) => {
 //     const combinedData = [

@@ -11,6 +11,12 @@ export default function WaterlevelMap({ setLocations, location }) {
   const [waterLevelData, setWaterLevelData] = useState([]);
   const [activestation, setActivestation] = useState(null);
   const [chartRange, setChartRange] = useState({ start: 0, end: 720 });
+  const [averages, setAverages] = useState({
+    avg5min: 0,
+    avg15min: 0,
+    avg12hr: 0,
+    avg24hr: 0
+  });
 
   const handleMarkerClick = (marker) => {
     setActivestation(marker);
@@ -40,30 +46,56 @@ export default function WaterlevelMap({ setLocations, location }) {
             parameter_values: {
               ...entry.parameter_values,
               us_mb: parseInt(entry.parameter_values.us_mb) > 300 ? 0 : parseInt(entry.parameter_values.us_mb),
-              
             },
           }));
 
-          // Calculate mean and standard deviation for the last 40 values
-          // const last40Values = adjustedData.slice(-400).map(entry => parseInt(entry.parameter_values.us_mb));
-          // const mean = last40Values.reduce((acc, value) => acc + value, 0) / last40Values.length;
-          // const standardDeviation = Math.sqrt(last40Values.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / last40Values.length);
+          // Function to remove spikes
+          const removeSpikes = (dataN, windowSize = 20, threshold = 2) => {
+            const cleanedDataN = [...dataN];
+            for (let i = 0; i < dataN.length; i++) {
+              const start = Math.max(0, i - windowSize);
+              const end = Math.min(dataN.length, i + windowSize + 1);
+              const window = dataN.slice(start, end);
+              const mean = window.reduce((acc, val) => acc + val, 0) / window.length;
+              const stdDev = Math.sqrt(window.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / window.length);
+              const zScore = (dataN[i] - mean) / stdDev;
+              if (Math.abs(zScore) > threshold) {
+                cleanedDataN[i] = window.sort((a, b) => a - b)[Math.floor(window.length / 2)];
+              }
+            }
+            return cleanedDataN;
+          };
 
-          // Adjust values outside mean ± 5 standard deviations to 0
-          // const lowerLimit = mean - 5 * standardDeviation;
-          // const upperLimit = mean + 5 * standardDeviation;
-          // adjustedData.forEach(entry => {
-          //   const value = parseInt(entry.parameter_values.us_mb);
-          //   if (value < lowerLimit || value > upperLimit) {
-          //     entry.parameter_values.us_mb = 0;
-          //   }
-          // });
+          const waterLevels = adjustedData.map(entry => parseInt(entry.parameter_values.us_mb));
+          const cleanedWaterLevels = removeSpikes(waterLevels);
 
-          setWaterLevelData({ ...data, data: adjustedData });
+          const cleanedData = adjustedData.map((entry, index) => ({
+            ...entry,
+            parameter_values: {
+              ...entry.parameter_values,
+              us_mb: cleanedWaterLevels[index],
+            },
+          }));
+
+          setWaterLevelData({ ...data, data: cleanedData });
+
+          const now = Date.now() / 1000; // Current time in seconds
+          const calculateAverage = (interval) => {
+            const filteredData = cleanedData.filter(entry => now - entry.time <= interval);
+            const sum = filteredData.reduce((acc, val) => acc + val.parameter_values.us_mb, 0);
+            return filteredData.length > 0 ? sum / filteredData.length : 0;
+          };
+
+          setAverages({
+            avg5min: calculateAverage(5 * 60),
+            avg15min: calculateAverage(15 * 60),
+            avg12hr: calculateAverage(12 * 60 * 60),
+            avg24hr: calculateAverage(24 * 60 * 60)
+          });
 
           // Set chart range to show the latest data
-          const latestStart = Math.max(0, adjustedData.length - 720);
-          setChartRange({ start: latestStart, end: adjustedData.length });
+          const latestStart = Math.max(0, cleanedData.length - 720);
+          setChartRange({ start: latestStart, end: cleanedData.length });
         }
       } catch (error) {
         console.error('Error fetching water level data:', error);
@@ -112,8 +144,19 @@ export default function WaterlevelMap({ setLocations, location }) {
           {activestation && activestation.id === station.id && (
             <Popup minWidth={600}>
               <div>
-                <h3>{station.name}</h3>
+                <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '1.5em' }}>{station.name}</h3>
                 <p>{station.address}</p>
+                <h4>Average Water Level in last:</h4>
+                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                  <div>
+                    <p>5 min: {averages.avg5min.toFixed(2)} cm</p>
+                    <p>15 min: {averages.avg15min.toFixed(2)} cm</p>
+                  </div>
+                  <div>
+                    <p>12 hours: {averages.avg12hr.toFixed(2)} cm</p>
+                    <p>24 hours: {averages.avg24hr.toFixed(2)} cm</p>
+                  </div>
+                </div>
                 {waterLevelData.data && (
                   <div>
                     <div className="flex justify-between items-center">
@@ -124,7 +167,6 @@ export default function WaterlevelMap({ setLocations, location }) {
                       >
                         <img src={leftArrow} alt="Previous" width="20" />
                       </button>
-                      {/* <h3>Water Level Over Time (last 12 hours)</h3> */}
                       <button
                         onClick={handleNext}
                         disabled={chartRange.end >= waterLevelData.data.length}
@@ -139,7 +181,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                       chartType="LineChart"
                       loader={<div>Loading Chart</div>}
                       data={[
-                        ['Time', 'Water Level'],
+                        ['Time', 'Water Level (in cm)'],
                         ...waterLevelData.data
                           .slice(chartRange.start, chartRange.end)
                           .map((entry) => [
@@ -149,8 +191,8 @@ export default function WaterlevelMap({ setLocations, location }) {
                       ]}
                       options={{
                         title: 'Water Level Over Time (last 12 hours)',
-                        pointSize: 5,  // Add this line to show dots
-                dataOpacity: 0.8, 
+                        pointSize: 1,
+                        dataOpacity: 0.8,
                         hAxis: {
                           title: '',
                           slantedText: true,
@@ -161,7 +203,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                             .map((entry) => new Date(entry.time * 1000)),
                         },
                         vAxis: {
-                          title: 'Water Level',
+                          title: 'Water Level (in cm)',
                           viewWindow: {
                             min: 0,
                           },
