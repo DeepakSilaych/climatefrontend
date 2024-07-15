@@ -134,90 +134,92 @@ export default function WaterlevelMap({ setLocations, location }) {
 
   return (
     <>
-      {stations.map((station, index) => (
-        <Marker
-          key={index}
-          position={{ lat: station.latitude, lng: station.longitude }}
-          icon={customIcon}
-          eventHandlers={{ click: () => handleMarkerClick(station) }}
-        >
-          {activestation && activestation.id === station.id && (
-            <Popup minWidth={600}>
-              <div>
-                <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '1.5em' }}>{station.name}</h3>
-                <p>{station.address}</p>
-                <h4>Average Water Level in last:</h4>
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                  <div>
-                    <p>5 min: {averages.avg5min.toFixed(2)} cm</p>
-                    <p>15 min: {averages.avg15min.toFixed(2)} cm</p>
-                  </div>
-                  <div>
-                    <p>12 hours: {averages.avg12hr.toFixed(2)} cm</p>
-                    <p>24 hours: {averages.avg24hr.toFixed(2)} cm</p>
-                  </div>
-                </div>
-                {waterLevelData.data && (
-                  <div>
-                    <div className="flex justify-between items-center">
-                      <button
-                        onClick={handlePrev}
-                        disabled={chartRange.start === 0}
-                        className="text-white"
-                      >
-                        <img src={leftArrow} alt="Previous" width="20" />
-                      </button>
-                      <button
-                        onClick={handleNext}
-                        disabled={chartRange.end >= waterLevelData.data.length}
-                        className="text-white"
-                      >
-                        <img src={rightArrow} alt="Next" width="20" />
-                      </button>
+      {stations
+        .filter(station => station.id !== 14447 && station.id !== 14501)
+        .map((station, index) => (
+          <Marker
+            key={index}
+            position={{ lat: station.latitude, lng: station.longitude }}
+            icon={customIcon}
+            eventHandlers={{ click: () => handleMarkerClick(station) }}
+          >
+            {activestation && activestation.id === station.id && (
+              <Popup minWidth={600}>
+                <div>
+                  <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '1.5em' }}>{station.name}</h3>
+                  <p>{station.address}</p>
+                  <h4>Average Water Level in last:</h4>
+                  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <div>
+                      <p>5 min: {averages.avg5min.toFixed(2)} cm</p>
+                      <p>15 min: {averages.avg15min.toFixed(2)} cm</p>
                     </div>
-                    <Chart
-                      width={'600px'}
-                      height={'300px'}
-                      chartType="LineChart"
-                      loader={<div>Loading Chart</div>}
-                      data={[
-                        ['Time', 'Water Level (in cm)'],
-                        ...waterLevelData.data
-                          .slice(chartRange.start, chartRange.end)
-                          .map((entry) => [
-                            formatTimeLabel(entry.time * 1000),
-                            parseInt(entry.parameter_values.us_mb),
-                          ]),
-                      ]}
-                      options={{
-                        title: 'Water Level Over Time (last 12 hours)',
-                        pointSize: 1,
-                        dataOpacity: 0.8,
-                        hAxis: {
-                          title: '',
-                          slantedText: true,
-                          slantedTextAngle: 315,
-                          ticks: waterLevelData.data
-                            .slice(chartRange.start, chartRange.end)
-                            .filter((_, idx) => idx % 2 === 0)
-                            .map((entry) => new Date(entry.time * 1000)),
-                        },
-                        vAxis: {
-                          title: 'Water Level (in cm)',
-                          viewWindow: {
-                            min: 0,
-                          },
-                        },
-                        legend: { position: 'none' },
-                      }}
-                    />
+                    <div>
+                      <p>12 hours: {averages.avg12hr.toFixed(2)} cm</p>
+                      <p>24 hours: {averages.avg24hr.toFixed(2)} cm</p>
+                    </div>
                   </div>
-                )}
-              </div>
-            </Popup>
-          )}
-        </Marker>
-      ))}
+                  {waterLevelData.data && (
+                    <div>
+                      <div className="flex justify-between items-center">
+                        <button
+                          onClick={handlePrev}
+                          disabled={chartRange.start === 0}
+                          className="text-white"
+                        >
+                          <img src={leftArrow} alt="Previous" width="20" />
+                        </button>
+                        <button
+                          onClick={handleNext}
+                          disabled={chartRange.end >= waterLevelData.data.length}
+                          className="text-white"
+                        >
+                          <img src={rightArrow} alt="Next" width="20" />
+                        </button>
+                      </div>
+                      <Chart
+                        width={'600px'}
+                        height={'300px'}
+                        chartType="LineChart"
+                        loader={<div>Loading Chart</div>}
+                        data={[
+                          ['Time', 'Water Level (in cm)'],
+                          ...waterLevelData.data
+                            .slice(chartRange.start, chartRange.end)
+                            .map((entry) => [
+                              formatTimeLabel(entry.time * 1000),
+                              parseInt(entry.parameter_values.us_mb),
+                            ]),
+                        ]}
+                        options={{
+                          title: 'Water Level Over Time (last 12 hours)',
+                          pointSize: 1,
+                          dataOpacity: 0.8,
+                          hAxis: {
+                            title: '',
+                            slantedText: true,
+                            slantedTextAngle: 315,
+                            ticks: waterLevelData.data
+                              .slice(chartRange.start, chartRange.end)
+                              .filter((_, idx) => idx % 2 === 0)
+                              .map((entry) => new Date(entry.time * 1000)),
+                          },
+                          vAxis: {
+                            title: 'Water Level (in cm)',
+                            viewWindow: {
+                              min: 0,
+                            },
+                          },
+                          legend: { position: 'none' },
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </Popup>
+            )}
+          </Marker>
+        ))}
     </>
   );
 }

@@ -11,7 +11,7 @@ import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
 import {useNavigate } from 'react-router-dom';
 
-import qrCode from '../icons/qrc.png';
+import qrCode from '../icons/qrcn.png';
 const AboutMobile
  = () => {
     const Navigate = useNavigate();

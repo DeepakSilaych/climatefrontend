@@ -11,7 +11,7 @@ import bmc from '../icons/bmc.png';
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
-import qrCode from '../icons/qrc.png'; // Assuming qrCode.png is the QR image
+import qrCode from '../icons/qrcn.png'; // Assuming qrCode.png is the QR image
 
 const About = () => {
     return (
@@ -126,8 +126,8 @@ Join us in this initiative to help Mumbai manage its day-to-day life during mons
                         </div>
                     </div>
                     <div className="download-app flex flex-col mt-14 right-0">
-                            <h2 className='text-xl font-bold'>Download the 'Mumbai Flood App' Now</h2>
-                            <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4 h-96 w-52' />
+                            {/* <h2 className='text-xl font-bold'>Download the 'Mumbai Flood App' Now</h2> */}
+                            <img src={qrCode} alt="QR Code for app download" className='mx-auto mt-4 h-96 w-96' />
                         </div>
                     <div className="right-section">
                         
