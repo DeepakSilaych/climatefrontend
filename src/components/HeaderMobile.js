@@ -27,7 +27,7 @@ function HeaderMobile() {
                 <div className='flex gap-3 items-center'>
                     <Link to="https://www.iitb.ac.in/"><img src="/img/iitb copy.png" alt="logo" className='h-10' /></Link>
                     <Link to="https://www.climate.iitb.ac.in/"><img src="/img/cs.png" alt="logo" className='h-8' /></Link>
-                    <Link to="https://www.hdfcergo.com/"><img src="/img/hdfcergo.png" alt="logo" className='h-8' /></Link>
+                    <Link to="https://www.hdfcergo.com/"><img src="/img/hebg.png" alt="logo" className='h-10' /></Link>
                     <Link to="https://mcmcr.mcgm.gov.in/"><img src="/img/mcm.jpg" alt="logo" className='h-8' /></Link>
                 </div>
 

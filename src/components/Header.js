@@ -15,7 +15,7 @@ function Header() {
                 <div className='h-full flex gap-5 mt-[.5rem]'>
                     <Link to="https://www.iitb.ac.in/"><img src="/img/iitb copy.png" alt="logo" className='' style={{ height: '3.5rem',marginTop: '0.5rem' }}/></Link>
                     <Link to="https://www.climate.iitb.ac.in/"><img src="/img/cs.png" alt="logo" style={{height: '2.5rem', marginTop: '1rem'}} /></Link>
-                    <Link to="https://www.hdfcergo.com/"><img src="/img/hdfcergo.png" alt="logo" style={{height: '2.5rem', marginTop: '1rem'}} /></Link>
+                    <Link to="https://www.hdfcergo.com/"><img src="/img/hebg.png" alt="logo" style={{height: '4.5rem', marginTop: '0rem'}} /></Link>
                     <Link to="https://mcmcr.mcgm.gov.in/"><img src="/img/mcm.jpg" alt="logo" style={{height: '2.5rem', marginTop: '1rem'}} /></Link>
                     
                 </div>

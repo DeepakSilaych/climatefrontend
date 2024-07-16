@@ -49,12 +49,12 @@ function HomeMobile({ warningtab }) {
                     <div className="bg-white p-6 rounded-lg text-center">
                         <h2 className="text-xl font-bold mb-4">Important Information!</h2>
                         <ul className="text-left mb-4">
-                            <li>1. Hourly rainfall forecasts (also known as 'Nowcasts'), displayed on the ‘Rainfall’ widget, are being updated every 1 hour.</li>
-                            <li>2. Next 3-day rainfall forecasts are being displayed on the ‘Rainfall’ widget.</li>
-                            <li>3. FORM for reporting water levels in your area is available under 'Reported Flood' tab on the Home Page.</li>
-                            <li>4. Near real time waterlogging information obtained from nine water-level sensors installed across Mumbai is available under Waterlevel widget.</li>
-                            <li>5. The hourly rainfall forecast model is still under improvement.</li>
-                            <li>6. Observed data is being sourced from Municipal Corporation of Greater Mumbai (MCGM) (https://dm.mcgm.gov.in/).</li>
+                              {/* <li>1. Hourly rainfall forecasts (also known as 'Nowcasts'), displayed on the ‘Rainfall’ widget, are being updated every 1 hour.</li> */}
+                        <li>1. Next 3-day rainfall forecasts are being displayed on the ‘Rainfall’ widget.</li>
+                        <li>2. FORM for reporting water levels in your area is available under 'Reported Flood' tab on the Home Page.</li>
+                        <li>3. Near real-time waterlogging information obtained from nine water-level sensors installed across Mumbai is available under Waterlevel widget.</li>
+                        <li>4. The hourly rainfall forecast model is still under improvement.</li>
+                        <li>5. Observed data is being sourced from Municipal Corporation of Greater Mumbai (MCGM) (https://dm.mcgm.gov.in/).</li>
                         </ul>
                         <div className="flex justify-around">
                             <button 
@@ -99,7 +99,7 @@ function HomeMobile({ warningtab }) {
                     >
                         Reported Flood
                     </span>
-                    <div className='absolute scroll-to-top  top-[520px] right-2 z-30'>
+                    <div className='absolute scroll-to-top  top-[60px] right-2 z-30'>
                 <button onClick={handleScroll} className='rounded-full bg-red-500 text-white text-sm py-2 px-4 alert-button'>
                     Scroll Down
                 </button>
@@ -120,7 +120,7 @@ function HomeMobile({ warningtab }) {
                     ref={mapRef}
                 >
                     <TileLayer 
-                        url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=d42390ee-716f-47d9-b8e5-2b8b44c5d63f"
+                        url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=88396375-9cca-4b54-8a63-1edae4aace7d"
                         minZoom={0}
                         maxZoom={18}
                         attribution='Climate IIT Bombay'

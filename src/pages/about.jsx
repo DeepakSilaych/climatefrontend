@@ -4,14 +4,14 @@ import '../WhoWeAre.css';
 import Header from '../components/Header';
 import iitbLogo from '../iitb.png';
 import csLogo from '../icons/cs.png';
-import hdfcLogo from '../icons/hdfc.png';
+import hdfcLogo from '../icons/hebg.png';
 import mcmrLogo from '../icons/mcmbg.png';
 import bmc from '../icons/bmc.png';
 
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
-import qrCode from '../icons/qrcn.png'; // Assuming qrCode.png is the QR image
+import qrCode from '../icons/qrcn1.png'; // Assuming qrCode.png is the QR image
 
 const About = () => {
     return (
@@ -109,7 +109,7 @@ Join us in this initiative to help Mumbai manage its day-to-day life during mons
                             <br></br>
                             <h2>Sponsoring Partner</h2>
                             <div className="partners">
-                                <img src={hdfcLogo} alt="HDFC Ergo Logo" />
+                                <img src={hdfcLogo} alt="HDFC Ergo Logo" style={{ height: '200px', width: '150px' }} />
                             </div>
                         </div>
                         <div className="section">

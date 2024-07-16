@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import HeaderMobile from '../components/HeaderMobile';
 import iitbLogo from '../iitb.png';
 import csLogo from '../icons/cs.png';
-import hdfcLogo from '../icons/hdfc.png';
+import hdfcLogo from '../icons/hebg.png';
 import mcmrLogo from '../icons/mcmbg.png';
 import bmc from '../icons/bmc.png';
 import twitterIcon from '../icons/twitter.png';
@@ -11,7 +11,7 @@ import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
 import {useNavigate } from 'react-router-dom';
 
-import qrCode from '../icons/qrcn.png';
+import qrCode from '../icons/qrcn1.png';
 const AboutMobile
  = () => {
     const Navigate = useNavigate();
@@ -106,7 +106,7 @@ Join us in this initiative to help Mumbai manage its day-to-day life during mons
                         <br></br>
                         <h2>Sponsoring Partner</h2>
                         <div className="partners">
-                            <img src={hdfcLogo} alt="HDFC Ergo Logo" />
+                            <img src={hdfcLogo} alt="HDFC Ergo Logo" style={{ height: '300px', width: '200px' }}/>
                         </div>
                     </div>
                     <div className="section">
