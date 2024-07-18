@@ -120,7 +120,7 @@ function HomeMobile({ warningtab }) {
                     ref={mapRef}
                 >
                     <TileLayer 
-                        url="https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=88396375-9cca-4b54-8a63-1edae4aace7d"
+                        url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
                         minZoom={0}
                         maxZoom={18}
                         attribution='Climate IIT Bombay'
