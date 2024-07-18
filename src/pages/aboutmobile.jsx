@@ -9,6 +9,7 @@ import bmc from '../icons/bmc.png';
 import twitterIcon from '../icons/twitter.png';
 import youtubeIcon from '../icons/youtube.png';
 import facebookIcon from '../icons/facebook.png';
+import hdfcLogo1 from '../icons/hdfc.png';
 import {useNavigate } from 'react-router-dom';
 
 import qrCode from '../icons/qrcn1.png';
@@ -107,7 +108,10 @@ Join us in this initiative to help Mumbai manage its day-to-day life during mons
                         <h2>Sponsoring Partner</h2>
                         <div className="partners">
                             <img src={hdfcLogo} alt="HDFC Ergo Logo" style={{ height: '300px', width: '200px' }}/>
+                            
                         </div>
+                        <br></br>
+                        <img src={hdfcLogo1} alt="HDFC Ergo Logo" style={{ height: '200px', width: '200px' }}/>
                     </div>
                     <div className="section">
                         <h2>Project Partner</h2>

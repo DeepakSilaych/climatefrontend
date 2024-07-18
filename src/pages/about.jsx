@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import iitbLogo from '../iitb.png';
 import csLogo from '../icons/cs.png';
 import hdfcLogo from '../icons/hebg.png';
+import hdfcLogo1 from '../icons/hdfc.png';
 import mcmrLogo from '../icons/mcmbg.png';
 import bmc from '../icons/bmc.png';
 
@@ -110,6 +111,7 @@ Join us in this initiative to help Mumbai manage its day-to-day life during mons
                             <h2>Sponsoring Partner</h2>
                             <div className="partners">
                                 <img src={hdfcLogo} alt="HDFC Ergo Logo" style={{ height: '200px', width: '150px' }} />
+                                <img src={hdfcLogo1} alt="MCGM Center Logo" className='mx-auto mt-12' />
                             </div>
                         </div>
                         <div className="section">
