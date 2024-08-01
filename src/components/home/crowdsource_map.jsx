@@ -44,9 +44,9 @@ const Map = ({ csPinToggle, csPinDropLocation, setCsPinDropLocation, zoomToLocat
         const date = new Date(timestamp);
         const options = {
             day: 'numeric',
-            month: 'long',
-            hour: '2-digit',
-            minute: '2-digit', 
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
             hour12: true,
         };
         return date.toLocaleTimeString('en-US', options);
