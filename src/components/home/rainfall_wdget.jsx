@@ -12,11 +12,11 @@ import { MoveLeft } from 'lucide-react';
 
 export default function RainfallWidget({ selectedOption }) {
     const [data, setData] = useState(null);
-    const [time, setTime] = useState(new Date().toLocaleTimeString());
+    const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata' }));
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const newtime = String(new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short' }) + ", " + new Date().toLocaleTimeString());
+            const newtime = String(new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', timeZone: 'Asia/Kolkata' }) + ", " + new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata' }));
             setTime(newtime);
         }, 1000);
         return () => clearInterval(interval);
@@ -37,7 +37,7 @@ export default function RainfallWidget({ selectedOption }) {
     return (
         <>
             <div className='w-2/3 flex justify-evenly text-xs text-slate-600 font-bold flex-row text-center align-middle mx-20'>
-                Current Time: {time}
+                Current Time: {time} (in IST)
             </div>
             <div className='relative text-xl min-w-[30vw] max-w-[40rem] bg-[rgba(0,0,0,.8)] rounded-xl h-max mx-0 my-0 flex flex-col p-1 py-1 shadow-lg z-10'>
                 <div className='relative flex justify-center '>
@@ -67,7 +67,7 @@ const barChartOptions = {
     titleTextStyle: { color: "white", fontSize: 12, fontName: 'Nunito Sans', alignment: 'center' },
     hAxis: { 
         titleTextStyle: { color: "#fff" }, 
-        textStyle: { color: "white", fontSize: 8 },
+        textStyle: { color: "white", fontSize: 12 },
         slantedText: true,
         slantedTextAngle: 90,
         baselineColor: 'white',
@@ -202,7 +202,7 @@ const rainfallBarChartData = (data) => [
 
 const dailyPredictionChartData = (data) => {
     const combinedData = data.daily_data.map((item, index) => {
-        const dateLabel = new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+        const dateLabel = formatDateToIST(item.date);
         const observed = index < data.daily_data.length - 3 ? item.observed : null; // Show observed for all but the last three
         const predicted = item.predicted;
         const color = index >= data.daily_data.length - 3 ? getColor(predicted) : null; // Apply color to the last three
@@ -212,8 +212,10 @@ const dailyPredictionChartData = (data) => {
             observed,
             index < data.daily_data.length - 3 ? null : predicted, // Show predicted bar value for the last three entries only
             color,
+            
             index < data.daily_data.length - 3 ? predicted : null, // Add star values for the first three entries
-            index >= data.daily_data.length - 3 ? `<div style="padding:1px;">${dateLabel}<br><b>Predicted:</b>${predicted.toFixed(2)}mm</div>` : null // Tooltip for the last three
+            index >= data.daily_data.length - 3 ? `<div style="padding:0px;">${dateLabel}<b>Predicted:</b>${predicted.toFixed(2)}mm</div>` : null // Tooltip for the last three
+         
         ];
     });
 
@@ -221,8 +223,8 @@ const dailyPredictionChartData = (data) => {
         ["Day", "Observed", "Predicted", { role: 'style' }, "", { role: 'tooltip', p: { html: true } }],
         ...combinedData.map((item, index) => [
             item[0],
-            item[1] ?? 0,
-            item[2] ?? 0,
+            item[1],
+            item[2],
             item[3],
             item[4],
             item[5] // Tooltip
@@ -232,17 +234,22 @@ const dailyPredictionChartData = (data) => {
 
 
 
-const seasonalRainfallChartData = (data,start, end) => {
-   
+const formatDateToIST = (date) => {
+    const options = { day: '2-digit', month: 'short', timeZone: 'Asia/Kolkata' };
+    return new Date(date).toLocaleDateString('en-IN', options);
+};
+
+const seasonalRainfallChartData = (data, start, end) => {
     return [
         ["Date", "Observed", "Past Predicted"],
         ...data.seasonal_data.slice(start, end).map(item => [
-            new Date(item.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' }),
+            formatDateToIST(item.date),
             item.observed,
             item.predicted
         ])
     ];
 };
+
 
 function getColor(rainfall) {
     if (rainfall > 204.5) {

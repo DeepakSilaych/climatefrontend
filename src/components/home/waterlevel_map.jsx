@@ -49,34 +49,22 @@ export default function WaterlevelMap({ setLocations, location }) {
             },
           }));
 
-          // Function to remove spikes
-          const removeSpikes = (dataN, windowSize = 20, threshold = 2) => {
-            const cleanedDataN = [...dataN];
-            for (let i = 0; i < dataN.length; i++) {
-              const start = Math.max(0, i - windowSize);
-              const end = Math.min(dataN.length, i + windowSize + 1);
-              const window = dataN.slice(start, end);
-              const mean = window.reduce((acc, val) => acc + val, 0) / window.length;
-              const stdDev = Math.sqrt(window.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / window.length);
-              const zScore = (dataN[i] - mean) / stdDev;
-              if (Math.abs(zScore) > threshold) {
-                cleanedDataN[i] = window.sort((a, b) => a - b)[Math.floor(window.length / 2)];
+          // Function to calculate slope and remove spikes
+          const removeSpikes = (data) => {
+            const cleanedData = [...data];
+            for (let i = 1; i < data.length; i++) {
+              const timeDiff = (data[i].time - data[i - 1].time) / 60; // in minutes
+              const waterLevelDiff = data[i].parameter_values.us_mb - data[i - 1].parameter_values.us_mb;
+              const slope = waterLevelDiff / timeDiff;
+              if (Math.abs(slope) > 25) {
+                // if(cleanedData[i].parameter_values.us_mb > cleanedData[i - 1].parameter_values.us_mb)
+                cleanedData[i].parameter_values.us_mb = cleanedData[i - 1].parameter_values.us_mb;
               }
             }
-            return cleanedDataN;
+            return cleanedData;
           };
 
-          const waterLevels = adjustedData.map(entry => parseInt(entry.parameter_values.us_mb));
-          const cleanedWaterLevels = removeSpikes(waterLevels);
-
-          const cleanedData = adjustedData.map((entry, index) => ({
-            ...entry,
-            parameter_values: {
-              ...entry.parameter_values,
-              us_mb: cleanedWaterLevels[index],
-            },
-          }));
-
+          const cleanedData = removeSpikes(adjustedData);
           setWaterLevelData({ ...data, data: cleanedData });
 
           const now = Date.now() / 1000; // Current time in seconds
@@ -128,14 +116,35 @@ export default function WaterlevelMap({ setLocations, location }) {
   };
 
   const formatTimeLabel = (timestamp) => {
-    const date = new Date(timestamp);
+    const date = new Date(timestamp * 1000);
     return date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+  };
+
+  // Inline styles
+  const popupStyles = {
+    contentWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      
+    },
+    content: {
+      maxWidth: '100%',
+      margin: 'auto',
+    },
+    button: {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: '#ffffff',
+      cursor: 'pointer',
+    },
   };
 
   return (
     <>
       {stations
-        .filter(station => station.id !== 14447 && station.id !== 14501)
+        .filter(station => station.id !== 1447 && station.id !== 1451)
         .map((station, index) => (
           <Marker
             key={index}
@@ -144,8 +153,12 @@ export default function WaterlevelMap({ setLocations, location }) {
             eventHandlers={{ click: () => handleMarkerClick(station) }}
           >
             {activestation && activestation.id === station.id && (
-              <Popup minWidth={600}>
-                <div>
+              <Popup 
+                minWidth={600}
+                className="custom-popup"
+                style={popupStyles.contentWrapper}
+              >
+                <div style={popupStyles.content}>
                   <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '1.5em' }}>{station.name}</h3>
                   <p>{station.address}</p>
                   <h4>Average Water Level in last:</h4>
@@ -165,14 +178,14 @@ export default function WaterlevelMap({ setLocations, location }) {
                         <button
                           onClick={handlePrev}
                           disabled={chartRange.start === 0}
-                          className="text-white"
+                          style={popupStyles.button}
                         >
                           <img src={leftArrow} alt="Previous" width="20" />
                         </button>
                         <button
                           onClick={handleNext}
                           disabled={chartRange.end >= waterLevelData.data.length}
-                          className="text-white"
+                          style={popupStyles.button}
                         >
                           <img src={rightArrow} alt="Next" width="20" />
                         </button>
@@ -187,7 +200,7 @@ export default function WaterlevelMap({ setLocations, location }) {
                           ...waterLevelData.data
                             .slice(chartRange.start, chartRange.end)
                             .map((entry) => [
-                              formatTimeLabel(entry.time * 1000),
+                              formatTimeLabel(entry.time),
                               parseInt(entry.parameter_values.us_mb),
                             ]),
                         ]}
@@ -208,7 +221,9 @@ export default function WaterlevelMap({ setLocations, location }) {
                             title: 'Water Level (in cm)',
                             viewWindow: {
                               min: 0,
+                              max: 300
                             },
+                            ticks: [0, 50, 100, 150, 200, 250, 300]
                           },
                           legend: { position: 'none' },
                         }}
